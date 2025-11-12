@@ -1,0 +1,90 @@
+site_name: Research System Documentation
+site_description: Comprehensive documentation for the Neotoma database and infrastructure
+site_author: System Engineering Team
+site_url: https://your-org.github.io/system-docs
+
+repo_url: https://github.com/your-org/system-docs
+repo_name: your-org/system-docs
+
+theme:
+  name: material
+  palette:
+    # Light mode
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    # Dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - navigation.tracking
+    - search.suggest
+    - search.highlight
+    - search.share
+    - content.code.copy
+    - content.code.annotate
+
+plugins:
+  - search
+  - macros:
+      module_name: docs/macros
+      include_dir: docs
+  - git-revision-date-localized:
+      enable_creation_date: true
+      type: timeago
+  - awesome-pages
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - admonition
+  - pymdownx.details
+  - tables
+  - attr_list
+  - md_in_html
+  - def_list
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+nav:
+  - Home: index.md
+  - Database:
+      - Introduction: database/index.md
+      - Table Overview: database/overview.md
+      - Tables: database/tables/
+  - API: api/
+  - AWS Infrastructure: aws/
+  - Runbooks: runbooks/
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/NeotomaDB
+
+watch:
+  - docs/macros.py
