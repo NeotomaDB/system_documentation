@@ -1,0 +1,140 @@
+# Data Quality Test Definitions
+# Each test includes SQL query and expected result
+
+referential_integrity:
+  - id: ref_001
+    name: datasets_referenced_by_samples
+    description: All datasets should be referenced by at least one sample
+    severity: error
+    tables:
+      - datasets
+      - samples
+    query: |
+      SELECT DISTINCT ds.datasetid, ds.datasetname
+      FROM ndb.datasets AS ds
+      LEFT JOIN ndb.samples AS smp ON smp.datasetid = ds.datasetid
+      WHERE smp.sampleid IS NULL
+    expect: empty
+    rationale: |
+      Every dataset should have associated samples. A dataset without samples
+      indicates either incomplete data entry or orphaned records.
+    remediation: |
+      - Check if samples were never entered for this dataset
+      - Verify if dataset should be archived/deleted
+      - Contact data owner for clarification
+
+  - id: ref_002
+    name: samples_have_valid_sites
+    description: All samples must reference valid collection sites
+    severity: error
+    tables:
+      - samples
+      - sites
+    query: |
+      SELECT smp.sampleid, smp.siteid
+      FROM ndb.samples AS smp
+      LEFT JOIN ndb.sites AS st ON st.siteid = smp.siteid
+      WHERE smp.siteid IS NOT NULL 
+        AND st.siteid IS NULL
+    expect: empty
+    rationale: |
+      Sample locations must reference valid sites in the sites table.
+    remediation: |
+      - Add missing site records
+      - Correct invalid siteid references
+
+data_completeness:
+  - id: comp_001
+    name: datasets_have_investigators
+    description: Datasets should have at least one principal investigator
+    severity: warning
+    tables:
+      - datasets
+      - datasetpis
+    query: |
+      SELECT ds.datasetid, ds.datasetname
+      FROM ndb.datasets AS ds
+      LEFT JOIN ndb.datasetpis AS dpi ON dpi.datasetid = ds.datasetid
+      WHERE dpi.datasetpiid IS NULL
+    expect: empty
+    rationale: |
+      Every dataset should have an associated principal investigator for
+      data attribution and contact purposes.
+    remediation: |
+      - Research and add PI information
+      - Contact data owner to identify responsible investigator
+
+  - id: comp_002
+    name: samples_have_dates
+    description: Samples should have collection dates
+    severity: warning
+    tables:
+      - samples
+    query: |
+      SELECT sampleid, samplename
+      FROM ndb.samples
+      WHERE sampledate IS NULL
+    expect: empty
+    rationale: |
+      Collection dates are critical for temporal analysis and data quality.
+    remediation: |
+      - Review original data sources for date information
+      - Estimate dates if exact dates unavailable
+
+data_validity:
+  - id: valid_001
+    name: coordinates_in_valid_range
+    description: Site coordinates must be within valid lat/long ranges
+    severity: error
+    tables:
+      - sites
+    query: |
+      SELECT siteid, sitename, latitude, longitude
+      FROM ndb.sites
+      WHERE latitude < -90 OR latitude > 90
+         OR longitude < -180 OR longitude > 180
+    expect: empty
+    rationale: |
+      Latitude must be between -90 and 90, longitude between -180 and 180.
+    remediation: |
+      - Correct coordinate values
+      - Check if coordinates need decimal point adjustment
+      - Verify coordinate system (should be WGS84)
+
+  - id: valid_002
+    name: ages_are_positive
+    description: Age values should be positive
+    severity: error
+    tables:
+      - chronologies
+    query: |
+      SELECT chronologyid, age
+      FROM ndb.chronologies
+      WHERE age < 0
+    expect: empty
+    rationale: |
+      Negative ages indicate data entry errors.
+    remediation: |
+      - Correct age values
+      - Check if BP/AD convention was applied incorrectly
+
+business_rules:
+  - id: biz_001
+    name: modern_samples_have_recent_dates
+    description: Samples marked as modern should have dates after 1950
+    severity: warning
+    tables:
+      - samples
+      - sampletypes
+    query: |
+      SELECT s.sampleid, s.samplename, s.sampledate
+      FROM ndb.samples s
+      JOIN ndb.sampletypes st ON s.sampletypeid = st.sampletypeid
+      WHERE st.sampletypename = 'Modern'
+        AND s.sampledate < '1950-01-01'
+    expect: empty
+    rationale: |
+      "Modern" samples are conventionally defined as post-1950.
+    remediation: |
+      - Verify sample type classification
+      - Correct sample date if erroneous

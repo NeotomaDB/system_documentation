@@ -34,7 +34,7 @@ def define_env(env):
     """
     
     @env.macro
-    def table_structure(table_name: str, schema: str = 'public'):
+    def table_structure(table_name: str, schema: str = 'ndb'):
         """Generate table structure information"""
         conn = get_db_connection()
         if not conn:
@@ -60,7 +60,7 @@ def define_env(env):
             conn.close()
     
     @env.macro
-    def table_stats(table_name: str, schema: str = 'public'):
+    def table_stats(table_name: str, schema: str = 'ndb'):
         """Generate table statistics"""
         conn = get_db_connection()
         if not conn:
@@ -93,7 +93,7 @@ def define_env(env):
             conn.close()
     
     @env.macro
-    def table_columns(table_name: str, schema: str = 'public'):
+    def table_columns(table_name: str, schema: str = 'ndb'):
         """Generate detailed column information"""
         conn = get_db_connection()
         if not conn:
@@ -244,3 +244,96 @@ def define_env(env):
             pass
         
         return "❓ Unknown"
+    
+    @env.macro
+    def api_version():
+        """Get API version from OpenAPI spec"""
+        import yaml
+        openapi_path = Path(__file__).parent / "api" / "openapi.yaml"
+        
+        if not openapi_path.exists():
+            return "Unknown"
+        
+        try:
+            with open(openapi_path) as f:
+                spec = yaml.safe_load(f)
+                return spec.get('info', {}).get('version', 'Unknown')
+        except:
+            return "Unknown"
+    
+    @env.macro
+    def api_table_mapping():
+        """Generate mapping between API endpoints and database tables"""
+        import yaml
+        import re
+        
+        openapi_path = Path(__file__).parent / "api" / "openapi.yaml"
+        
+        if not openapi_path.exists():
+            return "⚠️ OpenAPI specification not found"
+        
+        try:
+            with open(openapi_path) as f:
+                spec = yaml.safe_load(f)
+            
+            # Build mapping from endpoints to tables
+            # This requires some parsing of your OpenAPI spec
+            # Adjust based on your actual spec structure
+            
+            mapping = {}
+            
+            for path, methods in spec.get('paths', {}).items():
+                for method, details in methods.items():
+                    if method.startswith('x-'):  # Skip extensions
+                        continue
+                    
+                    # Try to extract table name from description or tags
+                    # This is a simple heuristic - adjust based on your spec
+                    description = details.get('description', '')
+                    summary = details.get('summary', '')
+                    tags = details.get('tags', [])
+                    
+                    # Look for table references in description
+                    # Pattern: looks for markdown links like [table_name](...)
+                    table_pattern = r'\[`?(\w+)`?\]\([^\)]*tables/(\w+)\.md\)'
+                    matches = re.findall(table_pattern, description)
+                    
+                    if not matches:
+                        # Try extracting from tags (if you use table names as tags)
+                        for tag in tags:
+                            if tag not in mapping:
+                                mapping[tag] = []
+                            mapping[tag].append({
+                                'method': method.upper(),
+                                'path': path,
+                                'summary': summary
+                            })
+                    else:
+                        for _, table_name in matches:
+                            if table_name not in mapping:
+                                mapping[table_name] = []
+                            mapping[table_name].append({
+                                'method': method.upper(),
+                                'path': path,
+                                'summary': summary
+                            })
+            
+            # Generate markdown table
+            if not mapping:
+                return "⚠️ No table mappings found. Ensure your OpenAPI spec includes table references."
+            
+            md = ""
+            for table_name in sorted(mapping.keys()):
+                md += f"\n## Table: [`{table_name}`](../../database/tables/{table_name}.md)\n\n"
+                md += "| Method | Endpoint | Description |\n"
+                md += "|--------|----------|-------------|\n"
+                
+                for endpoint in mapping[table_name]:
+                    md += f"| `{endpoint['method']}` | `{endpoint['path']}` | {endpoint['summary']} |\n"
+                
+                md += "\n"
+            
+            return md
+            
+        except Exception as e:
+            return f"⚠️ Error parsing OpenAPI spec: {str(e)}"

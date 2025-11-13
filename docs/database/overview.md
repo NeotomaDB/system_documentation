@@ -16,6 +16,12 @@ This page provides an overview of all tables in the database, including row coun
 - **Total Size**: [Calculated dynamically]
 - **Documentation Complete**: [Percentage]
 
+## Data Quality
+
+See the [Data Quality Report](../reports/data_quality_report.md) for current test results.
+
+{{ data_quality_summary() }}
+
 ---
 
 *Generated: {{ last_validated() }}*

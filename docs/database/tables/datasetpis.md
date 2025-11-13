@@ -114,14 +114,18 @@ LIMIT 10;
 **TODO**: Add more specific examples relevant to common research questions or operational tasks.
 
 ## Data Quality Notes
+### Automated Data Quality Tests
 
-**TODO**: Document:
-- Known data quality issues
-- Validation rules
-- Expected data ranges
-- Update frequency and mechanisms
-- Any ETL processes that populate this table
+This table is subject to the following automated quality checks:
 
+**❌ comp_001**: datasets_have_investigators
+
+- **Severity**: WARNING
+- **Status**: UNKNOWN
+- **Description**: Datasets should have at least one principal investigator
+
+
+See the [Data Quality Report](../../reports/data_quality_report.md) for details.
 ## Maintenance
 
 - **Data Owner**: TODO: Assign owner

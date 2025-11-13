@@ -132,9 +132,21 @@ LIMIT 10;
 - **Update Frequency**: TODO: Document frequency
 - **Last Major Schema Change**: TODO: Document when schema last changed
 
+
+## API Endpoints
+
+This table is accessed through the following API endpoints:
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/v1.5/apps/TaxaInDatasets` | Lists all Neotoma taxa (alphebetically) and the dataset types in which the taxa appear. |
+
+See the [API documentation](../../api/index.md) for details.
+
 ## Related Documentation
 
 **TODO**: Link to:
+
 - Related API endpoints
 - Data collection procedures
 - Analysis notebooks or reports that use this table

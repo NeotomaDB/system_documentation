@@ -9,7 +9,10 @@ dependencies = [
     "mkdocs-git-revision-date-localized-plugin>=1.5.0",
     "mkdocs-macros-plugin>=1.4.1",
     "mkdocs-material>=9.7.0",
+    "mkdocs-swagger-ui-tag>=0.7.2",
     "psycopg2-binary>=2.9.11",
+    "pytest>=9.0.1",
+    "pytest-json-report>=1.5.0",
     "python-dotenv>=1.2.1",
     "pyyaml>=6.0.3",
 ]

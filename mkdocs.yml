@@ -44,6 +44,7 @@ plugins:
       enable_creation_date: true
       type: timeago
   - awesome-pages
+  - swagger-ui-tag
 
 markdown_extensions:
   - pymdownx.highlight:
@@ -77,7 +78,11 @@ nav:
       - Introduction: database/index.md
       - Table Overview: database/overview.md
       - Tables: database/tables/
-  - API: api/
+  - API:
+      - Overview: api/index.md
+      - Quick Start: api/quickstart.md
+      - Authentication: api/authentication.md
+      - Endpoints by Table: api/endpoints/by-table.md
   - AWS Infrastructure: aws/
   - Runbooks: runbooks/
 

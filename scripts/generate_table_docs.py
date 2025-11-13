@@ -130,7 +130,7 @@ def generate_sample_queries(table_name, columns, primary_keys, foreign_keys):
         'title': 'Basic Selection',
         'sql': f"""-- Get recent records from {table_name}
 SELECT *
-FROM {table_name}
+FROM ndb.{table_name}
 ORDER BY {primary_keys[0] if primary_keys else columns[0]['column_name']} DESC
 LIMIT 10;""",
         'purpose': f'Retrieve the 10 most recent records from {table_name}'
@@ -141,7 +141,7 @@ LIMIT 10;""",
         'title': 'Count Records',
         'sql': f"""-- Count total records
 SELECT COUNT(*) as total_records
-FROM {table_name};""",
+FROM ndb.{table_name};""",
         'purpose': f'Get the total number of records in {table_name}'
     })
     
@@ -153,7 +153,7 @@ FROM {table_name};""",
             'title': 'Filter by Date Range',
             'sql': f"""-- Get records within a date range
 SELECT *
-FROM {table_name}
+FROM ndb.{table_name}
 WHERE {date_col} >= '2024-01-01'
   AND {date_col} < '2025-01-01'
 ORDER BY {date_col} DESC;""",
@@ -169,7 +169,7 @@ ORDER BY {date_col} DESC;""",
 SELECT 
     t1.*,
     t2.*
-FROM {table_name} t1
+FROM ndb.{table_name} t1
 INNER JOIN {fk['foreign_table_name']} t2 
     ON t1.{fk['column_name']} = t2.{fk['foreign_column_name']}
 LIMIT 100;""",
@@ -185,7 +185,7 @@ LIMIT 100;""",
 SELECT 
     {group_col},
     COUNT(*) as count
-FROM {table_name}
+FROM ndb.{table_name}
 GROUP BY {group_col}
 ORDER BY count DESC
 LIMIT 10;""",
@@ -218,6 +218,7 @@ last_validated: {datetime.now().strftime('%Y-%m-%d')}
 {table_comment}
 
 **TODO**: Expand this description with:
+
 - What data does this table store?
 - What is the business/research purpose?
 - How is this data collected or generated?
@@ -225,7 +226,7 @@ last_validated: {datetime.now().strftime('%Y-%m-%d')}
 
 ## Table Structure
 
-[![Visual Schema](https://img.shields.io/badge/Visual_Schema-ndb%2e{table_name}-blue?style=flat-square)](https://open.neotomadb.org/dbschema/ndb/{table_name}.html)
+[![Visual Schema](https://img.shields.io/badge/Visual_Schema-ndb%2e{table_name}-blue?style=flat-square)](https://open.neotomadb.org/dbschema/ndb/tables/{table_name}.html)
 
 {{{{ table_structure("{table_name}") }}}}
 
@@ -279,6 +280,7 @@ last_validated: {datetime.now().strftime('%Y-%m-%d')}
 ## Data Quality Notes
 
 **TODO**: Document:
+
 - Known data quality issues
 - Validation rules
 - Expected data ranges
