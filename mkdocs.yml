@@ -1,10 +1,10 @@
-site_name: Research System Documentation
+site_name: Neotoma System Documentation
 site_description: Comprehensive documentation for the Neotoma database and infrastructure
-site_author: System Engineering Team
+site_author: Simon J. Goring
 site_url: https://your-org.github.io/system-docs
 
-repo_url: https://github.com/your-org/system-docs
-repo_name: your-org/system-docs
+repo_url: https://github.com/NeotomaDB/system_documentation
+repo_name: NeotomaDB/system_documentation
 
 theme:
   name: material

@@ -164,7 +164,7 @@ def define_env(env):
             conn.close()
     
     @env.macro
-    def all_tables_list(schema: str = 'public'):
+    def all_tables_list(schema: str = 'ndb'):
         """Generate list of all tables with basic info"""
         conn = get_db_connection()
         if not conn:

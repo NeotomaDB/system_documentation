@@ -1,0 +1,6 @@
+```yaml
+title: Database Tables
+nav:
+  - Overview: ../overview.md
+  - ...  # This will auto-include all other .md files
+```
