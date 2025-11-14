@@ -210,8 +210,61 @@ def main():
     
     print("\nUpdating table documentation...")
     update_table_documentation(definitions, results)
-    
+        
+    _ = save_summary(results, definitions)
+    print(f"✓ Summary saved")
+
     print("\n✓ Complete!")
+
+def save_summary(results, definitions):
+    """Save test summary as JSON for easy consumption"""
+    
+    summary = {
+        'generated_at': datetime.now().isoformat(),
+        'total_tests': 0,
+        'passed': 0,
+        'failed': 0,
+        'by_severity': {
+            'error': {'total': 0, 'passed': 0, 'failed': 0},
+            'warning': {'total': 0, 'passed': 0, 'failed': 0}
+        },
+        'by_category': {}
+    }
+    
+    # Count by category
+    for category_name, tests in definitions.items():
+        summary['by_category'][category_name] = {
+            'total': len(tests),
+            'passed': 0,
+            'failed': 0
+        }
+        
+        for test in tests:
+            summary['total_tests'] += 1
+            
+            # Count by severity
+            severity = test.get('severity', 'warning')
+            summary['by_severity'][severity]['total'] += 1
+            
+            # Check if test passed
+            test_status = get_test_status(test['id'], results)
+            if test_status == 'passed':
+                summary['passed'] += 1
+                summary['by_category'][category_name]['passed'] += 1
+                summary['by_severity'][severity]['passed'] += 1
+            else:
+                summary['failed'] += 1
+                summary['by_category'][category_name]['failed'] += 1
+                summary['by_severity'][severity]['failed'] += 1
+    
+    # Save summary
+    summary_path = Path("tests/reports/summary.json")
+    with open(summary_path, 'w') as f:
+        json.dump(summary, f, indent=2)
+    
+    return summary
+
 
 if __name__ == "__main__":
     main()
+    print(f"✓ Summary saved")
