@@ -118,14 +118,18 @@ LIMIT 10;
 **TODO**: Add more specific examples relevant to common research questions or operational tasks.
 
 ## Data Quality Notes
+### Automated Data Quality Tests
 
-**TODO**: Document:
-- Known data quality issues
-- Validation rules
-- Expected data ranges
-- Update frequency and mechanisms
-- Any ETL processes that populate this table
+This table is subject to the following automated quality checks:
 
+**❌ ref_003**: sites_have_collection_units
+
+- **Severity**: ERROR
+- **Status**: FAILED
+- **Description**: All sites should have at least one collection unit.
+
+
+See the [Data Quality Report](../../reports/data_quality_report.md) for details.
 ## Maintenance
 
 - **Data Owner**: TODO: Assign owner

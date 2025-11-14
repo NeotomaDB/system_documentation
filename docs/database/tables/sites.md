@@ -102,11 +102,11 @@ LIMIT 10;
 
 This table is subject to the following automated quality checks:
 
-**❌ ref_002**: samples_have_valid_sites
+**❌ ref_003**: sites_have_collection_units
 
 - **Severity**: ERROR
 - **Status**: FAILED
-- **Description**: All samples must reference valid collection sites
+- **Description**: All sites should have at least one collection unit.
 
 **❌ valid_001**: coordinates_in_valid_range
 

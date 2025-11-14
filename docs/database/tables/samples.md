@@ -127,10 +127,10 @@ This table is subject to the following automated quality checks:
 - **Status**: FAILED
 - **Description**: All datasets should be referenced by at least one sample
 
-**❌ ref_002**: samples_have_valid_sites
+**✅ ref_002**: samples_have_valid_datasets
 
 - **Severity**: ERROR
-- **Status**: FAILED
+- **Status**: PASSED
 - **Description**: All samples must reference valid collection sites
 
 **❌ comp_002**: samples_have_dates

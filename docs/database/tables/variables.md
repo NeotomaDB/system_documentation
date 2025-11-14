@@ -118,14 +118,18 @@ LIMIT 10;
 **TODO**: Add more specific examples relevant to common research questions or operational tasks.
 
 ## Data Quality Notes
+### Automated Data Quality Tests
 
-**TODO**: Document:
-- Known data quality issues
-- Validation rules
-- Expected data ranges
-- Update frequency and mechanisms
-- Any ETL processes that populate this table
+This table is subject to the following automated quality checks:
 
+**❌ valid_003**: valid_terminal_taxa_have_values
+
+- **Severity**: WARNING
+- **Status**: UNKNOWN
+- **Description**: Taxa that are identified as 'leaves' in the database should be associated with values in the database.
+
+
+See the [Data Quality Report](../../reports/data_quality_report.md) for details.
 ## Maintenance
 
 - **Data Owner**: TODO: Assign owner

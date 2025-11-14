@@ -118,14 +118,33 @@ LIMIT 10;
 **TODO**: Add more specific examples relevant to common research questions or operational tasks.
 
 ## Data Quality Notes
+### Automated Data Quality Tests
 
-**TODO**: Document:
-- Known data quality issues
-- Validation rules
-- Expected data ranges
-- Update frequency and mechanisms
-- Any ETL processes that populate this table
+This table is subject to the following automated quality checks:
 
+**✅ ref_004**: valid_taxa_need_highertaxonids
+
+- **Severity**: WARNING
+- **Status**: PASSED
+- **Description**: Taxa that have been added to the database should have a valid higher taxonomic identifier, unless those taxa are no longer considered valid taxonomically.
+
+
+**❌ valid_003**: valid_terminal_taxa_have_values
+
+- **Severity**: WARNING
+- **Status**: UNKNOWN
+- **Description**: Taxa that are identified as 'leaves' in the database should be associated with values in the database.
+
+**❌ bix_002**: taxonnames_are_not_duplicated_within_groups
+
+- **Severity**: ERROR
+- **Status**: UNKNOWN
+- **Description**: Although different ecological groups may have similar taxon names (e.g., Abronia in reptiles, plants, protists and fungi), within groups the
+taxonomic name should be unique.
+
+
+
+See the [Data Quality Report](../../reports/data_quality_report.md) for details.
 ## Maintenance
 
 - **Data Owner**: TODO: Assign owner
