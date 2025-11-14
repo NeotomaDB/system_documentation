@@ -337,3 +337,51 @@ def define_env(env):
             
         except Exception as e:
             return f"⚠️ Error parsing OpenAPI spec: {str(e)}"
+
+    @env.macro
+    def data_quality_summary():
+        """Display summary of data quality test results"""
+        import json
+        
+        results_path = Path(__file__).parent.parent / "tests" / "reports" / "results.json"
+        
+        if not results_path.exists():
+            return """
+    !!! warning "No Data Quality Results"
+        Data quality tests have not been run yet. Run `uv run pytest tests/data_quality/` to generate results.
+    """
+        
+        try:
+            with open(results_path) as f:
+                results = json.load(f)
+            
+            total = results.get('summary', {}).get('total', 0)
+            passed = results.get('summary', {}).get('passed', 0)
+            failed = results.get('summary', {}).get('failed', 0)
+            
+            pass_rate = (passed / total * 100) if total > 0 else 0
+            
+            # Choose style based on pass rate
+            if pass_rate == 100:
+                alert_type = "success"
+                icon = "✅"
+            elif pass_rate >= 80:
+                alert_type = "info"
+                icon = "⚠️"
+            else:
+                alert_type = "danger"
+                icon = "❌"
+            
+            md = f"""
+    !!! {alert_type} "Data Quality Status"
+        **Pass Rate**: {pass_rate:.1f}% ({passed}/{total} tests passing)
+        
+        - {icon} **Passed**: {passed}
+        - {'❌' if failed > 0 else '✅'} **Failed**: {failed}
+        
+        [View Full Report](../../tests/reports/data_quality_report.md) | Last updated: {results.get('created', 'Unknown')}
+    """
+            return md
+            
+        except Exception as e:
+            return f"⚠️ Error loading test results: {str(e)}"
