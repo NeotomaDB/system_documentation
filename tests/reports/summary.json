@@ -1,0 +1,40 @@
+{
+  "generated_at": "2025-11-14T11:02:50.748859",
+  "total_tests": 11,
+  "passed": 2,
+  "failed": 9,
+  "by_severity": {
+    "error": {
+      "total": 6,
+      "passed": 1,
+      "failed": 5
+    },
+    "warning": {
+      "total": 5,
+      "passed": 1,
+      "failed": 4
+    }
+  },
+  "by_category": {
+    "referential_integrity": {
+      "total": 4,
+      "passed": 2,
+      "failed": 2
+    },
+    "data_completeness": {
+      "total": 2,
+      "passed": 0,
+      "failed": 2
+    },
+    "data_validity": {
+      "total": 3,
+      "passed": 0,
+      "failed": 3
+    },
+    "business_rules": {
+      "total": 2,
+      "passed": 0,
+      "failed": 2
+    }
+  }
+}

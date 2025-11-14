@@ -1,17 +1,17 @@
 # Data Quality Report
 
-**Generated**: 2025-11-13 09:03:18
+**Generated**: 2025-11-14 11:02:50
 
 ## Summary
 
-- **Total Tests**: 2
-- **Passed**: 0 ✓
+- **Total Tests**: 4
+- **Passed**: 2 ✓
 - **Failed**: 2 ✗
-- **Pass Rate**: 0.0%
+- **Pass Rate**: 50.0%
 
 ## Referential Integrity
 
-**Pass Rate**: 0/2
+**Pass Rate**: 0/4
 
 ## Data Completeness
 
@@ -19,10 +19,10 @@
 
 ## Data Validity
 
-**Pass Rate**: 0/2
+**Pass Rate**: 0/3
 
 ## Business Rules
 
-**Pass Rate**: 0/1
+**Pass Rate**: 0/2
 
 
