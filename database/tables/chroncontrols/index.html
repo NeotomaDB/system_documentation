@@ -981,34 +981,9 @@
 - Are there any important caveats or data quality issues?</p>
 <h2 id="table-structure">Table Structure</h2>
 <p><a href="https://open.neotomadb.org/dbschema/ndb/chroncontrols.html"><img alt="Visual Schema" src="https://img.shields.io/badge/Visual_Schema-ndb%2echroncontrols-blue?style=flat-square" /></a></p>
-<p><strong>Schema</strong>: <code>ndb</code> | <strong>Table Comment</strong>: This table stores data for Chronology Controls, which are the age-depth control points used for age models. These controls may be geophysical controls, such as radiocarbon dates, but include many other kinds of age controls, such as biostratigraphic controls, archaeological cultural associations, and volcanic tephras. In the case of radiocarbon dates, a Chronology Control may not simply be the raw radiocarbon date reported by the laboratory, but perhaps a radiocarbon date corrected for an old carbon reservoir, a calibrated radiocarbon date, or an average of several radiocarbon dates from the same level. A common control for lake-sediment cores is the age of the top of the core, which may be the year the core was taken or perhaps an estimate of 0 BP if a few cm of surficial sediment were lost.</p>
+<p>⚠️ Cannot connect to database</p>
 <h2 id="statistics">Statistics</h2>
-<table>
-<thead>
-<tr>
-<th>Metric</th>
-<th>Value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Row Count</strong></td>
-<td>127,037</td>
-</tr>
-<tr>
-<td><strong>Total Size</strong></td>
-<td>26 MB</td>
-</tr>
-<tr>
-<td><strong>Table Size</strong></td>
-<td>14 MB</td>
-</tr>
-<tr>
-<td><strong>Indexes Size</strong></td>
-<td>13 MB</td>
-</tr>
-</tbody>
-</table>
+<p>⚠️ Cannot connect to database</p>
 <h2 id="relationships">Relationships</h2>
 <p><strong>Primary Key</strong>: <code>chroncontrolid</code></p>
 <p><strong>Foreign Keys</strong>:</p>
@@ -1021,124 +996,7 @@
 <p><strong>Referenced By</strong>:</p>
 <p><strong>TODO</strong>: Document which tables reference this table (will be auto-detected in validation).</p>
 <h2 id="data-dictionary">Data Dictionary</h2>
-<table>
-<thead>
-<tr>
-<th>Column</th>
-<th>Type</th>
-<th>Nullable</th>
-<th>Default</th>
-<th>Constraints</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>chroncontrolid</code></td>
-<td>integer</td>
-<td>✗</td>
-<td><code>nextval('ndb.seq_chroncontr...</code></td>
-<td>PRIMARY KEY</td>
-<td>An arbitrary Chronology Control identification number.</td>
-</tr>
-<tr>
-<td><code>chronologyid</code></td>
-<td>integer</td>
-<td>✗</td>
-<td><code>-</code></td>
-<td>FOREIGN KEY</td>
-<td>Chronology to which the ChronControl belongs. Field links to the Chronolgies table.</td>
-</tr>
-<tr>
-<td><code>chroncontroltypeid</code></td>
-<td>integer</td>
-<td>✓</td>
-<td><code>-</code></td>
-<td>FOREIGN KEY</td>
-<td>The type of Chronology Control. Field links to the ChronControlTypes table.</td>
-</tr>
-<tr>
-<td><code>depth</code></td>
-<td>double precision</td>
-<td>✓</td>
-<td><code>-</code></td>
-<td>-</td>
-<td>Depth of the Chronology Control in cm.</td>
-</tr>
-<tr>
-<td><code>thickness</code></td>
-<td>double precision</td>
-<td>✓</td>
-<td><code>-</code></td>
-<td>-</td>
-<td>Thickness of the Chronology Control in cm.</td>
-</tr>
-<tr>
-<td><code>age</code></td>
-<td>double precision</td>
-<td>✓</td>
-<td><code>-</code></td>
-<td>-</td>
-<td>Age of the Chronology Control.</td>
-</tr>
-<tr>
-<td><code>agelimityounger</code></td>
-<td>double precision</td>
-<td>✓</td>
-<td><code>-</code></td>
-<td>-</td>
-<td>The younger age limit of a Chronology Control. This limit may be explicitly defined, for example the younger of the 2-sigma range limits of a calibrated radiocarbon date, or it may be more loosely defined, for example the younger limit on the range of dates for a biostratigraphic horizon.</td>
-</tr>
-<tr>
-<td><code>agelimitolder</code></td>
-<td>double precision</td>
-<td>✓</td>
-<td><code>-</code></td>
-<td>-</td>
-<td>The older age limit of a Chronology Control.</td>
-</tr>
-<tr>
-<td><code>notes</code></td>
-<td>text</td>
-<td>✓</td>
-<td><code>-</code></td>
-<td>-</td>
-<td>Free form notes or comments about the Chronology Control.</td>
-</tr>
-<tr>
-<td><code>recdatecreated</code></td>
-<td>timestamp without time zone</td>
-<td>✗</td>
-<td><code>timezone('UTC'::text, now())</code></td>
-<td>-</td>
-<td></td>
-</tr>
-<tr>
-<td><code>recdatemodified</code></td>
-<td>timestamp without time zone</td>
-<td>✗</td>
-<td><code>-</code></td>
-<td>-</td>
-<td></td>
-</tr>
-<tr>
-<td><code>analysisunitid</code></td>
-<td>integer</td>
-<td>✓</td>
-<td><code>-</code></td>
-<td>FOREIGN KEY</td>
-<td></td>
-</tr>
-<tr>
-<td><code>agetypeid</code></td>
-<td>integer</td>
-<td>✓</td>
-<td><code>-</code></td>
-<td>FOREIGN KEY</td>
-<td></td>
-</tr>
-</tbody>
-</table>
+<p>⚠️ Cannot connect to database</p>
 <p><strong>TODO</strong>: Review column descriptions and add comments where missing.</p>
 <h2 id="usage-examples">Usage Examples</h2>
 <h3 id="example-1-basic-selection">Example 1: Basic Selection</h3>

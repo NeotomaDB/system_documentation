@@ -981,34 +981,9 @@
 - Are there any important caveats or data quality issues?</p>
 <h2 id="table-structure">Table Structure</h2>
 <p><a href="https://open.neotomadb.org/dbschema/ndb/chroncontroltypes.html"><img alt="Visual Schema" src="https://img.shields.io/badge/Visual_Schema-ndb%2echroncontroltypes-blue?style=flat-square" /></a></p>
-<p><strong>Schema</strong>: <code>ndb</code> | <strong>Table Comment</strong>: Lookup table of Chronology Control Types. This table is referenced by the ChronControls table.</p>
+<p>⚠️ Cannot connect to database</p>
 <h2 id="statistics">Statistics</h2>
-<table>
-<thead>
-<tr>
-<th>Metric</th>
-<th>Value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Row Count</strong></td>
-<td>106</td>
-</tr>
-<tr>
-<td><strong>Total Size</strong></td>
-<td>32 kB</td>
-</tr>
-<tr>
-<td><strong>Table Size</strong></td>
-<td>16 kB</td>
-</tr>
-<tr>
-<td><strong>Indexes Size</strong></td>
-<td>16 kB</td>
-</tr>
-</tbody>
-</table>
+<p>⚠️ Cannot connect to database</p>
 <h2 id="relationships">Relationships</h2>
 <p><strong>Primary Key</strong>: <code>chroncontroltypeid</code></p>
 <p><strong>Foreign Keys</strong>:</p>
@@ -1018,60 +993,7 @@
 <p><strong>Referenced By</strong>:</p>
 <p><strong>TODO</strong>: Document which tables reference this table (will be auto-detected in validation).</p>
 <h2 id="data-dictionary">Data Dictionary</h2>
-<table>
-<thead>
-<tr>
-<th>Column</th>
-<th>Type</th>
-<th>Nullable</th>
-<th>Default</th>
-<th>Constraints</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>chroncontroltypeid</code></td>
-<td>integer</td>
-<td>✗</td>
-<td><code>nextval('ndb.seq_chroncontr...</code></td>
-<td>PRIMARY KEY, FOREIGN KEY</td>
-<td>An arbitrary Chronology Control Type identification number.</td>
-</tr>
-<tr>
-<td><code>chroncontroltype</code></td>
-<td>character varying(64)</td>
-<td>✓</td>
-<td><code>-</code></td>
-<td>-</td>
-<td>The Chronology Control Type. Chronology Controls include such geophysical controls as radiocarbon dates, calibrated radiocarbon dates, averages of several radiocarbon dates, potassium-argon dates, and thermoluminescence dates, as well as biostratigraphic controls, sediment stratigraphic controls, volcanic tephras, archaeological cultural associations, and any other types of age controls.</td>
-</tr>
-<tr>
-<td><code>higherchroncontroltypeid</code></td>
-<td>integer</td>
-<td>✓</td>
-<td><code>-</code></td>
-<td>-</td>
-<td></td>
-</tr>
-<tr>
-<td><code>recdatecreated</code></td>
-<td>timestamp without time zone</td>
-<td>✗</td>
-<td><code>timezone('UTC'::text, now())</code></td>
-<td>-</td>
-<td></td>
-</tr>
-<tr>
-<td><code>recdatemodified</code></td>
-<td>timestamp without time zone</td>
-<td>✗</td>
-<td><code>-</code></td>
-<td>-</td>
-<td></td>
-</tr>
-</tbody>
-</table>
+<p>⚠️ Cannot connect to database</p>
 <p><strong>TODO</strong>: Review column descriptions and add comments where missing.</p>
 <h2 id="usage-examples">Usage Examples</h2>
 <h3 id="example-1-basic-selection">Example 1: Basic Selection</h3>

@@ -992,38 +992,9 @@ The examples above are datasets predefined in the database. New aggregate datase
 - Are there any important caveats or data quality issues?</p>
 <h2 id="table-structure">Table Structure</h2>
 <p><a href="https://open.neotomadb.org/dbschema/ndb/aggregatedatasets.html"><img alt="Visual Schema" src="https://img.shields.io/badge/Visual_Schema-ndb%2eaggregatedatasets-blue?style=flat-square" /></a></p>
-<p><strong>Schema</strong>: <code>ndb</code> | <strong>Table Comment</strong>: Aggregate Datasets are aggregates of samples of a particular data type. Some examples:<br />
-* Plant macrofossil samples from a group of packrat middens collected from a particular valley, mountain range, or other similarly defined geographic area. Each midden is from a different Site or Collection Unit, but they are grouped into time series for that area and are published as a single dataset.
-* Samples collected from 32 cutbanks along several km of Roberts Creek, northeast Iowa. Each sample is from a different site, but they form a time series from 0-12,510 14C yr BP, and pollen, plant macrofossils, and beetles were published and graphed as if from a single site.
-* A set of pollen surface samples from a particular region or study that were published and analyzed as a single dataset and submitted to the database as a single dataset.
-The examples above are datasets predefined in the database. New aggregate datasets could be assembled for particular studies, for example all the pollen samples for a given time slice for a given geographic region.</p>
+<p>⚠️ Cannot connect to database</p>
 <h2 id="statistics">Statistics</h2>
-<table>
-<thead>
-<tr>
-<th>Metric</th>
-<th>Value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Row Count</strong></td>
-<td>12</td>
-</tr>
-<tr>
-<td><strong>Total Size</strong></td>
-<td>32 kB</td>
-</tr>
-<tr>
-<td><strong>Table Size</strong></td>
-<td>8192 bytes</td>
-</tr>
-<tr>
-<td><strong>Indexes Size</strong></td>
-<td>16 kB</td>
-</tr>
-</tbody>
-</table>
+<p>⚠️ Cannot connect to database</p>
 <h2 id="relationships">Relationships</h2>
 <p><strong>Primary Key</strong>: <code>aggregatedatasetid</code></p>
 <p><strong>Foreign Keys</strong>:</p>
@@ -1033,68 +1004,7 @@ The examples above are datasets predefined in the database. New aggregate datase
 <p><strong>Referenced By</strong>:</p>
 <p><strong>TODO</strong>: Document which tables reference this table (will be auto-detected in validation).</p>
 <h2 id="data-dictionary">Data Dictionary</h2>
-<table>
-<thead>
-<tr>
-<th>Column</th>
-<th>Type</th>
-<th>Nullable</th>
-<th>Default</th>
-<th>Constraints</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>aggregatedatasetid</code></td>
-<td>integer</td>
-<td>✗</td>
-<td><code>nextval('ndb.seq_aggregated...</code></td>
-<td>PRIMARY KEY</td>
-<td>An arbitrary Aggregate Dataset identification number.</td>
-</tr>
-<tr>
-<td><code>aggregatedatasetname</code></td>
-<td>character varying(255)</td>
-<td>✗</td>
-<td><code>-</code></td>
-<td>-</td>
-<td>Name of Aggregate Dataset.</td>
-</tr>
-<tr>
-<td><code>aggregateordertypeid</code></td>
-<td>integer</td>
-<td>✗</td>
-<td><code>-</code></td>
-<td>FOREIGN KEY</td>
-<td>Aggregate Order Type identification number. Field links to the AggregateOrderTypes lookup table.</td>
-</tr>
-<tr>
-<td><code>notes</code></td>
-<td>text</td>
-<td>✓</td>
-<td><code>-</code></td>
-<td>-</td>
-<td>Free form notes about the Aggregate Order Type.</td>
-</tr>
-<tr>
-<td><code>recdatecreated</code></td>
-<td>timestamp without time zone</td>
-<td>✗</td>
-<td><code>timezone('UTC'::text, now())</code></td>
-<td>-</td>
-<td></td>
-</tr>
-<tr>
-<td><code>recdatemodified</code></td>
-<td>timestamp without time zone</td>
-<td>✗</td>
-<td><code>-</code></td>
-<td>-</td>
-<td></td>
-</tr>
-</tbody>
-</table>
+<p>⚠️ Cannot connect to database</p>
 <p><strong>TODO</strong>: Review column descriptions and add comments where missing.</p>
 <h2 id="usage-examples">Usage Examples</h2>
 <h3 id="example-1-basic-selection">Example 1: Basic Selection</h3>

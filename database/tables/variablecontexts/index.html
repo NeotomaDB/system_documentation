@@ -970,134 +970,16 @@
 - Are there any important caveats or data quality issues?</p>
 <h2 id="table-structure">Table Structure</h2>
 <p><a href="https://open.neotomadb.org/dbschema/ndb/variablecontexts.html"><img alt="Visual Schema" src="https://img.shields.io/badge/Visual_Schema-ndb%2evariablecontexts-blue?style=flat-square" /></a></p>
-<p><strong>Schema</strong>: <code>ndb</code> | <strong>Table Comment</strong>: Variable Contexts lookup table. Table is referenced by the Variables table.</p>
+<p>⚠️ Cannot connect to database</p>
 <h2 id="statistics">Statistics</h2>
-<table>
-<thead>
-<tr>
-<th>Metric</th>
-<th>Value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Row Count</strong></td>
-<td>71</td>
-</tr>
-<tr>
-<td><strong>Total Size</strong></td>
-<td>56 kB</td>
-</tr>
-<tr>
-<td><strong>Table Size</strong></td>
-<td>8192 bytes</td>
-</tr>
-<tr>
-<td><strong>Indexes Size</strong></td>
-<td>16 kB</td>
-</tr>
-</tbody>
-</table>
+<p>⚠️ Cannot connect to database</p>
 <h2 id="relationships">Relationships</h2>
 <p><strong>Primary Key</strong>: <code>variablecontextid</code></p>
 <p>No foreign key relationships.</p>
 <p><strong>Referenced By</strong>:</p>
 <p><strong>TODO</strong>: Document which tables reference this table (will be auto-detected in validation).</p>
 <h2 id="data-dictionary">Data Dictionary</h2>
-<table>
-<thead>
-<tr>
-<th>Column</th>
-<th>Type</th>
-<th>Nullable</th>
-<th>Default</th>
-<th>Constraints</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>variablecontextid</code></td>
-<td>integer</td>
-<td>✗</td>
-<td><code>nextval('ndb.seq_variableco...</code></td>
-<td>PRIMARY KEY</td>
-<td>An arbitrary Variable Context identification number.</td>
-</tr>
-<tr>
-<td><code>variablecontext</code></td>
-<td>character varying(64)</td>
-<td>✗</td>
-<td><code>-</code></td>
-<td>-</td>
-<td>Depositional context. Examples are:</td>
-</tr>
-<tr>
-<td>*anachronic – specimen older than the primary deposit, e.g. a Paleozoic spore in a Holocene deposit; may be redeposited from the catchment or may be derived from long distance, e.g. Tertiary pollen grains in Quaternary sediments with no local Tertiary source. A Pleistocene specimen in a Holocene archaeological deposit, possibly resulting from aboriginal fossil collecting, would also be anachronic.</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>*intrusive – specimen generally younger younger than the primary deposit, e.g. a domestic pig in an otherwise Pleistocene deposit in North America.</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>*redeposited – specimen older than the primary deposit and assumed to have been redeposited from a local source by natural causes.</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>*articulated – articulated skeleton</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>*clump – clump, esp. of pollen grains</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><code>recdatecreated</code></td>
-<td>timestamp without time zone</td>
-<td>✗</td>
-<td><code>timezone('UTC'::text, now())</code></td>
-<td>-</td>
-<td></td>
-</tr>
-<tr>
-<td><code>recdatemodified</code></td>
-<td>timestamp without time zone</td>
-<td>✗</td>
-<td><code>-</code></td>
-<td>-</td>
-<td></td>
-</tr>
-</tbody>
-</table>
+<p>⚠️ Cannot connect to database</p>
 <p><strong>TODO</strong>: Review column descriptions and add comments where missing.</p>
 <h2 id="usage-examples">Usage Examples</h2>
 <h3 id="example-1-basic-selection">Example 1: Basic Selection</h3>
