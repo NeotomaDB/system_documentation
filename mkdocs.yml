@@ -83,8 +83,8 @@ nav:
       - Quick Start: api/quickstart.md
       - Authentication: api/authentication.md
       - Endpoints by Table: api/endpoints/by-table.md
-  - AWS Infrastructure: aws/
-  - Runbooks: runbooks/
+  - AWS Infrastructure: aws/index.md
+  - Runbooks: runbooks/index.md
 
 extra:
   social:
