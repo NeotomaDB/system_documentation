@@ -24,24 +24,65 @@ referential_integrity:
       - Contact data owner for clarification
 
   - id: ref_002
-    name: samples_have_valid_sites
+    name: samples_have_valid_datasets
     description: All samples must reference valid collection sites
     severity: error
     tables:
       - samples
-      - sites
+      - datasets
     query: |
-      SELECT smp.sampleid, smp.siteid
+      SELECT smp.sampleid, ds.datasetid
       FROM ndb.samples AS smp
-      LEFT JOIN ndb.sites AS st ON st.siteid = smp.siteid
-      WHERE smp.siteid IS NOT NULL 
-        AND st.siteid IS NULL
+      LEFT JOIN ndb.datasets AS ds ON ds.datasetid = smp.datasetid
+      WHERE ds.datasetid IS NULL 
+        AND smp.datasetid IS NOT NULL
     expect: empty
     rationale: |
-      Sample locations must reference valid sites in the sites table.
+      All samples should have valid dataset IDs for datasets that exist.
     remediation: |
-      - Add missing site records
-      - Correct invalid siteid references
+      - Remove "floating" samples.
+      - Ensure that the datasets are not accidentally deleted.
+
+  - id: ref_003
+    name: sites_have_collection_units
+    description: All sites should have at least one collection unit.
+    severity: error
+    tables:
+      - sites
+      - collectionunits
+    query: |
+      SELECT st.siteid, cu.collectionunitid
+      FROM ndb.sites AS st
+      LEFT JOIN ndb.collectionunits AS cu ON cu.siteid = st.siteid
+      WHERE cu.siteid IS NULL 
+        AND st.siteid IS NOT NULL
+    expect: empty
+    rationale: |
+      All sites should have one collection unit from which samples are obtained.
+    remediation: |
+      - Remove "floating" sites.
+      - Ensure that the collection units have not been accidentally deleted.
+
+  - id: ref_004
+    name: valid_taxa_need_highertaxonids
+    description: |
+      Taxa that have been added to the database should have a valid higher taxonomic identifier, unless those taxa are no longer considered valid taxonomically.
+    severity: warning
+    tables:
+      - taxa
+    query: |
+      SELECT tx.taxonid, COUNT(tx.*) AS count 
+      FROM ndb.taxa AS tx
+      WHERE tx.highertaxonid IS NULL
+      AND tx.valid IS TRUE
+      GROUP BY tx.taxonid
+    expect: empty
+    rationale: |
+      All taxa should exit within the hierarchy, however we do remove taxa from the hierarchy when we identify them as being non-valid taxon names.
+      If a taxon is considered valid by the contributor, then it should have a higher ID.
+    remediation:
+      - Check who entered the taxon using the validator ID and contact them
+      - Check with the appropriate data steward for the taxonomic community
 
 data_completeness:
   - id: comp_001
@@ -117,6 +158,30 @@ data_validity:
     remediation: |
       - Correct age values
       - Check if BP/AD convention was applied incorrectly
+  
+  - id: valid_003
+    name: valid_terminal_taxa_have_values
+    description: Taxa that are identified as 'leaves' in the database should be associated with values in the database.
+    severity: warning
+    tables:
+      - taxa
+      - variables
+    query: |
+      SELECT tx.*, COUNT(var.variableid) AS count 
+      FROM ndb.taxa AS tx
+      LEFT JOIN ndb.taxa AS htx ON tx.taxonid = htx.highertaxonid
+      LEFT JOIN ndb.variables AS var ON var.taxonid = tx.taxonid
+      WHERE htx.taxonid IS NULL
+      AND var.variableid IS NULL
+      GROUP BY tx.taxonid
+      HAVING COUNT(var.variableid) = 0
+    expect: empty
+    rationale: |
+      If a taxon was entered into the database as a terminal leaf in the hierarchy, it ought to be associated with some data entry. If it is
+      absent from the variables table, then it was entered and never used.
+    remediation: |
+      - Check with data stewards for the particular data type.
+      - Ensure that the taxa are valid.
 
 business_rules:
   - id: biz_001
@@ -125,16 +190,40 @@ business_rules:
     severity: warning
     tables:
       - samples
-      - sampletypes
+      - keywords
+      - samplekeywords
+      - sampleages
     query: |
-      SELECT s.sampleid, s.samplename, s.sampledate
-      FROM ndb.samples s
-      JOIN ndb.sampletypes st ON s.sampletypeid = st.sampletypeid
-      WHERE st.sampletypename = 'Modern'
-        AND s.sampledate < '1950-01-01'
+      SELECT smp.sampleid, sa.age
+      FROM ndb.samples smp
+      INNER JOIN ndb.samplekeywords sk ON sk.sampleid = smp.sampleid
+      INNER JOIN ndb.keywords AS ky ON ky.keywordid = sk.keywordid
+      INNER JOIN ndb.sampleages AS sa ON sa.sampleid = smp.sampleid
+      WHERE ky.keyword = 'Modern'
+        AND (sa.age > 0 OR sa.ageyounger >0 OR sa.ageolder > 0);
     expect: empty
     rationale: |
       "Modern" samples are conventionally defined as post-1950.
     remediation: |
       - Verify sample type classification
       - Correct sample date if erroneous
+
+  - id: bix_002
+    name: taxonnames_are_not_duplicated_within_groups
+    description: |
+      Although different ecological groups may have similar taxon names (e.g., Abronia in reptiles, plants, protists and fungi), within groups the
+      taxonomic name should be unique.
+    severity: error
+    tables:
+      - taxa
+    query: |
+      SELECT tx.taxonname, tx.ecolgroupid, COUNT(*)
+      FROM ndb.taxa AS tx
+      GROUP BY tx.taxonname, tx.ecolgroupid
+      HAVING COUNT(*) > 1
+    rationale: |
+      If the same name is entered multiple times within the taxonomic table for a particular taxonomic group, we can expect that there is likely some
+      issue with conflicting hierarchies that needs to be resolved by the data stewardship team.
+    remediation:
+      - Identify the `correct` entry, remove duplicate entries.
+
