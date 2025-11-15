@@ -482,6 +482,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../neotoma_history/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Neotoma Database History
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../overview/" class="md-nav__link">
         
   
@@ -970,16 +998,86 @@
 - Are there any important caveats or data quality issues?</p>
 <h2 id="table-structure">Table Structure</h2>
 <p><a href="https://open.neotomadb.org/dbschema/ndb/collectiontypes.html"><img alt="Visual Schema" src="https://img.shields.io/badge/Visual_Schema-ndb%2ecollectiontypes-blue?style=flat-square" /></a></p>
-<p>⚠️ Cannot connect to database</p>
+<p><strong>Schema</strong>: <code>ndb</code> | <strong>Table Comment</strong>: This table is a lookup table for types of Collection Units, or Collection Types. Table is referenced by the CollectionUnits table.</p>
 <h2 id="statistics">Statistics</h2>
-<p>⚠️ Cannot connect to database</p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Row Count</strong></td>
+<td>11</td>
+</tr>
+<tr>
+<td><strong>Total Size</strong></td>
+<td>24 kB</td>
+</tr>
+<tr>
+<td><strong>Table Size</strong></td>
+<td>8192 bytes</td>
+</tr>
+<tr>
+<td><strong>Indexes Size</strong></td>
+<td>16 kB</td>
+</tr>
+</tbody>
+</table>
 <h2 id="relationships">Relationships</h2>
 <p><strong>Primary Key</strong>: <code>colltypeid</code></p>
 <p>No foreign key relationships.</p>
 <p><strong>Referenced By</strong>:</p>
 <p><strong>TODO</strong>: Document which tables reference this table (will be auto-detected in validation).</p>
 <h2 id="data-dictionary">Data Dictionary</h2>
-<p>⚠️ Cannot connect to database</p>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Type</th>
+<th>Nullable</th>
+<th>Default</th>
+<th>Constraints</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>colltypeid</code></td>
+<td>integer</td>
+<td>✗</td>
+<td><code>nextval('ndb.seq_collection...</code></td>
+<td>PRIMARY KEY</td>
+<td>An arbitrary Collection Type identification number.</td>
+</tr>
+<tr>
+<td><code>colltype</code></td>
+<td>character varying(64)</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>-</td>
+<td>The Collection Type. Types include cores, sections, excavations, and animal middens. Collection Units may be modern collections, surface float, or isolated specimens. Composite Collections Units include different kinds of Analysis Units, for example a modern surface sample for ostracodes and an associated water sample.</td>
+</tr>
+<tr>
+<td><code>recdatecreated</code></td>
+<td>timestamp without time zone</td>
+<td>✗</td>
+<td><code>timezone('UTC'::text, now())</code></td>
+<td>-</td>
+<td></td>
+</tr>
+<tr>
+<td><code>recdatemodified</code></td>
+<td>timestamp without time zone</td>
+<td>✗</td>
+<td><code>-</code></td>
+<td>-</td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <p><strong>TODO</strong>: Review column descriptions and add comments where missing.</p>
 <h2 id="usage-examples">Usage Examples</h2>
 <h3 id="example-1-basic-selection">Example 1: Basic Selection</h3>

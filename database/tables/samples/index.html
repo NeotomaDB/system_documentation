@@ -482,6 +482,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../neotoma_history/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Neotoma Database History
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../overview/" class="md-nav__link">
         
   
@@ -998,9 +1026,34 @@
 - Are there any important caveats or data quality issues?</p>
 <h2 id="table-structure">Table Structure</h2>
 <p><a href="https://open.neotomadb.org/dbschema/ndb/samples.html"><img alt="Visual Schema" src="https://img.shields.io/badge/Visual_Schema-ndb%2esamples-blue?style=flat-square" /></a></p>
-<p>⚠️ Cannot connect to database</p>
+<p><strong>Schema</strong>: <code>ndb</code> | <strong>Table Comment</strong>: This table stores sample data. Samples belong to Analysis Units, which belong to Collection Units, which belong to Sites. Samples also belong to a Dataset, and the Dataset determines the type of sample. Thus, there could be two different samples from the same Analysis Unit, one belonging to a pollen dataset, the other to a plant macrofossil dataset.</p>
 <h2 id="statistics">Statistics</h2>
-<p>⚠️ Cannot connect to database</p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Row Count</strong></td>
+<td>577,387</td>
+</tr>
+<tr>
+<td><strong>Total Size</strong></td>
+<td>221 MB</td>
+</tr>
+<tr>
+<td><strong>Table Size</strong></td>
+<td>41 MB</td>
+</tr>
+<tr>
+<td><strong>Indexes Size</strong></td>
+<td>180 MB</td>
+</tr>
+</tbody>
+</table>
 <h2 id="relationships">Relationships</h2>
 <p><strong>Primary Key</strong>: <code>sampleid</code></p>
 <p><strong>Foreign Keys</strong>:</p>
@@ -1012,7 +1065,116 @@
 <p><strong>Referenced By</strong>:</p>
 <p><strong>TODO</strong>: Document which tables reference this table (will be auto-detected in validation).</p>
 <h2 id="data-dictionary">Data Dictionary</h2>
-<p>⚠️ Cannot connect to database</p>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Type</th>
+<th>Nullable</th>
+<th>Default</th>
+<th>Constraints</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sampleid</code></td>
+<td>integer</td>
+<td>✗</td>
+<td><code>nextval('ndb.seq_samples_sa...</code></td>
+<td>PRIMARY KEY</td>
+<td>An arbitrary Sample identification number.</td>
+</tr>
+<tr>
+<td><code>analysisunitid</code></td>
+<td>integer</td>
+<td>✗</td>
+<td><code>-</code></td>
+<td>FOREIGN KEY</td>
+<td>Analysis Unit identification number. Field links to the AnalysisUnits table.</td>
+</tr>
+<tr>
+<td><code>datasetid</code></td>
+<td>integer</td>
+<td>✗</td>
+<td><code>-</code></td>
+<td>FOREIGN KEY</td>
+<td>Dataset identification number. Field links to the Datasets table.</td>
+</tr>
+<tr>
+<td><code>samplename</code></td>
+<td>character varying(80)</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>-</td>
+<td>Sample name if any.</td>
+</tr>
+<tr>
+<td><code>analysisdate</code></td>
+<td>date</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>-</td>
+<td>Date of analysis.</td>
+</tr>
+<tr>
+<td><code>labnumber</code></td>
+<td>character varying(40)</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>-</td>
+<td>Laboratory number for the sample. A special case regards geochronologic samples, for which the LabNumber is the number, if any, assigned by the submitter, not the number assigned by the radiocarbon laboratory, which is in the Geochronology table.</td>
+</tr>
+<tr>
+<td><code>preparationmethod</code></td>
+<td>text</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>-</td>
+<td>Description, notes, or comments on preparation methods. For faunal samples, notes on screening methods or screen size are stored here.</td>
+</tr>
+<tr>
+<td><code>notes</code></td>
+<td>text</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>-</td>
+<td>Free form note or comments about the sample.</td>
+</tr>
+<tr>
+<td><code>recdatecreated</code></td>
+<td>timestamp without time zone</td>
+<td>✗</td>
+<td><code>timezone('UTC'::text, now())</code></td>
+<td>-</td>
+<td></td>
+</tr>
+<tr>
+<td><code>recdatemodified</code></td>
+<td>timestamp without time zone</td>
+<td>✗</td>
+<td><code>-</code></td>
+<td>-</td>
+<td></td>
+</tr>
+<tr>
+<td><code>sampledate</code></td>
+<td>date</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>-</td>
+<td></td>
+</tr>
+<tr>
+<td><code>taxonid</code></td>
+<td>integer</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>FOREIGN KEY</td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <p><strong>TODO</strong>: Review column descriptions and add comments where missing.</p>
 <h2 id="usage-examples">Usage Examples</h2>
 <h3 id="example-1-basic-selection">Example 1: Basic Selection</h3>
@@ -1070,10 +1232,10 @@
 <li><strong>Status</strong>: FAILED</li>
 <li><strong>Description</strong>: All datasets should be referenced by at least one sample</li>
 </ul>
-<p><strong>❌ ref_002</strong>: samples_have_valid_sites</p>
+<p><strong>✅ ref_002</strong>: samples_have_valid_datasets</p>
 <ul>
 <li><strong>Severity</strong>: ERROR</li>
-<li><strong>Status</strong>: FAILED</li>
+<li><strong>Status</strong>: PASSED</li>
 <li><strong>Description</strong>: All samples must reference valid collection sites</li>
 </ul>
 <p><strong>❌ comp_002</strong>: samples_have_dates</p>
@@ -1088,7 +1250,7 @@
 <li><strong>Status</strong>: UNKNOWN</li>
 <li><strong>Description</strong>: Samples marked as modern should have dates after 1950</li>
 </ul>
-<p>See the <a href="../../reports/data_quality_report.md">Data Quality Report</a> for details.</p>
+<p>See the <a href="../../../reports/data_quality_report/">Data Quality Report</a> for details.</p>
 <h2 id="maintenance">Maintenance</h2>
 <ul>
 <li><strong>Data Owner</strong>: TODO: Assign owner</li>
@@ -1124,7 +1286,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="November 13, 2025 17:06:40 UTC"><span class="timeago" datetime="2025-11-13T17:06:40+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 13, 2025 17:06:40 UTC">2025-11-13</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="November 14, 2025 19:28:51 UTC"><span class="timeago" datetime="2025-11-14T19:28:51+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 14, 2025 19:28:51 UTC">2025-11-14</span>
   </span>
 
     

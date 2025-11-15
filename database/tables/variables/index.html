@@ -482,6 +482,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../neotoma_history/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Neotoma Database History
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../overview/" class="md-nav__link">
         
   
@@ -927,6 +955,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Data Quality Notes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#automated-data-quality-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Automated Data Quality Tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -981,9 +1026,34 @@
 - Are there any important caveats or data quality issues?</p>
 <h2 id="table-structure">Table Structure</h2>
 <p><a href="https://open.neotomadb.org/dbschema/ndb/variables.html"><img alt="Visual Schema" src="https://img.shields.io/badge/Visual_Schema-ndb%2evariables-blue?style=flat-square" /></a></p>
-<p>⚠️ Cannot connect to database</p>
+<p><strong>Schema</strong>: <code>ndb</code> | <strong>Table Comment</strong>: This table lists Variables, which always consist of a Taxon and Units of measurement. Variables can also have Elements, Contexts, and Modifications. Thus, the same taxon with different measurement units (e.g. present/absent, NISP, MNI) are different Variables.</p>
 <h2 id="statistics">Statistics</h2>
-<p>⚠️ Cannot connect to database</p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Row Count</strong></td>
+<td>50,930</td>
+</tr>
+<tr>
+<td><strong>Total Size</strong></td>
+<td>16 MB</td>
+</tr>
+<tr>
+<td><strong>Table Size</strong></td>
+<td>3160 kB</td>
+</tr>
+<tr>
+<td><strong>Indexes Size</strong></td>
+<td>13 MB</td>
+</tr>
+</tbody>
+</table>
 <h2 id="relationships">Relationships</h2>
 <p><strong>Primary Key</strong>: <code>variableid</code></p>
 <p><strong>Foreign Keys</strong>:</p>
@@ -996,7 +1066,76 @@
 <p><strong>Referenced By</strong>:</p>
 <p><strong>TODO</strong>: Document which tables reference this table (will be auto-detected in validation).</p>
 <h2 id="data-dictionary">Data Dictionary</h2>
-<p>⚠️ Cannot connect to database</p>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Type</th>
+<th>Nullable</th>
+<th>Default</th>
+<th>Constraints</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>variableid</code></td>
+<td>integer</td>
+<td>✗</td>
+<td><code>nextval('ndb.seq_variables_...</code></td>
+<td>PRIMARY KEY</td>
+<td>An arbitrary Variable identification number.</td>
+</tr>
+<tr>
+<td><code>taxonid</code></td>
+<td>integer</td>
+<td>✗</td>
+<td><code>-</code></td>
+<td>FOREIGN KEY, UNIQUE</td>
+<td>Taxon identification number. Field links to the Taxa table.</td>
+</tr>
+<tr>
+<td><code>variableelementid</code></td>
+<td>integer</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>FOREIGN KEY, UNIQUE</td>
+<td>Variable Element identification number. Field links to the VariableElements lookup table.</td>
+</tr>
+<tr>
+<td><code>variableunitsid</code></td>
+<td>integer</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>FOREIGN KEY, UNIQUE</td>
+<td>Variable Units identification number. Field links to the VariableUnits lookup table.</td>
+</tr>
+<tr>
+<td><code>variablecontextid</code></td>
+<td>integer</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>FOREIGN KEY, UNIQUE</td>
+<td>Variable Context identification number. Field links to the VariableContexts lookup table.</td>
+</tr>
+<tr>
+<td><code>recdatecreated</code></td>
+<td>timestamp without time zone</td>
+<td>✗</td>
+<td><code>timezone('UTC'::text, now())</code></td>
+<td>-</td>
+<td></td>
+</tr>
+<tr>
+<td><code>recdatemodified</code></td>
+<td>timestamp without time zone</td>
+<td>✗</td>
+<td><code>-</code></td>
+<td>-</td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <p><strong>TODO</strong>: Review column descriptions and add comments where missing.</p>
 <h2 id="usage-examples">Usage Examples</h2>
 <h3 id="example-1-basic-selection">Example 1: Basic Selection</h3>
@@ -1046,12 +1185,15 @@
 <p><strong>Purpose</strong>: Count records grouped by taxonid</p>
 <p><strong>TODO</strong>: Add more specific examples relevant to common research questions or operational tasks.</p>
 <h2 id="data-quality-notes">Data Quality Notes</h2>
-<p><strong>TODO</strong>: Document:
-- Known data quality issues
-- Validation rules
-- Expected data ranges
-- Update frequency and mechanisms
-- Any ETL processes that populate this table</p>
+<h3 id="automated-data-quality-tests">Automated Data Quality Tests</h3>
+<p>This table is subject to the following automated quality checks:</p>
+<p><strong>❌ valid_003</strong>: valid_terminal_taxa_have_values</p>
+<ul>
+<li><strong>Severity</strong>: WARNING</li>
+<li><strong>Status</strong>: UNKNOWN</li>
+<li><strong>Description</strong>: Taxa that are identified as 'leaves' in the database should be associated with values in the database.</li>
+</ul>
+<p>See the <a href="../../../reports/data_quality_report/">Data Quality Report</a> for details.</p>
 <h2 id="maintenance">Maintenance</h2>
 <ul>
 <li><strong>Data Owner</strong>: TODO: Assign owner</li>
@@ -1087,7 +1229,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="November 13, 2025 00:28:43 UTC"><span class="timeago" datetime="2025-11-13T00:28:43+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 13, 2025 00:28:43 UTC">2025-11-13</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="November 14, 2025 19:28:51 UTC"><span class="timeago" datetime="2025-11-14T19:28:51+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 14, 2025 19:28:51 UTC">2025-11-14</span>
   </span>
 
     

@@ -482,6 +482,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../neotoma_history/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Neotoma Database History
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../overview/" class="md-nav__link">
         
   
@@ -927,6 +955,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Data Quality Notes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#automated-data-quality-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Automated Data Quality Tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -981,9 +1026,34 @@
 - Are there any important caveats or data quality issues?</p>
 <h2 id="table-structure">Table Structure</h2>
 <p><a href="https://open.neotomadb.org/dbschema/ndb/collectionunits.html"><img alt="Visual Schema" src="https://img.shields.io/badge/Visual_Schema-ndb%2ecollectionunits-blue?style=flat-square" /></a></p>
-<p>⚠️ Cannot connect to database</p>
+<p><strong>Schema</strong>: <code>ndb</code> | <strong>Table Comment</strong>: This table stores data for Collection Units.</p>
 <h2 id="statistics">Statistics</h2>
-<p>⚠️ Cannot connect to database</p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Row Count</strong></td>
+<td>38,883</td>
+</tr>
+<tr>
+<td><strong>Total Size</strong></td>
+<td>23 MB</td>
+</tr>
+<tr>
+<td><strong>Table Size</strong></td>
+<td>5304 kB</td>
+</tr>
+<tr>
+<td><strong>Indexes Size</strong></td>
+<td>18 MB</td>
+</tr>
+</tbody>
+</table>
 <h2 id="relationships">Relationships</h2>
 <p><strong>Primary Key</strong>: <code>collectionunitid</code></p>
 <p><strong>Foreign Keys</strong>:</p>
@@ -996,7 +1066,180 @@
 <p><strong>Referenced By</strong>:</p>
 <p><strong>TODO</strong>: Document which tables reference this table (will be auto-detected in validation).</p>
 <h2 id="data-dictionary">Data Dictionary</h2>
-<p>⚠️ Cannot connect to database</p>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Type</th>
+<th>Nullable</th>
+<th>Default</th>
+<th>Constraints</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>collectionunitid</code></td>
+<td>integer</td>
+<td>✗</td>
+<td><code>nextval('ndb.seq_collection...</code></td>
+<td>PRIMARY KEY</td>
+<td>An arbitrary Collection Unit identification number.</td>
+</tr>
+<tr>
+<td><code>handle</code></td>
+<td>character varying(10)</td>
+<td>✗</td>
+<td><code>-</code></td>
+<td>-</td>
+<td>Code name for the Collection Unit. This code may be up to 10 characters, but an effort is made to keep these to 8 characters or less. Data are frequently distributed by Collection Unit, and the Handle is used for file names.</td>
+</tr>
+<tr>
+<td><code>siteid</code></td>
+<td>integer</td>
+<td>✗</td>
+<td><code>-</code></td>
+<td>FOREIGN KEY</td>
+<td>Site where CollectionUnit was located. Field links to Sites table.</td>
+</tr>
+<tr>
+<td><code>colltypeid</code></td>
+<td>integer</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>FOREIGN KEY</td>
+<td>Type of Collection Unit. Field links to the CollectionTypes table.</td>
+</tr>
+<tr>
+<td><code>depenvtid</code></td>
+<td>integer</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>FOREIGN KEY</td>
+<td>Depositional environment of the CollectionUnit. Normally, this key refers to the modern environment. For example, the site may be located on a colluvial slope, in which case the Depositional Environment may be Colluvium or Colluvial Fan. However, an excavation may extend into alluvial sediments, which represent a different depositional environment. These are accounted for by the Facies of the AnalysisUnit. Field links to the DepEnvtTypes table.</td>
+</tr>
+<tr>
+<td><code>collunitname</code></td>
+<td>character varying(255)</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>-</td>
+<td>Name of the Collection Unit. Examples: Core BPT82A, Structure 9, P4A Test 57. If faunal data are reported from a site or locality without explicit Collection Units, then data are assigned to a single Collection Unit with the name «Locality».</td>
+</tr>
+<tr>
+<td><code>colldate</code></td>
+<td>date</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>-</td>
+<td>Date Collection Unit was collected.</td>
+</tr>
+<tr>
+<td><code>colldevice</code></td>
+<td>character varying(255)</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>-</td>
+<td>Device used for obtain Collection Unit. This field applies primarily to cores, for example «Wright square-rod piston corer (5 cm)».</td>
+</tr>
+<tr>
+<td><code>gpslatitude</code></td>
+<td>double precision</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>-</td>
+<td>Precise latitude of the Collection Unit, typically taken with a GPS, although may be precisely measured from a map.</td>
+</tr>
+<tr>
+<td><code>gpslongitude</code></td>
+<td>double precision</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>-</td>
+<td>Precise longitude of the Collection Unit, typically taken with a GPS, although may be precisely measured from a map.</td>
+</tr>
+<tr>
+<td><code>gpsaltitude</code></td>
+<td>double precision</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>-</td>
+<td>Precise altitude of the Collection Unit, typically taken with a GPS or precisely obtained from a map.</td>
+</tr>
+<tr>
+<td><code>gpserror</code></td>
+<td>double precision</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>-</td>
+<td>Error in the horizontal GPS coordinates, if known.</td>
+</tr>
+<tr>
+<td><code>waterdepth</code></td>
+<td>double precision</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>-</td>
+<td>Depth of water at the Collection Unit location. This field applies mainly to Collection Units from lakes.</td>
+</tr>
+<tr>
+<td><code>substrateid</code></td>
+<td>integer</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>-</td>
+<td>Substrate or rock type on which the Collection Unit lies. Field links to the RockTypes table. This field is especially used for rodent middens.</td>
+</tr>
+<tr>
+<td><code>slopeaspect</code></td>
+<td>integer</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>-</td>
+<td>For Collection Units on slopes, the horizontal direction to which a slope faces measured in degrees clockwise from north. This field is especially used for rodent middens.</td>
+</tr>
+<tr>
+<td><code>slopeangle</code></td>
+<td>integer</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>-</td>
+<td>For Collection Units on slopes, the angle of slope from horizontal. field is especially used for rodent middens.</td>
+</tr>
+<tr>
+<td><code>location</code></td>
+<td>character varying(255)</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>-</td>
+<td>Short description of the location of the Collection Unit within the site.</td>
+</tr>
+<tr>
+<td><code>notes</code></td>
+<td>text</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>-</td>
+<td>Free form notes or comments about the Collection Unit.</td>
+</tr>
+<tr>
+<td><code>recdatecreated</code></td>
+<td>timestamp without time zone</td>
+<td>✗</td>
+<td><code>timezone('UTC'::text, now())</code></td>
+<td>-</td>
+<td></td>
+</tr>
+<tr>
+<td><code>recdatemodified</code></td>
+<td>timestamp without time zone</td>
+<td>✗</td>
+<td><code>-</code></td>
+<td>-</td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <p><strong>TODO</strong>: Review column descriptions and add comments where missing.</p>
 <h2 id="usage-examples">Usage Examples</h2>
 <h3 id="example-1-basic-selection">Example 1: Basic Selection</h3>
@@ -1046,12 +1289,15 @@
 <p><strong>Purpose</strong>: Count records grouped by handle</p>
 <p><strong>TODO</strong>: Add more specific examples relevant to common research questions or operational tasks.</p>
 <h2 id="data-quality-notes">Data Quality Notes</h2>
-<p><strong>TODO</strong>: Document:
-- Known data quality issues
-- Validation rules
-- Expected data ranges
-- Update frequency and mechanisms
-- Any ETL processes that populate this table</p>
+<h3 id="automated-data-quality-tests">Automated Data Quality Tests</h3>
+<p>This table is subject to the following automated quality checks:</p>
+<p><strong>❌ ref_003</strong>: sites_have_collection_units</p>
+<ul>
+<li><strong>Severity</strong>: ERROR</li>
+<li><strong>Status</strong>: FAILED</li>
+<li><strong>Description</strong>: All sites should have at least one collection unit.</li>
+</ul>
+<p>See the <a href="../../../reports/data_quality_report/">Data Quality Report</a> for details.</p>
 <h2 id="maintenance">Maintenance</h2>
 <ul>
 <li><strong>Data Owner</strong>: TODO: Assign owner</li>
@@ -1087,7 +1333,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="November 13, 2025 00:28:43 UTC"><span class="timeago" datetime="2025-11-13T00:28:43+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 13, 2025 00:28:43 UTC">2025-11-13</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="November 14, 2025 19:28:51 UTC"><span class="timeago" datetime="2025-11-14T19:28:51+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 14, 2025 19:28:51 UTC">2025-11-14</span>
   </span>
 
     

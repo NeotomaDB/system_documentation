@@ -482,6 +482,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../neotoma_history/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Neotoma Database History
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../overview/" class="md-nav__link">
         
   
@@ -981,9 +1009,34 @@
 - Are there any important caveats or data quality issues?</p>
 <h2 id="table-structure">Table Structure</h2>
 <p><a href="https://open.neotomadb.org/dbschema/ndb/analysisunits.html"><img alt="Visual Schema" src="https://img.shields.io/badge/Visual_Schema-ndb%2eanalysisunits-blue?style=flat-square" /></a></p>
-<p>⚠️ Cannot connect to database</p>
+<p><strong>Schema</strong>: <code>ndb</code> | <strong>Table Comment</strong>: This table stores the data for Analysis Units.</p>
 <h2 id="statistics">Statistics</h2>
-<p>⚠️ Cannot connect to database</p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Row Count</strong></td>
+<td>517,873</td>
+</tr>
+<tr>
+<td><strong>Total Size</strong></td>
+<td>59 MB</td>
+</tr>
+<tr>
+<td><strong>Table Size</strong></td>
+<td>40 MB</td>
+</tr>
+<tr>
+<td><strong>Indexes Size</strong></td>
+<td>19 MB</td>
+</tr>
+</tbody>
+</table>
 <h2 id="relationships">Relationships</h2>
 <p><strong>Primary Key</strong>: <code>analysisunitid</code></p>
 <p><strong>Foreign Keys</strong>:</p>
@@ -994,7 +1047,108 @@
 <p><strong>Referenced By</strong>:</p>
 <p><strong>TODO</strong>: Document which tables reference this table (will be auto-detected in validation).</p>
 <h2 id="data-dictionary">Data Dictionary</h2>
-<p>⚠️ Cannot connect to database</p>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Type</th>
+<th>Nullable</th>
+<th>Default</th>
+<th>Constraints</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>analysisunitid</code></td>
+<td>integer</td>
+<td>✗</td>
+<td><code>nextval('ndb.seq_analysisun...</code></td>
+<td>PRIMARY KEY</td>
+<td>An arbitrary Analysis Unit identification number.</td>
+</tr>
+<tr>
+<td><code>collectionunitid</code></td>
+<td>integer</td>
+<td>✗</td>
+<td><code>-</code></td>
+<td>FOREIGN KEY</td>
+<td>Collection Unit ID number. Field links to CollectionUnits table. Every Analysis Unit belongs to a Collection Unit.</td>
+</tr>
+<tr>
+<td><code>analysisunitname</code></td>
+<td>character varying(80)</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>-</td>
+<td>Optional name for an Analysis Unit. Analysis Units are usually designated with either a depth or a name, sometimes both.</td>
+</tr>
+<tr>
+<td><code>depth</code></td>
+<td>double precision</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>-</td>
+<td>Optional depth of the Analysis Unit in cm. Depths are typically designated for Analysis Units from cores and for Analysis Units excavated in arbitrary (e.g. 10 cm) levels. Depths are normally the midpoints of arbitrary levels. For example, for a level excavated from 10 to 20 cm or for a core section from 10 to 15 cm, the depth is 15. Designating depths as midpoints and thicknesses facilitates calculation of ages from age models that utilize single midpoint depths for Analysis Units rather than top and bottom depths. Of course, top and bottom depths can be calculated from midpoint depths and thicknesses. For many microfossil core samples, only the midpoint depths are known or published; the diameter or width of the sampling device is often not given.</td>
+</tr>
+<tr>
+<td><code>thickness</code></td>
+<td>double precision</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>-</td>
+<td>Optional thickness of the Analysis Unit in cm. For many microfossil core samples, the depths are treated as points, and the thicknesses are not given in the publications, although 0.5 to 1.0 cm would be typical.</td>
+</tr>
+<tr>
+<td><code>faciesid</code></td>
+<td>integer</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>FOREIGN KEY</td>
+<td>Sedimentary facies of the Analysis Unit. Field links to the FaciesTypes table.</td>
+</tr>
+<tr>
+<td><code>mixed</code></td>
+<td>boolean</td>
+<td>✗</td>
+<td><code>-</code></td>
+<td>-</td>
+<td>Indicates whether specimens in the Analysis Unit are of mixed ages, for example Pleistocene fossils occurring with late Holocene fossils. Although Analysis Units may be mixed, samples from the Analysis Unit may not be, for example individually radiocarbon dated specimens.</td>
+</tr>
+<tr>
+<td><code>igsn</code></td>
+<td>character varying(40)</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>-</td>
+<td>International Geo Sample Number. The IGSN is a unique identifier for a Geoscience sample. They are assigned by the SESAR, the System for Earth Sample Registration (www.geosamples.org), which is a registry that provides and administers the unique identifiers. IGSN’s may be assigned to all types of geoscience samples, including cores, rocks, minerals, and even fluids. Their purpose is to facilitate sharing and correlation of samples and sample-based data. For data in Neotoma, their primary value would be for correlation various samples from the same Analysis Units, for example pollen, charcoal, diatoms, and geochemical analyses. Conceivably, the AnalysisUnitID could be used for this purpose; however, IGSN’s could be assigned by projects before their data are submitted to the database. Moreover, AnalysisUnitID’s are intended to be internal to the database. Although IGSN’s could be assigned to Neotoma Collection Units and Samples, their primary value lies in their assignment to Analysis Units. IGSN’s are not yet assigned to Neotoma Analysis Units; however, that may change after consultation with SESAR.</td>
+</tr>
+<tr>
+<td><code>notes</code></td>
+<td>text</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>-</td>
+<td>Free form notes or comments about the Analysis Unit.</td>
+</tr>
+<tr>
+<td><code>recdatecreated</code></td>
+<td>timestamp without time zone</td>
+<td>✗</td>
+<td><code>timezone('UTC'::text, now())</code></td>
+<td>-</td>
+<td></td>
+</tr>
+<tr>
+<td><code>recdatemodified</code></td>
+<td>timestamp without time zone</td>
+<td>✗</td>
+<td><code>-</code></td>
+<td>-</td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <p><strong>TODO</strong>: Review column descriptions and add comments where missing.</p>
 <h2 id="usage-examples">Usage Examples</h2>
 <h3 id="example-1-basic-selection">Example 1: Basic Selection</h3>

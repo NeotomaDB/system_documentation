@@ -482,6 +482,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../neotoma_history/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Neotoma Database History
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../overview/" class="md-nav__link">
         
   
@@ -971,16 +999,111 @@ Each GeoPolitical Unit has a rank. GeoPolitical Units with Rank 1 are generally 
 - Are there any important caveats or data quality issues?</p>
 <h2 id="table-structure">Table Structure</h2>
 <p><a href="https://open.neotomadb.org/dbschema/ndb/geopoliticalunits.html"><img alt="Visual Schema" src="https://img.shields.io/badge/Visual_Schema-ndb%2egeopoliticalunits-blue?style=flat-square" /></a></p>
-<p>⚠️ Cannot connect to database</p>
+<p><strong>Schema</strong>: <code>ndb</code> | <strong>Table Comment</strong>: Lookup table of GeoPoliticalUnits. Table is referenced by the SiteGeoPolitical table. These are countries and various subdivisions. Countries and subdivisions were acquired from the U.S. Central Intelligence Agency World Factbook8 and the ISO 3166-1 and ISO 3166-2 databases9.
+Each GeoPolitical Unit has a rank. GeoPolitical Units with Rank 1 are generally countries. There are a few exceptions, including Antarctica and island territories, such as Greenland, which although a Danish territory, is geographically separate and distinct. Rank 2 units are generally secondary political divisions with various designations: e.g. states in the United States, provinces in Canada, and regions in France. For some countries, the secondary divisions are not political but rather distinct geographic entities, such as islands. The secondary divisions of some island nations include either groups of islands or sections of more highly populated islands; however, the actual island on which a site is located is more important information. Some countries also have Rank 3 units, e.g. counties in the United States and metropolitan departments in France. In addition to purely political units, various other administrative regions and geographic entities can be contained in this table. Examples of administrative regions are National Parks and Forests. It might be quite useful, for example, to have a record of all the sites in Yellowstone National Park. These additional units are Rank 4, and they can be added to the database as warranted.</p>
 <h2 id="statistics">Statistics</h2>
-<p>⚠️ Cannot connect to database</p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Row Count</strong></td>
+<td>10,107</td>
+</tr>
+<tr>
+<td><strong>Total Size</strong></td>
+<td>4328 kB</td>
+</tr>
+<tr>
+<td><strong>Table Size</strong></td>
+<td>832 kB</td>
+</tr>
+<tr>
+<td><strong>Indexes Size</strong></td>
+<td>3488 kB</td>
+</tr>
+</tbody>
+</table>
 <h2 id="relationships">Relationships</h2>
 <p><strong>Primary Key</strong>: <code>geopoliticalid</code></p>
 <p>No foreign key relationships.</p>
 <p><strong>Referenced By</strong>:</p>
 <p><strong>TODO</strong>: Document which tables reference this table (will be auto-detected in validation).</p>
 <h2 id="data-dictionary">Data Dictionary</h2>
-<p>⚠️ Cannot connect to database</p>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Type</th>
+<th>Nullable</th>
+<th>Default</th>
+<th>Constraints</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>geopoliticalid</code></td>
+<td>integer</td>
+<td>✗</td>
+<td><code>nextval('ndb.seq_geopolitic...</code></td>
+<td>PRIMARY KEY</td>
+<td>An arbitrary GeoPolitical identification number.</td>
+</tr>
+<tr>
+<td><code>geopoliticalname</code></td>
+<td>character varying(255)</td>
+<td>✗</td>
+<td><code>-</code></td>
+<td>-</td>
+<td>Name of the GeoPolitical Unit, e.g. Canada, Saskatchewan.</td>
+</tr>
+<tr>
+<td><code>geopoliticalunit</code></td>
+<td>character varying(255)</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>-</td>
+<td>The name of the unit, e.g. country, state, county, island, governorate, oblast.</td>
+</tr>
+<tr>
+<td><code>rank</code></td>
+<td>integer</td>
+<td>✗</td>
+<td><code>-</code></td>
+<td>-</td>
+<td>The rank of the unit.</td>
+</tr>
+<tr>
+<td><code>highergeopoliticalid</code></td>
+<td>integer</td>
+<td>✗</td>
+<td><code>-</code></td>
+<td>-</td>
+<td>The GeoPoliticalUnit with higher rank, e.g. the country in which a state lies.</td>
+</tr>
+<tr>
+<td><code>recdatecreated</code></td>
+<td>timestamp without time zone</td>
+<td>✗</td>
+<td><code>timezone('UTC'::text, now())</code></td>
+<td>-</td>
+<td></td>
+</tr>
+<tr>
+<td><code>recdatemodified</code></td>
+<td>timestamp without time zone</td>
+<td>✗</td>
+<td><code>-</code></td>
+<td>-</td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <p><strong>TODO</strong>: Review column descriptions and add comments where missing.</p>
 <h2 id="usage-examples">Usage Examples</h2>
 <h3 id="example-1-basic-selection">Example 1: Basic Selection</h3>

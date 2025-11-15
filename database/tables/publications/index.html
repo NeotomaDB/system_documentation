@@ -482,6 +482,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../neotoma_history/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Neotoma Database History
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../overview/" class="md-nav__link">
         
   
@@ -984,9 +1012,37 @@ Authors are stored in the PublicationAuthors table. Editors are also stored in t
 - Are there any important caveats or data quality issues?</p>
 <h2 id="table-structure">Table Structure</h2>
 <p><a href="https://open.neotomadb.org/dbschema/ndb/publications.html"><img alt="Visual Schema" src="https://img.shields.io/badge/Visual_Schema-ndb%2epublications-blue?style=flat-square" /></a></p>
-<p>⚠️ Cannot connect to database</p>
+<p><strong>Schema</strong>: <code>ndb</code> | <strong>Table Comment</strong>: This table stores publication or bibliographic data. The table is designed with fields for bibliographic data so that bibliographies can be formatted in different styles and potentially exported to bibliographic software such EndNote®. In the constituent databases that were originally merged into Neotoma, bibliographic entries were not parsed into separate fields, but rather were stored as free-form text. Because complete parsing of these thousands of legacy bibliographic entries into individual fields would have been prohibitively time consuming, the existing bibliographic data were ingested “as is” with a PubTypeID = Other. However, for legacy publications, the year of publication was added to the Year field, and authors were parsed into the PublicationAuthors table and added to the Contacts table. In addition, some global changes were made. For example, «Pp.» was changed to «Pages», «Ed.» to «Editor», and «Eds.» to «Editors». Also for FAUNMAP entries, abbreviated journal names were changed to fully spelled out names.
+The merged databases used different bibliographic styles, and data entry personnel working on the same database sometimes followed different conventions. Consequently, the current bibliographic entries are not stylistically uniform. Eventually, the legacy bibliographic data will be parsed into separate fields.
+The Publications table has fields to accommodate a number of different types of publications. Some fields contain different kinds of data for different kinds of publications. For example, the BookTitle field stores the titles of books, but stores the journal name for journal articles. The Publisher field stores the name of the publisher for books, but the name of the university for theses and dissertations.
+Authors are stored in the PublicationAuthors table. Editors are also stored in the PublicationAuthors table if the entire publication is cited. The PublicationAuthors table has a ContactID field, which links to the Contacts table, where full names and contact information is stored for authors and editors. The PubTypeID «Authored Book» or «Edited Book» indicates whether the Publication Authors records are authors or editors. If a book chapter or section is the primary bibliographic entry, then the book editors are stored in the PublicationEditors table, which does not have a ContactID field.</p>
 <h2 id="statistics">Statistics</h2>
-<p>⚠️ Cannot connect to database</p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Row Count</strong></td>
+<td>15,277</td>
+</tr>
+<tr>
+<td><strong>Total Size</strong></td>
+<td>26 MB</td>
+</tr>
+<tr>
+<td><strong>Table Size</strong></td>
+<td>8320 kB</td>
+</tr>
+<tr>
+<td><strong>Indexes Size</strong></td>
+<td>392 kB</td>
+</tr>
+</tbody>
+</table>
 <h2 id="relationships">Relationships</h2>
 <p><strong>Primary Key</strong>: <code>publicationid</code></p>
 <p><strong>Foreign Keys</strong>:</p>
@@ -996,7 +1052,324 @@ Authors are stored in the PublicationAuthors table. Editors are also stored in t
 <p><strong>Referenced By</strong>:</p>
 <p><strong>TODO</strong>: Document which tables reference this table (will be auto-detected in validation).</p>
 <h2 id="data-dictionary">Data Dictionary</h2>
-<p>⚠️ Cannot connect to database</p>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Type</th>
+<th>Nullable</th>
+<th>Default</th>
+<th>Constraints</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>publicationid</code></td>
+<td>integer</td>
+<td>✗</td>
+<td><code>nextval('ndb.seq_publicatio...</code></td>
+<td>PRIMARY KEY</td>
+<td>An arbitrary Publication identification number.</td>
+</tr>
+<tr>
+<td><code>pubtypeid</code></td>
+<td>integer</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>FOREIGN KEY</td>
+<td>Publication type. Field links to the PublicationTypes lookup table.</td>
+</tr>
+<tr>
+<td><code>year</code></td>
+<td>character varying(64)</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>-</td>
+<td>Year of publication.</td>
+</tr>
+<tr>
+<td><code>citation</code></td>
+<td>text</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>-</td>
+<td>The complete citation in a standard style. For Legacy citations inherited from other databases, this field holds the citation as ingested from the other databases</td>
+</tr>
+<tr>
+<td><code>articletitle</code></td>
+<td>text</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>-</td>
+<td>The title of a journal or book chapter article.</td>
+</tr>
+<tr>
+<td><code>journal</code></td>
+<td>text</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>-</td>
+<td></td>
+</tr>
+<tr>
+<td><code>volume</code></td>
+<td>character varying(16)</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>-</td>
+<td>The volume number of a journal or the volume number of a book in a set. A set of books is comprised of a fixed number of volumes and normally have ISBN numbers, not ISSN numbers. Book sets are often published simultaneously, but not necessarily. For instance, many floras, such as The Flora of North America north of Mexico and Flora Europaea, consist of a set number of volumes planned in advance but published over a period of years.</td>
+</tr>
+<tr>
+<td><code>issue</code></td>
+<td>character varying(8)</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>-</td>
+<td>Journal issue number, normally included only if issues are independently paginated.</td>
+</tr>
+<tr>
+<td><code>pages</code></td>
+<td>character varying(24)</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>-</td>
+<td>Page numbers for journal or book chapter articles, or the number of pages in theses, dissertations, and reports.</td>
+</tr>
+<tr>
+<td><code>citationnumber</code></td>
+<td>character varying(24)</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>-</td>
+<td>A citation or article number used in lieu of page numbers for digital or online publications, typically used in conjunction with the DOI. For example, journals published by the American Geophysical Union since 1999 use citation numbers rather than page numbers.</td>
+</tr>
+<tr>
+<td><code>doi</code></td>
+<td>character varying(128)</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>-</td>
+<td>Digital Object Identifier. A unique identifier assigned to digital publications. The DOI consists of a prefix and suffix separated by a slash. The portion before the slash stands for the publisher and is assigned by the International DOI Foundation. For example, 10.1029 is the prefix for the American Geophysical Union. The suffix is assigned by the publisher according to their protocols. For example, the DOI 10.1029/2002PA000768 is for an article submitted to Paleoceanography in 2002 and is article number 768 submitted since the system was installed. An example of CitationNumber and DOI:</td>
+</tr>
+<tr>
+<td>Barron, J. A., L. Heusser, T. Herbert, and M. Lyle. 2003. High-resolution climatic evolution of coastal northern California during the past 16,000 years, Paleoceanography 18(1):1020. DOI:10.1029/2002PA000768.</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>booktitle</code></td>
+<td>text</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>-</td>
+<td>The title of a book or journal</td>
+</tr>
+<tr>
+<td><code>numvolumes</code></td>
+<td>character varying(8)</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>-</td>
+<td>Number of volumes in a set of books. Used when the entire set is referenced. An example of NumVolumes and Edition:</td>
+</tr>
+<tr>
+<td>Wilson, D. E., and D. M. Reeder. 2005. Mammal species of the world: a taxonomic and geographic reference. Third edition. 2 volumes. The Johns Hopkins University Press, Baltimore, Maryland, USA.</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>edition</code></td>
+<td>character varying(24)</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>-</td>
+<td>Edition of a publication.</td>
+</tr>
+<tr>
+<td><code>volumetitle</code></td>
+<td>text</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>-</td>
+<td>Title of a book volume in a set. Used if the individual volume is referenced. Example of Volume and VolumeTitle:</td>
+</tr>
+<tr>
+<td>Flora of North America Editorial Committee. 2002. Flora of North America north of Mexico. Volume 26. Magnoliophyta: Liliidae: Liliales and Orchidales. Oxford University Press, New York, New York, USA.</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>seriestitle</code></td>
+<td>text</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>-</td>
+<td>Title of a book series. Book series consist of a series of books, typically published at irregular intervals on sometimes related but different topics. The number of volumes in a series is typically open ended. Book series are often assigned ISSN numbers as well as ISBN numbers. However, in contrast to most serials, book series have individual titles and authors or editors. Citation practices for book series vary; sometimes they are cited as books, other times as journals. The default citation for Neotoma includes all information. An example of SeriesTitle and SeriesVolume:</td>
+</tr>
+<tr>
+<td>Curtis, J. H., and D. A. Hodell. 1993. An isotopic and trace element study of ostracods from Lake Miragoane, Haiti: A 10,500 year record of paleosalinity and paleotemperature changes in the Caribbean. Pages 135-152 in P. K. Swart, K. C. Lohmann, J. McKensie, and S. Savin, editors. Climate change in continental isotopic records. Geophysical Monograph 78. American Geophysical Union, Washington, D.C., USA.</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>seriesvolume</code></td>
+<td>character varying(24)</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>-</td>
+<td>Volume number in a series.</td>
+</tr>
+<tr>
+<td><code>publisher</code></td>
+<td>character varying(255)</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>-</td>
+<td>Publisher, including commercial publishing houses, university presses, government agencies, and non-governmental organizations, generally the owner of the copyright.</td>
+</tr>
+<tr>
+<td><code>url</code></td>
+<td>text</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>-</td>
+<td></td>
+</tr>
+<tr>
+<td><code>city</code></td>
+<td>character varying(64)</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>-</td>
+<td>City in which the publication was published. The first city if a list is given.</td>
+</tr>
+<tr>
+<td><code>state</code></td>
+<td>character varying(64)</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>-</td>
+<td>State or province in which the publication was published. Used for the United States and Canada, not used for many countries.</td>
+</tr>
+<tr>
+<td><code>country</code></td>
+<td>character varying(64)</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>-</td>
+<td>Country in which the publication was published, generally the complete country name, but «USA» for the United States.</td>
+</tr>
+<tr>
+<td><code>originallanguage</code></td>
+<td>character varying(64)</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>-</td>
+<td>The original language if the publication or bibliographic citation is translated from another language or transliterated from a non-Latin character set. Field not needed for non-translated publications in languages using the Latin character set. In the following example, the ArticleTitle is translated from Russian to English and the BookTitle (journal name) is transliterated from Russian:</td>
+</tr>
+<tr>
+<td>Tarasov, P.E. 1991. Late Holocene features of the Kokchetav Highland. Vestnik Moskovskogo Universiteta. Series 5. Geography 6:54-60 [in Russian].</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>notes</code></td>
+<td>text</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>-</td>
+<td>Free form notes or comments about the publication, which may be added parenthetically to the citation.</td>
+</tr>
+<tr>
+<td><code>recdatecreated</code></td>
+<td>timestamp without time zone</td>
+<td>✗</td>
+<td><code>timezone('UTC'::text, now())</code></td>
+<td>-</td>
+<td></td>
+</tr>
+<tr>
+<td><code>recdatemodified</code></td>
+<td>timestamp without time zone</td>
+<td>✗</td>
+<td><code>-</code></td>
+<td>-</td>
+<td></td>
+</tr>
+<tr>
+<td><code>crossref</code></td>
+<td>jsonb</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>-</td>
+<td></td>
+</tr>
+<tr>
+<td><code>bibtex</code></td>
+<td>character varying</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>-</td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <p><strong>TODO</strong>: Review column descriptions and add comments where missing.</p>
 <h2 id="usage-examples">Usage Examples</h2>
 <h3 id="example-1-basic-selection">Example 1: Basic Selection</h3>

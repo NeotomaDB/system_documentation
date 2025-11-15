@@ -482,6 +482,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../neotoma_history/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Neotoma Database History
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../overview/" class="md-nav__link">
         
   
@@ -987,16 +1015,270 @@
 - Are there any important caveats or data quality issues?</p>
 <h2 id="table-structure">Table Structure</h2>
 <p><a href="https://open.neotomadb.org/dbschema/ndb/sites.html"><img alt="Visual Schema" src="https://img.shields.io/badge/Visual_Schema-ndb%2esites-blue?style=flat-square" /></a></p>
-<p>⚠️ Cannot connect to database</p>
+<p><strong>Schema</strong>: <code>ndb</code> | <strong>Table Comment</strong>: The Sites table stores information about sites or localities, including name, geographic coordinates, and description. Sites generally have an areal extent and can be circumscribed by a latitude-longitude box. However, site data ingested from legacy databases have included only point locations. The lat-long box can be used either to circumscribe the aerial extent of a site or to provide purposeful imprecision to the site location. Site location may be imprecise because the original description was vague, e.g. «a gravel bar 5 miles east of town», or because the investigators, land owner, or land management agency may not want the exact location made public, perhaps to prevent looting and vandalism. In the first case, the lat-long box can be made sufficiently large to encompass the true location and in the second case to prevent exact location.</p>
 <h2 id="statistics">Statistics</h2>
-<p>⚠️ Cannot connect to database</p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Row Count</strong></td>
+<td>26,628</td>
+</tr>
+<tr>
+<td><strong>Total Size</strong></td>
+<td>43 MB</td>
+</tr>
+<tr>
+<td><strong>Table Size</strong></td>
+<td>19 MB</td>
+</tr>
+<tr>
+<td><strong>Indexes Size</strong></td>
+<td>24 MB</td>
+</tr>
+</tbody>
+</table>
 <h2 id="relationships">Relationships</h2>
 <p><strong>Primary Key</strong>: <code>siteid</code></p>
 <p>No foreign key relationships.</p>
 <p><strong>Referenced By</strong>:</p>
 <p><strong>TODO</strong>: Document which tables reference this table (will be auto-detected in validation).</p>
 <h2 id="data-dictionary">Data Dictionary</h2>
-<p>⚠️ Cannot connect to database</p>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Type</th>
+<th>Nullable</th>
+<th>Default</th>
+<th>Constraints</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>siteid</code></td>
+<td>integer</td>
+<td>✗</td>
+<td><code>nextval('ndb.seq_sites_site...</code></td>
+<td>PRIMARY KEY</td>
+<td>An arbitrary Site identification number.</td>
+</tr>
+<tr>
+<td><code>sitename</code></td>
+<td>character varying(128)</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>-</td>
+<td>Name of the site. Alternative names, including archaeological site numbers, are placed in square brackets, for example:</td>
+</tr>
+<tr>
+<td>New Paris #4 [Lloyd's Rock Hole]</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Modoc Rock Shelter [11RA501]</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>A search of the SiteName field for any of the alternative names or for the archaeological site number will find the site. Some archaeological sites are known only by their site number.</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Modifiers to site names are placed in parentheses. Authors are added for generic sites names, especially for surface samples, that are duplicated in the database, for example:</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Site 1 (Heusser 1978)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Site 1 (Delcourt et al. 1983)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Site 1 (Elliot-Fisk et al. 1982)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Site 1 (Whitehead and Jackson 1990)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>For actual site names duplicated in the database, the name is followed by the 2-letter country code and state or province, for example:</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Silver Lake (US:Minnesota)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Silver Lake (CA:Nova Scotia)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Silver Lake (US:Ohio)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Silver Lake (US:Pennsylvania)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>longitudeeast</code></td>
+<td>double precision</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>-</td>
+<td>East bounding longitude for a site.</td>
+</tr>
+<tr>
+<td><code>latitudenorth</code></td>
+<td>double precision</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>-</td>
+<td>North bounding latitude for a site.</td>
+</tr>
+<tr>
+<td><code>longitudewest</code></td>
+<td>double precision</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>-</td>
+<td>West bounding longitude for a site.</td>
+</tr>
+<tr>
+<td><code>latitudesouth</code></td>
+<td>double precision</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>-</td>
+<td>South bounding latitude for a site.</td>
+</tr>
+<tr>
+<td><code>altitude</code></td>
+<td>double precision</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>-</td>
+<td>Altitude of a site in meters.</td>
+</tr>
+<tr>
+<td><code>area</code></td>
+<td>double precision</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>-</td>
+<td>Area of a site in hectares.</td>
+</tr>
+<tr>
+<td><code>sitedescription</code></td>
+<td>text</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>-</td>
+<td>Free form description of a site, including such information as physiography and vegetation around the site.</td>
+</tr>
+<tr>
+<td><code>notes</code></td>
+<td>text</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>-</td>
+<td>Free form notes or comments about the site.</td>
+</tr>
+<tr>
+<td><code>recdatecreated</code></td>
+<td>timestamp without time zone</td>
+<td>✗</td>
+<td><code>timezone('UTC'::text, now())</code></td>
+<td>-</td>
+<td></td>
+</tr>
+<tr>
+<td><code>recdatemodified</code></td>
+<td>timestamp without time zone</td>
+<td>✗</td>
+<td><code>-</code></td>
+<td>-</td>
+<td></td>
+</tr>
+<tr>
+<td><code>geog</code></td>
+<td>USER-DEFINED</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>-</td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <p><strong>TODO</strong>: Review column descriptions and add comments where missing.</p>
 <h2 id="usage-examples">Usage Examples</h2>
 <h3 id="example-1-basic-selection">Example 1: Basic Selection</h3>
@@ -1037,11 +1319,11 @@
 <h2 id="data-quality-notes">Data Quality Notes</h2>
 <h3 id="automated-data-quality-tests">Automated Data Quality Tests</h3>
 <p>This table is subject to the following automated quality checks:</p>
-<p><strong>❌ ref_002</strong>: samples_have_valid_sites</p>
+<p><strong>❌ ref_003</strong>: sites_have_collection_units</p>
 <ul>
 <li><strong>Severity</strong>: ERROR</li>
 <li><strong>Status</strong>: FAILED</li>
-<li><strong>Description</strong>: All samples must reference valid collection sites</li>
+<li><strong>Description</strong>: All sites should have at least one collection unit.</li>
 </ul>
 <p><strong>❌ valid_001</strong>: coordinates_in_valid_range</p>
 <ul>
@@ -1049,7 +1331,7 @@
 <li><strong>Status</strong>: UNKNOWN</li>
 <li><strong>Description</strong>: Site coordinates must be within valid lat/long ranges</li>
 </ul>
-<p>See the <a href="../../reports/data_quality_report.md">Data Quality Report</a> for details.</p>
+<p>See the <a href="../../../reports/data_quality_report/">Data Quality Report</a> for details.</p>
 <h2 id="maintenance">Maintenance</h2>
 <ul>
 <li><strong>Data Owner</strong>: TODO: Assign owner</li>
@@ -1085,7 +1367,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="November 13, 2025 17:06:40 UTC"><span class="timeago" datetime="2025-11-13T17:06:40+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 13, 2025 17:06:40 UTC">2025-11-13</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="November 14, 2025 19:28:51 UTC"><span class="timeago" datetime="2025-11-14T19:28:51+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 14, 2025 19:28:51 UTC">2025-11-14</span>
   </span>
 
     

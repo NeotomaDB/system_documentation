@@ -482,6 +482,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../neotoma_history/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Neotoma Database History
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../overview/" class="md-nav__link">
         
   
@@ -981,9 +1009,34 @@
 - Are there any important caveats or data quality issues?</p>
 <h2 id="table-structure">Table Structure</h2>
 <p><a href="https://open.neotomadb.org/dbschema/ndb/lithology.html"><img alt="Visual Schema" src="https://img.shields.io/badge/Visual_Schema-ndb%2elithology-blue?style=flat-square" /></a></p>
-<p>⚠️ Cannot connect to database</p>
+<p><strong>Schema</strong>: <code>ndb</code> | <strong>Table Comment</strong>: This table stores the lithologic descriptions of Collection Units.</p>
 <h2 id="statistics">Statistics</h2>
-<p>⚠️ Cannot connect to database</p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Row Count</strong></td>
+<td>33,385</td>
+</tr>
+<tr>
+<td><strong>Total Size</strong></td>
+<td>6872 kB</td>
+</tr>
+<tr>
+<td><strong>Table Size</strong></td>
+<td>3320 kB</td>
+</tr>
+<tr>
+<td><strong>Indexes Size</strong></td>
+<td>3520 kB</td>
+</tr>
+</tbody>
+</table>
 <h2 id="relationships">Relationships</h2>
 <p><strong>Primary Key</strong>: <code>lithologyid</code></p>
 <p><strong>Foreign Keys</strong>:</p>
@@ -993,7 +1046,156 @@
 <p><strong>Referenced By</strong>:</p>
 <p><strong>TODO</strong>: Document which tables reference this table (will be auto-detected in validation).</p>
 <h2 id="data-dictionary">Data Dictionary</h2>
-<p>⚠️ Cannot connect to database</p>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Type</th>
+<th>Nullable</th>
+<th>Default</th>
+<th>Constraints</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>lithologyid</code></td>
+<td>integer</td>
+<td>✗</td>
+<td><code>nextval('ndb.seq_lithology_...</code></td>
+<td>PRIMARY KEY</td>
+<td>An arbitrary identification number for a lithologic unit.</td>
+</tr>
+<tr>
+<td><code>collectionunitid</code></td>
+<td>integer</td>
+<td>✗</td>
+<td><code>-</code></td>
+<td>FOREIGN KEY</td>
+<td>Collection Unit identification number. Field links to the CollectionUnits table.</td>
+</tr>
+<tr>
+<td><code>depthtop</code></td>
+<td>double precision</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>-</td>
+<td>Depth of the top of the lithologic unit in cm.</td>
+</tr>
+<tr>
+<td><code>depthbottom</code></td>
+<td>double precision</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>-</td>
+<td>Depth of the bottom of the lithologic unit in cm.</td>
+</tr>
+<tr>
+<td><code>lowerboundary</code></td>
+<td>character varying(255)</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>-</td>
+<td></td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td>text</td>
+<td>✓</td>
+<td><code>-</code></td>
+<td>-</td>
+<td>Description of the lithologic unit. These can be quite detailed, with Munsell color or Troels-Smith descriptions. Some examples:</td>
+</tr>
+<tr>
+<td>interbedded gray silt and peat</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>marly fine-detritus copropel</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>humified sedge and Sphagnum peat</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>sedge peat 5YR 5/4</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>gray sandy loam with mammoth and other animal bones</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>grey-green gyttja, oxidizing to gray-brown</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Ag 3, Ga 1, medium gray, firm, elastic</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>nig3, strf0, elas2, sicc0; Th2 T12 Tb+</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Ld°4, Ga+, Dg+, Dh+</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>recdatecreated</code></td>
+<td>timestamp without time zone</td>
+<td>✗</td>
+<td><code>timezone('UTC'::text, now())</code></td>
+<td>-</td>
+<td></td>
+</tr>
+<tr>
+<td><code>recdatemodified</code></td>
+<td>timestamp without time zone</td>
+<td>✗</td>
+<td><code>-</code></td>
+<td>-</td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <p><strong>TODO</strong>: Review column descriptions and add comments where missing.</p>
 <h2 id="usage-examples">Usage Examples</h2>
 <h3 id="example-1-basic-selection">Example 1: Basic Selection</h3>
