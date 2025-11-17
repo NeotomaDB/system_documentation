@@ -373,14 +373,15 @@ def define_env(env):
                 icon = "❌"
             
             md = f"""
-    !!! {alert_type} "Data Quality Status"
-        **Pass Rate**: {pass_rate:.1f}% ({passed}/{total} tests passing)
-        
-        - {icon} **Passed**: {passed}
-        - {'❌' if failed > 0 else '✅'} **Failed**: {failed}
-        
-        [View Full Report](../../tests/reports/data_quality_report.md) | Last updated: {results.get('created', 'Unknown')}
-    """
+!!! {alert_type} Data Quality Status
+
+**Pass Rate**: {pass_rate:.1f}% ({passed}/{total} tests passing)
+    
+- {icon} **Passed**: {passed}
+- {'❌' if failed > 0 else '✅'} **Failed**: {failed}
+    
+[View Full Report](../../tests/reports/data_quality_report.md) | Last updated: {results.get('created', 'Unknown')}
+"""
             return md
             
         except Exception as e:
