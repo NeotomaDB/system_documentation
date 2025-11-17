@@ -37,13 +37,13 @@ theme:
 
 plugins:
   - search
+  - awesome-pages
   - macros:
       module_name: docs/macros
       include_dir: docs
   - git-revision-date-localized:
       enable_creation_date: true
       type: timeago
-  - awesome-pages
   - swagger-ui-tag
 
 markdown_extensions:
@@ -76,8 +76,9 @@ nav:
   - Home: index.md
   - Database:
       - Introduction: database/index.md
+      - Neotoma Database History: database/neotoma_history.md
+      - Design Concepts: database/design_concepts.md
       - Table Overview: database/overview.md
-      - Tables: database/tables/
   - API:
       - Overview: api/index.md
       - Quick Start: api/quickstart.md
@@ -85,6 +86,7 @@ nav:
       - Endpoints by Table: api/endpoints/by-table.md
   - AWS Infrastructure: aws/index.md
   - Runbooks: runbooks/index.md
+  - Reports: reports/data_quality_report.md
 
 extra:
   social:

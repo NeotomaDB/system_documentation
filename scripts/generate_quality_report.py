@@ -203,7 +203,7 @@ def main():
     report = generate_markdown_report(results, definitions)
     
     # Save report
-    report_path = Path("tests/reports/data_quality_report.md")
+    report_path = Path("docs/reports/data_quality_report.md")
     report_path.parent.mkdir(parents=True, exist_ok=True)
     report_path.write_text(report)
     print(f"✓ Report saved to {report_path}")
