@@ -1,0 +1,159 @@
+
+/* raleway-regular - latin */
+@font-face {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Raleway'),
+       url('assets/fonts/raleway-v19-latin-regular.eot'),
+       url('assets/fonts/raleway-v19-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('assets/fonts/raleway-v19-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+       url('assets/fonts/raleway-v19-latin-regular.woff') format('woff'), /* Modern Browsers */
+       url('assets/fonts/raleway-v19-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('assets/fonts/raleway-v19-latin-regular.svg#Raleway') format('svg'); /* Legacy iOS */
+  font-display: swap;
+}
+
+/* roboto-slab-regular - latin */
+@font-face {
+  font-family: 'Roboto Slab';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Roboto'),
+       url('assets/fonts/roboto-slab-v13-latin-regular.eot'),
+       url('assets/fonts/roboto-slab-v13-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('assets/fonts/roboto-slab-v13-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+       url('assets/fonts/roboto-slab-v13-latin-regular.woff') format('woff'), /* Modern Browsers */
+       url('assets/fonts/roboto-slab-v13-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('assets/fonts/roboto-slab-v13-latin-regular.svg#RobotoSlab') format('svg'); /* Legacy iOS */
+  font-display: swap;
+}
+
+/* eb-garamond-regular - latin */
+@font-face {
+  font-family: 'EB Garamond';
+  font-style: normal;
+  font-weight: 400;
+  src: local('eb-garamond'),
+       url('assets/fonts/eb-garamond-v15-latin-regular.eot')
+       url('assets/fonts/eb-garamond-v15-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('assets/fonts/eb-garamond-v15-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+       url('assets/fonts/eb-garamond-v15-latin-regular.woff') format('woff'), /* Modern Browsers */
+       url('assets/fonts/eb-garamond-v15-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('assets/fonts/eb-garamond-v15-latin-regular.svg#EBGaramond') format('svg'); /* Legacy iOS */
+  font-display: swap;
+}
+
+* { font-family: "Raleway";
+    color: rgba(0,0,0,0.8);
+  font-display: swap;}
+
+a { font-weight: 700;
+    color: rgba(29, 35, 98, 0.8); }
+
+h1, h2, h3, h4, h5 { font-family: 'Raleway';
+		 color: rgba(40, 113, 33, 0.9);
+		 margin-top: 0.2cm;
+	 	 margin-bottom: 0.2cm;
+	 	 direction: inherit;
+	 font-variant: normal;
+	 page-break-inside: avoid;
+	 text-align: left;
+	 orphans: 2;
+	 widows: 2;
+	 text-decoration: none;
+   font-display: swap;
+	}
+
+h1 { font-weight: 900;
+     line-height: 110%;
+   	 font-variant: small-caps;
+ 	   font-size: 200%;
+ 	}
+
+h2 { font-weight: 700;
+	 line-height: 100%;
+	 font-size: 150%;
+	}
+
+h3 { font-weight: 700;
+	 line-height: 100%;
+	 font-size: 100%;
+	}
+
+h2.status { font-weight: 700;
+  line-height: 100%;
+  font-size: 130%;
+}
+
+li, tr {
+  font-family: "Raleway";
+  color: rgba(0,0,0,0.8);
+}
+
+.pubtag {
+  vertical-align: middle;
+  padding-left: 5px;
+  font-size: 13pt }
+
+a:link { so-language: zxx }
+
+summary {
+	padding-top: 10px;
+	font-family: "Raleway";
+}
+
+td {
+  vertical-align: top;
+}
+
+table {
+  padding-top: 0px;
+  padding-bottom: 10px;
+}
+
+div.resource-box {
+  padding-left: 10px;
+  border-left-style:solid;
+  border-left-color: rgba(72,202,59, 0.2);
+}
+
+span.online {
+  color: rgba(26, 73, 21, 0.9);
+  font-weight: bold;
+}
+
+span.offline {
+  color: rgba(202,59,59, 0.9);
+  font-weight: bold;
+}
+
+md-header {
+    background: rgba()
+}
+
+p.caption {
+  color: #777;
+  margin-top: 10px;
+}
+p code {
+  white-space: inherit;
+}
+pre {
+  word-break: normal;
+  word-wrap: normal;
+}
+pre code {
+  white-space: inherit;
+}
+
+div.references {
+  margin-left: 1cm;
+  text-indent: -0.5cm;
+  font-family: "EB Garamond";
+  font-size: 11pt
+}
+
+div.references.hangingindent:hover{
+  background:#dddddd
+}

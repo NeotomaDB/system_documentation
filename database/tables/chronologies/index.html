@@ -45,8 +45,8 @@
       
         
         
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        
+        <link rel="stylesheet" href="../../../assets/external/fonts.googleapis.com/css.49ea35f2.css">
         <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
@@ -1074,7 +1074,7 @@ A younger and older age bounds are assigned to the Chronology. Within these boun
 - How is this data collected or generated?
 - Are there any important caveats or data quality issues?</p>
 <h2 id="table-structure">Table Structure</h2>
-<p><a href="https://open.neotomadb.org/dbschema/ndb/chronologies.html"><img alt="Visual Schema" src="https://img.shields.io/badge/Visual_Schema-ndb%2echronologies-blue?style=flat-square" /></a></p>
+<p><a href="https://open.neotomadb.org/dbschema/ndb/chronologies.html"><img alt="Visual Schema" src="../../../assets/external/img.shields.io/badge/Visual_Schema-ndb.chronologies-blue.7940a6db.svg"></a></p>
 <p><strong>Schema</strong>: <code>ndb</code> | <strong>Table Comment</strong>: This table stores Chronology data. A Chronology refers to an explicit chronology assigned to a Collection Unit. A Chronology has Chronology Controls, the actual age-depth control points, which are stored in the ChronControls table. A Chronology is also based on an Age Model, which may be a numerical method that fits a curve to a set of age-depth control points or may simply be individually dated Analysis Units.
 A Collection Unit may have more than one Chronology, for example one in radiocarbon years and another in calibrated radiocarbon years. There may be a Chronology developed by the original author and another developed by a later research project. Chronologies may be stored for archival reasons, even though they are now believed to have problems, if they were used for an important research project. One Chronology per Age Type may be designated the default Chronology, which is the Chronology currently preferred by the database stewards.
 Based upon the Chronology, which includes the Age Model and the Chron Controls, ages are assigned to individual samples, which are stored in the SampleAges table.

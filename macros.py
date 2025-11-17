@@ -380,7 +380,7 @@ def define_env(env):
 - {icon} **Passed**: {passed}
 - {'❌' if failed > 0 else '✅'} **Failed**: {failed}
     
-[View Full Report](../../tests/reports/data_quality_report.md) | Last updated: {results.get('created', 'Unknown')}
+[View Full Report](../reports/data_quality_report.md) | Last updated: {results.get('created', 'Unknown')}
 """
             return md
             

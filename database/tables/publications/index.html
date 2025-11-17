@@ -45,8 +45,8 @@
       
         
         
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        
+        <link rel="stylesheet" href="../../../assets/external/fonts.googleapis.com/css.49ea35f2.css">
         <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
@@ -1057,7 +1057,7 @@ Authors are stored in the PublicationAuthors table. Editors are also stored in t
 - How is this data collected or generated?
 - Are there any important caveats or data quality issues?</p>
 <h2 id="table-structure">Table Structure</h2>
-<p><a href="https://open.neotomadb.org/dbschema/ndb/publications.html"><img alt="Visual Schema" src="https://img.shields.io/badge/Visual_Schema-ndb%2epublications-blue?style=flat-square" /></a></p>
+<p><a href="https://open.neotomadb.org/dbschema/ndb/publications.html"><img alt="Visual Schema" src="../../../assets/external/img.shields.io/badge/Visual_Schema-ndb.publications-blue.7940a6db.svg"></a></p>
 <p><strong>Schema</strong>: <code>ndb</code> | <strong>Table Comment</strong>: This table stores publication or bibliographic data. The table is designed with fields for bibliographic data so that bibliographies can be formatted in different styles and potentially exported to bibliographic software such EndNote®. In the constituent databases that were originally merged into Neotoma, bibliographic entries were not parsed into separate fields, but rather were stored as free-form text. Because complete parsing of these thousands of legacy bibliographic entries into individual fields would have been prohibitively time consuming, the existing bibliographic data were ingested “as is” with a PubTypeID = Other. However, for legacy publications, the year of publication was added to the Year field, and authors were parsed into the PublicationAuthors table and added to the Contacts table. In addition, some global changes were made. For example, «Pp.» was changed to «Pages», «Ed.» to «Editor», and «Eds.» to «Editors». Also for FAUNMAP entries, abbreviated journal names were changed to fully spelled out names.
 The merged databases used different bibliographic styles, and data entry personnel working on the same database sometimes followed different conventions. Consequently, the current bibliographic entries are not stylistically uniform. Eventually, the legacy bibliographic data will be parsed into separate fields.
 The Publications table has fields to accommodate a number of different types of publications. Some fields contain different kinds of data for different kinds of publications. For example, the BookTitle field stores the titles of books, but stores the journal name for journal articles. The Publisher field stores the name of the publisher for books, but the name of the university for theses and dissertations.

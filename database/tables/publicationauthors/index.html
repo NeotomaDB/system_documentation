@@ -45,8 +45,8 @@
       
         
         
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        
+        <link rel="stylesheet" href="../../../assets/external/fonts.googleapis.com/css.49ea35f2.css">
         <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
@@ -1057,7 +1057,7 @@ Cummings, L. S. 1996. Paleoenvironmental interpretations for the Mill Iron site:
 - How is this data collected or generated?
 - Are there any important caveats or data quality issues?</p>
 <h2 id="table-structure">Table Structure</h2>
-<p><a href="https://open.neotomadb.org/dbschema/ndb/publicationauthors.html"><img alt="Visual Schema" src="https://img.shields.io/badge/Visual_Schema-ndb%2epublicationauthors-blue?style=flat-square" /></a></p>
+<p><a href="https://open.neotomadb.org/dbschema/ndb/publicationauthors.html"><img alt="Visual Schema" src="../../../assets/external/img.shields.io/badge/Visual_Schema-ndb.publicationauthors-blue.7940a6db.svg"></a></p>
 <p><strong>Schema</strong>: <code>ndb</code> | <strong>Table Comment</strong>: This table lists authors as their names are given in publications. Only the initials are stored for authors’ given names. The ContactID links to the author’s full name and contact data in the Contacts table. Thus, for a bibliographic entry, Charles Robert Darwin is listed as C. R. Darwin, or as C. Darwin if the publication did not include his middle name. Book editors are also stored in this table if the entire book is cited. However, if a book chapter or section is cited, authors are stored in this table, but the book editors are stored in the PublicationEditors table. Thus, for the following reference, G. C. Frison is stored in the PublicationAuthors table.
 Frison, G. C., editor. 1996. The Mill Iron site. University of New Mexico Press, Albuquerque, New Mexico, USA.
 Whereas for the following publication, L. S. Cummings is listed in the PublicationAuthors table, and G. C. Frison is listed in the PublicationEditors table.
