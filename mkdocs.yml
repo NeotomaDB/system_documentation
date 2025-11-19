@@ -8,6 +8,8 @@ repo_name: NeotomaDB/system_documentation
 
 theme:
   name: material
+  font:
+    code: 
   palette:
     # Light mode
     - scheme: default
@@ -37,6 +39,9 @@ theme:
 
 plugins:
   - search
+  - bibtex:
+      bib_file: "docs/assets/references.bib"
+  - privacy
   - awesome-pages
   - macros:
       module_name: docs/macros
@@ -47,6 +52,7 @@ plugins:
   - swagger-ui-tag
 
 markdown_extensions:
+  - footnotes
   - pymdownx.highlight:
       anchor_linenums: true
       line_spans: __span
