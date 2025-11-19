@@ -22,7 +22,6 @@ referential_integrity:
       - Check if samples were never entered for this dataset
       - Verify if dataset should be archived/deleted
       - Contact data owner for clarification
-
   - id: ref_002
     name: samples_have_valid_datasets
     description: All samples must reference valid collection sites
@@ -42,7 +41,6 @@ referential_integrity:
     remediation: |
       - Remove "floating" samples.
       - Ensure that the datasets are not accidentally deleted.
-
   - id: ref_003
     name: sites_have_collection_units
     description: All sites should have at least one collection unit.
@@ -62,7 +60,6 @@ referential_integrity:
     remediation: |
       - Remove "floating" sites.
       - Ensure that the collection units have not been accidentally deleted.
-
   - id: ref_004
     name: valid_taxa_need_highertaxonids
     description: |
