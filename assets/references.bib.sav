@@ -26523,16 +26523,6 @@
     place = "Cambridge"
 }
 
-@InBook{Goring2018a,
-    author = "Goring, S. J. and Graham, R. and Loeffler, S. and Myrbo, A. and Ormand, C. J. and Oliver, James S., III and Williams, J. W.",
-    title = "The {N}eotoma {P}aleoecology {D}atabase: A research-outreach nexus.",
-    year = "2018",
-    type = "Book Section",
-    __markedentry = "[simon:6]",
-    booktitle = "Paleobiology Short Course",
-    doi = "10.32907/ro"
-}
-
 @Article{Goring2021,
     author = "Goring, Simon J. and Marsicek, J. and Ye, S. and Williams, J. W. and Meyers, S. E. and Peters, S. E. and Quinn, D. and Schaen, A. and Singer, B. S. and Marcott, Shaun A.",
     title = "A model workflow for locating Pliocene and Pleistocene Ice-Rafted Debris using GeoDeepDive",

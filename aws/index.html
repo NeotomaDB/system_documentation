@@ -81,6 +81,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#cloud-infrastructure" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -772,6 +777,26 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AWS Infrastructure
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
         
@@ -789,6 +814,75 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#system-architechture-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        System Architechture Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#core-architecture-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core Architecture Components
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Core Architecture Components">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#github-repositories" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Github Repositories
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aws-infrastructure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AWS Infrastructure
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -865,6 +959,66 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#system-architechture-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        System Architechture Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#core-architecture-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core Architecture Components
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Core Architecture Components">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#github-repositories" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Github Repositories
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aws-infrastructure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AWS Infrastructure
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -884,9 +1038,134 @@
   
 
 
-  <h1>AWS Infrastructure</h1>
+<h1 id="cloud-infrastructure">Cloud Infrastructure</h1>
+<p>Neotoma runs as a set of components using cloud infrastructure. Neotoma's transition to the cloud occurred as a result of an NSF Grant through the CloudBank program, providing direct project funding for cloud compute resources. Through this grant we were able to deploy Neotoma as a secure cloud-available database, with multiple services, including the API, landing pages, backup and file storage and web domain management.</p>
+<h2 id="system-architechture-overview">System Architechture Overview</h2>
+<pre class="mermaid"><code>---
+config:
+  theme: neutral
+  layout: elk
+---
 
+flowchart LR
 
+%% Neotoma API Deployment
+%% %% Main Branch
+api_main_branch --commit--&gt; GHA_api_main
+GHA_api_main --build--&gt; neoapi-prod-docker 
+GHA_api_main --create--&gt; neoapi-prod
+neoapi-prod-docker --deploy--&gt; neoapi-prod
+neoapi-prod --Route53--&gt; api.neotomadb.org
+neoapi-prod --SecurityGroup--&gt; neotoma
+neotoma --SecurityGroup--&gt; neoapi-prod
+
+%% %% Development Branch
+api_dev_branch --commit--&gt; GHA_api_dev
+GHA_api_dev --build--&gt; neoapi-dev-docker
+GHA_api_dev --create--&gt; neoapi-dev
+neoapi-dev-docker --deploy--&gt; neoapi-dev
+neoapi-dev --Route53--&gt; api-dev.neotomadb.org
+neoapi-dev --SecurityGroup--&gt; neotomatank
+neotomatank --SecurityGroup--&gt; neoapi-dev
+
+%% Tilia API Deployment
+%% %% Main Branch
+tilia_main_branch --commit--&gt; GHA_tilia_main
+GHA_tilia_main --build--&gt; neotilia-tdev-docker
+GHA_tilia_main --create--&gt; tilia-prod
+neotilia-tprod-docker --deploy--&gt; tilia-prod
+tilia-prod --Route53--&gt; tilia.neotomadb.org
+
+%% %% Development Branch
+tilia_dev_branch --build--&gt; GHA_tilia_dev
+GHA_tilia_dev --build--&gt; neotilia-tprod-docker
+GHA_tilia_dev --create--&gt; tilia-dev
+neotilia-tdev-docker --deploy--&gt; tilia-dev
+tilia-dev --Route53--&gt; tilia-dev.neotomadb.org
+
+%% Human Action
+Administrator--SSH--&gt;SSHIngress
+SSHIngress--port--&gt;JumpServer
+JumpServer--&gt;rdsDatabase
+
+subgraph GitHub
+    subgraph api_nodetest
+        api_dev_branch[develop]
+        api_main_branch[production]
+    end
+    subgraph tilia_api
+        tilia_main_branch[production]
+        tilia_dev_branch[development]
+    end
+    GHA_api_dev((Action))
+    GHA_api_main((Action))
+    GHA_tilia_dev((Action))
+    GHA_tilia_main((Action))
+end
+subgraph AWSCloud
+    subgraph VPC
+        subgraph publicSubnet
+            subgraph core-api
+                api.neotomadb.org
+                api-dev.neotomadb.org
+            end
+            subgraph tilia-api
+                tilia.neotomadb.org
+                tilia-dev.neotomadb.org
+            end
+            SSHIngress
+        end
+        subgraph privateSubnet
+            subgraph rdsDatabase
+                neotoma[(neotoma)]
+                neotomatank[(neotomatank)]
+            end
+        end
+        subgraph SecurityGroups
+            JumpServer
+        end
+    end
+    subgraph AppRunner
+        neoapi-prod
+        neoapi-dev
+        tilia-prod
+        tilia-dev
+    end
+    subgraph ECR
+        neotilia-tprod-docker
+        neotilia-tdev-docker
+        neoapi-prod-docker
+        neoapi-dev-docker
+    end
+end
+
+Administrator[/Admin\]
+
+click api_nodetest "https:/github.com/NeotomaDB/api_nodetest" "Link to the Neotoma API Code Repository"
+click tilia_api "https:/github.com/NeotomaDB/tilia_api" "Link to the Tilia API Code Repository"
+
+click GHA_api_dev "https://github.com/NeotomaDB/api_nodetest/blob/develop/.github/workflows/deploy.yml" "GitHub Action YAML"
+click GHA_api_main "https://github.com/NeotomaDB/api_nodetest/blob/production/.github/workflows/deploy.yml" "GitHub Action YAML"
+
+click api.neotomadb.org "https://api.neotomadb.org" "Neotoma API"
+click api-dev.neotomadb.org "https://api-dev.neotomadb.org" "Neotoma dev API"</code></pre>
+<h2 id="core-architecture-components">Core Architecture Components</h2>
+<h3 id="github-repositories">Github Repositories</h3>
+<p>The <a href="https://github.com/NeotomaDB">Neotoma Database GitHub organization</a> is a core component of the database's architecture. All tools and infrastructure for Neotoma are managed through GitHub with the exception of the database's data definition file and data content.</p>
+<p>Individual code repositories are linked to external services through <a href="https://docs.github.com/en/actions/get-started/understand-github-actions">Github Actions</a>, which control the way in which repositories are built and then deployed, as well as AWS CloudFormation infrastructure files that define the AWS services that are linked together to serve the applications.</p>
+<p>Neotoma Actions are all contained in a <code>.github/workflows/deploy.yaml</code> file within individual repositories. These files define individual steps that are taken when a branch of the repository is pushed (or when periodic actions take place). The files may make use of environment variables or GitHub Secrets, such as passwords, user names, network addresses and other critical information.</p>
+<h3 id="aws-infrastructure">AWS Infrastructure</h3>
+<p>AWS Infrastructure consists of several key elements:</p>
+<ul>
+<li><strong>S3 Storage</strong>: For database snapshots, large file storage, and delivery of "static" websites</li>
+<li><strong>Electronic Container Registry (ECR)</strong>: For Docker containers of key software products (APIs, Python services)</li>
+<li><strong>Relational Database Service (RDS)</strong>: For the main Neotoma Database, its backup services and ongoing maintenance</li>
+<li><strong>CloudWatch</strong>: To manage log files for services and to observe web service status</li>
+<li><strong>Virtual Private Cloud (VPC)</strong>: The virtual space where all cloud services are provided</li>
+<li><strong>Route 53</strong>: The service to route Neotoma Cloud services to various web URLS</li>
+<li><strong>CloudFront</strong>: The service to cache and serve data for Neotoma websites to reduce load time</li>
+<li><strong>Batch</strong>: A service for code execution in the cloud, generally for longer-running services</li>
+</ul>
 
 
 

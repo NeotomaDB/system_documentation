@@ -34321,16 +34321,17 @@
 }
 
 @Article{Jackson2002,
-  author        = {Jackson, S. T. and Booth, R. K.},
-  title         = {The role of Late Holocene climate variability in the expansion of yellow birch in the western Great Lakes region},
-  journal       = {Diversity and Distributions},
-  year          = {2002},
-  volume        = {8},
-  number        = {5},
-  pages         = {275-284},
-  __markedentry = {[simon:6]},
-  doi           = {10.1046/j.1472-4642.2002.00152.x},
-  type          = {Journal Article},
+    author = "Jackson, S. T. and Booth, R. K.",
+    title = "The role of Late Holocene climate variability in the expansion of yellow birch in the western Great Lakes region",
+    journal = "Diversity and Distributions",
+    year = "2002",
+    volume = "8",
+    number = "5",
+    pages = "275-284",
+    __markedentry = "[simon:6]",
+    type = "Journal Article",
+    url = "<Go to ISI>://000177738400003",
+    doi = "10.1046/j.1472-4642.2002.00152.x"
 }
 
 @Article{Jackson2002a,
