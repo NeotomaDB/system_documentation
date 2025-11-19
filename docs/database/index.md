@@ -15,7 +15,7 @@ Initially, data within Neotoma were merged from four existing databases: the Glo
 
 Because the proxy types that Neotoma integrated were sufficiently diverse, the data model had to focus on the commonalities as the core of the database structure, specifically elements of *stratigraphy* and *chronology*. This design facilitated the gradual inclusion of other database types including the addition of ostracode, diatom, chironmid, and freshwater mussel datasets.
 
-The Neotoma database was initially designed by Eric C. Grimm and implemented in Microsoft® Access®. Neotoma was ported to SQL Server, where it was served from the [Center for Environmental Informatics](https://sites.psu.edu/environmentalinformatics/) at Penn State University. Subsequently the database was ported to PostgreSQL, to support a fully open data ecosystem with an Application-Program Interface (API) that could be integrated into R packages [e.g., @goring2015neotoma] or other programming languages.
+The Neotoma database was initially designed by Eric C. Grimm and implemented in Microsoft® Access®. Neotoma was ported to SQL Server, where it was served from the [Center for Environmental Informatics](https://sites.psu.edu/environmentalinformatics/) at Penn State University. Subsequently the database was ported to PostgreSQL, to support a fully open data ecosystem with an Application-Program Interface (API) that could be integrated into R packages [e.g., @Goring2015a] or other programming languages.
 
 Neotoma is now hosted through Amazon Web Services with support from the [National Sciences Foundation](https://www.nsf.gov/awardsearch/showAward?AWD_ID=1948227) and [CloudBank](https://www.cloudbank.org/). Much of the Neotoma infrastructure is open, and clearly defined through a set of open code repositories on GitHub at [https://github.com/NeotomaDB](https://github.com/NeotomaDB).
 
@@ -63,12 +63,11 @@ The existing databases have been used widely for a variety of studies. Because t
 * **Archeologists** who are studying human subsistence patterns and interactions with their environment (e.g., Grayson 2001, Grayson and Meltzer 2002, Cannon and Meltzer 2004, Grayson in press).
 * **Natural resource managers** who need to know historical ranges and abundances of plants and animals for designing conservation and management plans (e.g., Graham and Graham 1994, Cole et al. 1998, Noss et al. 2000, Owen et al. 2000, Committee on Ungulate Management in Yellowstone National Park 2002, Burns et al. 2003)
 * **Scientists** trying to understand the potential response of plants, animals, biomes, ecosystems, and biodiversity to global warming (e.g., Bartlein et al. 1997, Davis et al. 2000, Barnosky et al. 2003, Burns et al. 2003, Kaplan et al. 2003, Schmitz et al. 2003, Jackson and Williams 2004, Martínez-Meyer et al. 2004)
-* **Teachers** who use the databases for teaching purposes and class exercises [@goring].
+* **Teachers** who use the databases for teaching purposes and class exercises [@Goring2018].
 
 ## Navigation
 
 - **[Table Overview](overview.md)** - Summary of all database tables
-- **[Tables](tables/)** - Detailed documentation for each table
 - **[Common Queries](queries.md)** - Frequently used query patterns
 - **[Schema Diagram](schema.md)** - Visual representation of table relationships
 

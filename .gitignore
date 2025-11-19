@@ -8,3 +8,9 @@ wheels/
 
 # Virtual environments
 .venv
+
+docs/assets/references.bib.sav
+
+docs/assets/references.bib.bak
+
+site/
