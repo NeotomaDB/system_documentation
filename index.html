@@ -12,7 +12,7 @@
         <meta name="author" content="Simon J. Goring">
       
       
-        <link rel="canonical" href="https://your-org.github.io/system-docs/">
+        <link rel="canonical" href="https://open.neotomadb.org/system_documentation/">
       
       
       
@@ -71,7 +71,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="grey" data-md-color-accent="teal">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -127,7 +127,7 @@
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="grey" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
     
       <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
@@ -137,7 +137,7 @@
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="grey" data-md-color-accent="teal"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
     
       <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
@@ -467,7 +467,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#contributing-to-documentation" class="md-nav__link">
+  <a href="#contributing_to_documentation" class="md-nav__link">
     <span class="md-ellipsis">
       
         Contributing to Documentation
@@ -610,6 +610,34 @@
     
   
     Design Concepts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="database/connection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Connecting to Neotoma
   
 
     
@@ -950,7 +978,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#contributing-to-documentation" class="md-nav__link">
+  <a href="#contributing_to_documentation" class="md-nav__link">
     <span class="md-ellipsis">
       
         Contributing to Documentation
@@ -980,20 +1008,20 @@
   
 
 
-<h1 id="acknowledgements">Acknowledgements</h1>
+<h1 id="acknowledgements">Acknowledgements<a class="headerlink" href="#acknowledgements" title="Permanent link">#</a></h1>
 <p>The documentation for the <a href="https://neotomadb.org">Neotoma Paleoecology Database</a> would not be possible without the extrordinary work of Dr. Eric C. Grimm <sup id="fnref:Jacobson2021"><a class="footnote-ref" href="#fn:Jacobson2021">1</a></sup> who spent countless hours developing the original database manual, and was the center of an incredible community built around the database. Neotoma rests on the work of a number of researchers who contributed to the original North American Pollen Database, and subsequent data contributors, including FAUNMAP contributors and the data contributions of Allan Ashworth. The Neotoma Database would not exist were it not for the ongoing contributions of authors, data analysts and funding agencies, in particular the National Sciences Foundation. This manual draws heavily from Eric Grimm's original Neotoma manual (v2), published as <sup id="fnref:Grimm2008a"><a class="footnote-ref" href="#fn:Grimm2008a">2</a></sup>.</p>
 <p>The Postgres snapshot of the database is accessible from <a href="http://www.neotomadb.org/snapshots">the Neotoma Snapshots page</a>. For users who may be interested in loading the database using Docker, a GitHub repository is available to install the latest snapshot and build a container locally.</p>
 <p>This documentation is divided up to provide an overview of the core Neotoma Services. These include:</p>
-<h2 id="overview">Overview</h2>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">#</a></h2>
 <ul>
-<li>Database Documentation, which covers the major design concepts, table descriptions and examples of table use and vocabulary terms.</li>
-<li>API Documentation, the high-level method for accessing Neotoma data over the internet. The API (Application-Program Interface) uses URL queries to access information about Neotoma sites, datasets and more.</li>
-<li>AWS Cloud Infrastructure, providing standard operating procedures for data administrators, and providing guidance for researcher interested in how Neotoma has implemented its online design.</li>
+<li><a href="database/">Database Documentation</a>, which covers the major design concepts, table descriptions and examples of table use and vocabulary terms.</li>
+<li><a href="api/">API Documentation</a>, the high-level method for accessing Neotoma data over the internet. The API (Application-Program Interface) uses URL queries to access information about Neotoma sites, datasets and more.</li>
+<li><a href="aws/">AWS Cloud Infrastructure</a>, providing standard operating procedures for data administrators, and providing guidance for researcher interested in how Neotoma has implemented its online design.</li>
 <li>R Documentation, providing guidance for the <code>neotoma2</code> R package.</li>
 <li>Workbooks, providing worked examples of Neotoma data workflows used by researchers.</li>
 </ul>
-<h2 id="contributing-to-documentation">Contributing to Documentation</h2>
-<p>All documentation for Neotoma is managed in the Neotoma <code>system_documentation</code> GitHub repository. Most of the documentaiton is written using plain-text Markdown, in an effort to make editing and contributing documentation as simple as possible. All contributors are expected to follow the Contributor Code of Conduct. For more information please reach out.</p>
+<h2 id="contributing_to_documentation">Contributing to Documentation<a class="headerlink" href="#contributing_to_documentation" title="Permanent link">#</a></h2>
+<p>All documentation for Neotoma is managed in the Neotoma <a href="https://github.com/NeotomaDB/system_documentation"><code>system_documentation</code> GitHub repository</a>. Most of the documentaiton is written using plain-text Markdown, in an effort to make editing and contributing documentation as simple as possible. All contributors are expected to follow the Contributor Code of Conduct. For more information please reach out.</p>
 <div class="footnote">
 <hr />
 <ol>
@@ -1027,7 +1055,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="November 17, 2025 18:13:52 UTC"><span class="timeago" datetime="2025-11-17T18:13:52+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 17, 2025 18:13:52 UTC">2025-11-17</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="November 19, 2025 02:16:48 UTC"><span class="timeago" datetime="2025-11-19T02:16:48+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 19, 2025 02:16:48 UTC">2025-11-19</span>
   </span>
 
     

@@ -7,7 +7,7 @@
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <meta content="Comprehensive documentation for the Neotoma database and infrastructure" name="description"/>
 <meta content="Simon J. Goring" name="author"/>
-<link href="https://your-org.github.io/system-docs/api/" rel="canonical">
+<link href="https://open.neotomadb.org/system_documentation/api/" rel="canonical">
 <link href="../database/overview/" rel="prev"/>
 <link href="quickstart/" rel="next"/>
 <link href="../assets/images/favicon.png" rel="icon"/>
@@ -21,12 +21,12 @@
 <link href="../css/timeago.css" rel="stylesheet"/>
 <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
 </head>
-<body data-md-color-accent="indigo" data-md-color-primary="indigo" data-md-color-scheme="default" dir="ltr">
+<body data-md-color-accent="teal" data-md-color-primary="grey" data-md-color-scheme="default" dir="ltr">
 <input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
 <input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
 <label class="md-overlay" for="__drawer"></label>
 <div data-md-component="skip">
-<a class="md-skip" href="#api-documentation">
+<a class="md-skip" href="#api_documentation">
           Skip to content
         </a>
 </div>
@@ -57,11 +57,11 @@
 </div>
 </div>
 <form class="md-header__option" data-md-component="palette">
-<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="" data-md-color-primary="indigo" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="teal" data-md-color-media="" data-md-color-primary="grey" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
 <label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
 </label>
-<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="" data-md-color-primary="indigo" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="teal" data-md-color-media="" data-md-color-primary="grey" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
 <label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
 </label>
@@ -277,6 +277,18 @@
 </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="../database/connection/">
+<span class="md-ellipsis">
+    
+  
+    Connecting to Neotoma
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="../database/overview/">
 <span class="md-ellipsis">
     
@@ -344,7 +356,7 @@
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#interactive-api-documentation">
+<a class="md-nav__link" href="#interactive_api_documentation">
 <span class="md-ellipsis">
       
         Interactive API Documentation
@@ -353,7 +365,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#quick-links">
+<a class="md-nav__link" href="#quick_links">
 <span class="md-ellipsis">
       
         Quick Links
@@ -362,7 +374,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#base-url">
+<a class="md-nav__link" href="#base_url">
 <span class="md-ellipsis">
       
         Base URL
@@ -380,7 +392,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#rate-limits">
+<a class="md-nav__link" href="#rate_limits">
 <span class="md-ellipsis">
       
         Rate Limits
@@ -490,7 +502,7 @@
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#interactive-api-documentation">
+<a class="md-nav__link" href="#interactive_api_documentation">
 <span class="md-ellipsis">
       
         Interactive API Documentation
@@ -499,7 +511,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#quick-links">
+<a class="md-nav__link" href="#quick_links">
 <span class="md-ellipsis">
       
         Quick Links
@@ -508,7 +520,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#base-url">
+<a class="md-nav__link" href="#base_url">
 <span class="md-ellipsis">
       
         Base URL
@@ -526,7 +538,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#rate-limits">
+<a class="md-nav__link" href="#rate_limits">
 <span class="md-ellipsis">
       
         Rate Limits
@@ -550,30 +562,30 @@
 </div>
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
-<h1 id="api-documentation">API Documentation</h1>
+<h1 id="api_documentation">API Documentation<a class="headerlink" href="#api_documentation" title="Permanent link">#</a></h1>
 <p>The Research Database API provides programmatic access to the database through RESTful endpoints.</p>
-<h2 id="interactive-api-documentation">Interactive API Documentation</h2>
+<h2 id="interactive_api_documentation">Interactive API Documentation<a class="headerlink" href="#interactive_api_documentation" title="Permanent link">#</a></h2>
 <p><iframe class="swagger-ui-iframe" frameborder="0" id="af366a0f" onload="this.style.display = 'block'; this.style.overflow = 'hidden'; this.style.width = '100%';" src="swagger-af366a0f.html" style="display:none;" width="100%"></iframe></p>
-<h2 id="quick-links">Quick Links</h2>
+<h2 id="quick_links">Quick Links<a class="headerlink" href="#quick_links" title="Permanent link">#</a></h2>
 <ul>
 <li><a href="authentication/">Authentication Guide</a></li>
 <li><a href="quickstart/">Quick Start</a></li>
 <li><a href="endpoints/by-table/">Endpoints by Database Table</a></li>
 </ul>
-<h2 id="base-url">Base URL</h2>
+<h2 id="base_url">Base URL<a class="headerlink" href="#base_url" title="Permanent link">#</a></h2>
 <p><strong>Production</strong>: <code>https://api.neotomadb.org/</code><br/>
 <strong>Development</strong>: <code>http://api-dev.neotomadb.org</code></p>
-<h2 id="authentication">Authentication</h2>
+<h2 id="authentication">Authentication<a class="headerlink" href="#authentication" title="Permanent link">#</a></h2>
 <p>All API requests require authentication. See the <a href="authentication/">Authentication Guide</a> for details.</p>
-<h2 id="rate-limits">Rate Limits</h2>
+<h2 id="rate_limits">Rate Limits<a class="headerlink" href="#rate_limits" title="Permanent link">#</a></h2>
 <ul>
 <li><strong>Authenticated requests</strong>: 1000 requests/hour</li>
 <li><strong>Unauthenticated requests</strong>: 100 requests/hour</li>
 </ul>
-<h2 id="support">Support</h2>
+<h2 id="support">Support<a class="headerlink" href="#support" title="Permanent link">#</a></h2>
 <p>For API support, contact: <a href="mailto:goring@wisc.edu">goring@wisc.edu</a></p>
 <hr/>
-<p><em>API Version: 2.0-oas3 | Last Updated: 2025-11-18</em></p>
+<p><em>API Version: 2.0-oas3 | Last Updated: 2025-11-24</em></p>
 <aside class="md-source-file">
 <span class="md-source-file__fact">
 <span class="md-icon" title="Last update">
