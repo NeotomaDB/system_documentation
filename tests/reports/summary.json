@@ -1,18 +1,18 @@
 {
-  "generated_at": "2025-11-14T12:38:31.636832",
-  "total_tests": 11,
+  "generated_at": "2025-11-21T11:09:37.154247",
+  "total_tests": 13,
   "passed": 2,
-  "failed": 9,
+  "failed": 11,
   "by_severity": {
     "error": {
+      "total": 7,
+      "passed": 1,
+      "failed": 6
+    },
+    "warning": {
       "total": 6,
       "passed": 1,
       "failed": 5
-    },
-    "warning": {
-      "total": 5,
-      "passed": 1,
-      "failed": 4
     }
   },
   "by_category": {
@@ -22,14 +22,14 @@
       "failed": 2
     },
     "data_completeness": {
-      "total": 2,
-      "passed": 0,
-      "failed": 2
-    },
-    "data_validity": {
       "total": 3,
       "passed": 0,
       "failed": 3
+    },
+    "data_validity": {
+      "total": 4,
+      "passed": 0,
+      "failed": 4
     },
     "business_rules": {
       "total": 2,

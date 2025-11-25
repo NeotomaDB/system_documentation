@@ -103,21 +103,38 @@ data_completeness:
       - Contact data owner to identify responsible investigator
 
   - id: comp_002
-    name: samples_have_dates
-    description: Samples should have collection dates
+    name: collectionunits_have_dates
+    description: collectionunits should have collection dates
     severity: warning
     tables:
-      - samples
+      - collectionunits
     query: |
-      SELECT sampleid, samplename
-      FROM ndb.samples
-      WHERE sampledate IS NULL
+      SELECT collectionunitid, handle
+      FROM ndb.collectionunits
+      WHERE colldate IS NULL
     expect: empty
     rationale: |
       Collection dates are critical for temporal analysis and data quality.
     remediation: |
-      - Review original data sources for date information
-      - Estimate dates if exact dates unavailable
+      - Review original data sources for date information.
+      - Derive dates from publications where available.
+      - Record the decision making processes at a Constituent Database level. 
+  - id: comp_003
+    name: taxa_have_been_added_by_stewards
+    description: When a taxon is submitted to Neotoma there should be a person associated with that submission
+    severity: warning
+    tables:
+      - taxa
+    query: |
+      SELECT taxonid
+      FROM ndb.taxa
+      WHERE validatorid IS NULL
+    expect: empty
+    rationale: |
+      We should know who placed a taxon into the hierarchy so we have some background 
+      on any decision making or choices that defined that placement.
+    remediation: |
+      - Confirm placement with stewards, identify those stewards as the validators.
 
 data_validity:
   - id: valid_001
@@ -127,9 +144,9 @@ data_validity:
     tables:
       - sites
     query: |
-      SELECT siteid, sitename, latitude, longitude
+      SELECT siteid, sitename
       FROM ndb.sites
-      WHERE latitude < -90 OR latitude > 90
+      WHERE latitudenorth < -90 OR latitudesouth < -90
          OR longitude < -180 OR longitude > 180
     expect: empty
     rationale: |
@@ -179,6 +196,24 @@ data_validity:
     remediation: |
       - Check with data stewards for the particular data type.
       - Ensure that the taxa are valid.
+  - id: valid_004
+    name: sites_not_on_equator
+    description: Some sites seem to have been placed at the equator for one reason or another.
+    severity: error
+    tables:
+      - sites
+    query: |
+      SELECT *
+      FROM ndb.sites
+      WHERE latitudenorth = 0 
+      AND latitudesouth = 0
+      AND longitudeeast = 0
+      AND longitudewest = 0
+    expect: empty
+    rationale: It's unlikely that any site exists exactly at the equator.
+    remediation: |
+      - Check with the relevant steward, and check with the data uploader
+      - Check the associated publication for site information
 
 business_rules:
   - id: biz_001
@@ -223,4 +258,5 @@ business_rules:
       issue with conflicting hierarchies that needs to be resolved by the data stewardship team.
     remediation:
       - Identify the `correct` entry, remove duplicate entries.
+  
 
