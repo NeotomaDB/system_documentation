@@ -1,7 +1,7 @@
 site_name: Neotoma System Documentation
 site_description: Comprehensive documentation for the Neotoma database and infrastructure
 site_author: Simon J. Goring
-site_url: https://your-org.github.io/system-docs
+site_url: https://open.neotomadb.org/system_documentation
 
 repo_url: https://github.com/NeotomaDB/system_documentation
 repo_name: NeotomaDB/system_documentation
@@ -13,15 +13,15 @@ theme:
   palette:
     # Light mode
     - scheme: default
-      primary: indigo
-      accent: indigo
+      primary: grey
+      accent: teal
       toggle:
         icon: material/brightness-7
         name: Switch to dark mode
     # Dark mode
     - scheme: slate
-      primary: indigo
-      accent: indigo
+      primary: grey
+      accent: teal
       toggle:
         icon: material/brightness-4
         name: Switch to light mode
@@ -39,6 +39,9 @@ theme:
 
 plugins:
   - search
+  - tags
+  - autorefs
+  - mermaid2
   - bibtex:
       bib_file: "docs/assets/references.bib"
   - privacy
@@ -52,6 +55,9 @@ plugins:
   - swagger-ui-tag
 
 markdown_extensions:
+  - toc:
+      permalink: '#'
+      separator: "_"
   - footnotes
   - pymdownx.highlight:
       anchor_linenums: true
@@ -63,7 +69,7 @@ markdown_extensions:
       custom_fences:
         - name: mermaid
           class: mermaid
-          format: !!python/name:pymdownx.superfences.fence_code_format
+          format: !!python/name:mermaid2.fence_mermaid_custom
   - pymdownx.tabbed:
       alternate_style: true
   - admonition
@@ -84,6 +90,7 @@ nav:
       - Introduction: database/index.md
       - Neotoma Database History: database/neotoma_history.md
       - Design Concepts: database/design_concepts.md
+      - Connecting to Neotoma: database/connection.md
       - Table Overview: database/overview.md
   - API:
       - Overview: api/index.md

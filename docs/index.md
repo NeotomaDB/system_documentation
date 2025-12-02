@@ -8,12 +8,12 @@ This documentation is divided up to provide an overview of the core Neotoma Serv
 
 ## Overview
 
-* Database Documentation, which covers the major design concepts, table descriptions and examples of table use and vocabulary terms.
-* API Documentation, the high-level method for accessing Neotoma data over the internet. The API (Application-Program Interface) uses URL queries to access information about Neotoma sites, datasets and more.
-* AWS Cloud Infrastructure, providing standard operating procedures for data administrators, and providing guidance for researcher interested in how Neotoma has implemented its online design.
+* [Database Documentation](database/index.md), which covers the major design concepts, table descriptions and examples of table use and vocabulary terms.
+* [API Documentation](api/index.md), the high-level method for accessing Neotoma data over the internet. The API (Application-Program Interface) uses URL queries to access information about Neotoma sites, datasets and more.
+* [AWS Cloud Infrastructure](aws/index.md), providing standard operating procedures for data administrators, and providing guidance for researcher interested in how Neotoma has implemented its online design.
 * R Documentation, providing guidance for the `neotoma2` R package.
 * Workbooks, providing worked examples of Neotoma data workflows used by researchers.
 
 ## Contributing to Documentation
 
-All documentation for Neotoma is managed in the Neotoma `system_documentation` GitHub repository. Most of the documentaiton is written using plain-text Markdown, in an effort to make editing and contributing documentation as simple as possible. All contributors are expected to follow the Contributor Code of Conduct. For more information please reach out.
+All documentation for Neotoma is managed in the Neotoma [`system_documentation` GitHub repository](https://github.com/NeotomaDB/system_documentation). Most of the documentaiton is written using plain-text Markdown, in an effort to make editing and contributing documentation as simple as possible. All contributors are expected to follow the Contributor Code of Conduct. For more information please reach out.

@@ -1,6 +1,6 @@
 # Data Quality Report
 
-**Generated**: 2025-11-14 12:38:31
+**Generated**: 2025-11-21 11:09:37
 
 ## Summary
 
@@ -15,11 +15,11 @@
 
 ## Data Completeness
 
-**Pass Rate**: 0/2
+**Pass Rate**: 0/3
 
 ## Data Validity
 
-**Pass Rate**: 0/3
+**Pass Rate**: 0/4
 
 ## Business Rules
 

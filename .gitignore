@@ -14,3 +14,12 @@ docs/assets/references.bib.sav
 docs/assets/references.bib.bak
 
 site/
+
+# Snyk Security Extension - AI Rules (auto-generated)
+.github/instructions/snyk_rules.instructions.md
+
+warnings.txt
+
+.cache/
+
+uv.lock
