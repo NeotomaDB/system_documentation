@@ -1,1 +1,701 @@
-{"created": 1763752177.1055984, "duration": 1.0947871208190918, "exitcode": 1, "root": "/home/simon/Documents/Neotoma/system_documentation", "environment": {}, "summary": {"failed": 2, "passed": 2, "total": 4, "collected": 4}, "collectors": [{"nodeid": "", "outcome": "passed", "result": [{"nodeid": "tests/data_quality", "type": "Dir"}]}, {"nodeid": "tests/data_quality/test_referential_integrity.py", "outcome": "passed", "result": [{"nodeid": "tests/data_quality/test_referential_integrity.py::test_referential_integrity[ref_001]", "type": "Function", "lineno": 52}, {"nodeid": "tests/data_quality/test_referential_integrity.py::test_referential_integrity[ref_002]", "type": "Function", "lineno": 52}, {"nodeid": "tests/data_quality/test_referential_integrity.py::test_referential_integrity[ref_003]", "type": "Function", "lineno": 52}, {"nodeid": "tests/data_quality/test_referential_integrity.py::test_referential_integrity[ref_004]", "type": "Function", "lineno": 52}]}, {"nodeid": "tests/data_quality", "outcome": "passed", "result": [{"nodeid": "tests/data_quality/test_referential_integrity.py", "type": "Module"}]}], "tests": [{"nodeid": "tests/data_quality/test_referential_integrity.py::test_referential_integrity[ref_001]", "lineno": 52, "outcome": "failed", "keywords": ["test_referential_integrity[ref_001]", "ref_001", "test_referential_integrity.py", "data_quality", "tests", "system_documentation", ""], "setup": {"duration": 0.4929411100456491, "outcome": "passed"}, "call": {"duration": 0.2380376509972848, "outcome": "failed", "crash": {"path": "/home/simon/Documents/Neotoma/system_documentation/tests/data_quality/test_referential_integrity.py", "lineno": 59, "message": "AssertionError: \n  ================================================================================\n  Test Failed: datasets_referenced_by_samples (ref_001)\n  ================================================================================\n  Description: All datasets should be referenced by at least one sample\n  \n  Rationale: Every dataset should have associated samples. A dataset without samples\n  indicates either incomplete data entry or orphaned records.\n  \n  \n  Expected: No violations\n  Found: 99 violations\n  \n  Sample violations:\n  --------------------------------------------------------------------------------\n  RealDictRow({'datasetid': 16232, 'datasetname': 'Rio Dell Assemblage'})\n  RealDictRow({'datasetid': 18052, 'datasetname': 'Halifax Lakes'})\n  RealDictRow({'datasetid': 18053, 'datasetname': 'Halifax Lakes'})\n  RealDictRow({'datasetid': 21425, 'datasetname': 'gravity corer'})\n  RealDictRow({'datasetid': 21673, 'datasetname': 'Rusk County ANSP'})\n  RealDictRow({'datasetid': 22700, 'datasetname': None})\n  RealDictRow({'datasetid': 22702, 'datasetname': None})\n  RealDictRow({'datasetid': 24307, 'datasetname': 'EPD E# 1080'})\n  RealDictRow({'datasetid': 24309, 'datasetname': 'EPD E# 1082'})\n  RealDictRow({'datasetid': 24310, 'datasetname': 'EPD E# 1082'})\nassert 99 == 0\n +  where 99 = len([RealDictRow({'datasetid': 16232, 'datasetname': 'Rio Dell Assemblage'}), RealDictRow({'datasetid': 18052, 'datasetname': 'Halifax Lakes'}), RealDictRow({'datasetid': 18053, 'datasetname': 'Halifax Lakes'}), RealDictRow({'datasetid': 21425, 'datasetname': 'gravity corer'}), RealDictRow({'datasetid': 21673, 'datasetname': 'Rusk County ANSP'}), RealDictRow({'datasetid': 22700, 'datasetname': None}), ...])"}, "traceback": [{"path": "tests/data_quality/test_referential_integrity.py", "lineno": 59, "message": "AssertionError"}], "longrepr": "cursor = <cursor object at 0x7ac91b933e50; closed: 0>\ntest_def = {'description': 'All datasets should be referenced by at least one sample', 'expect': 'empty', 'id': 'ref_001', 'name': 'datasets_referenced_by_samples', ...}\n\n    def test_referential_integrity(cursor, test_def):\n        \"\"\"Run referential integrity test\"\"\"\n        cursor.execute(test_def['query'])\n        results = cursor.fetchall()\n    \n        if test_def['expect'] == 'empty':\n>           assert len(results) == 0, (\n                f\"\\n{'='*80}\\n\"\n                f\"Test Failed: {test_def['name']} ({test_def['id']})\\n\"\n                f\"{'='*80}\\n\"\n                f\"Description: {test_def['description']}\\n\\n\"\n                f\"Rationale: {test_def['rationale']}\\n\\n\"\n                f\"Expected: No violations\\n\"\n                f\"Found: {len(results)} violations\\n\\n\"\n                f\"Sample violations:\\n\"\n                f\"{'-'*80}\\n\"\n            ) + \"\\n\".join([str(row) for row in results[:10]])\nE           AssertionError: \nE             ================================================================================\nE             Test Failed: datasets_referenced_by_samples (ref_001)\nE             ================================================================================\nE             Description: All datasets should be referenced by at least one sample\nE             \nE             Rationale: Every dataset should have associated samples. A dataset without samples\nE             indicates either incomplete data entry or orphaned records.\nE             \nE             \nE             Expected: No violations\nE             Found: 99 violations\nE             \nE             Sample violations:\nE             --------------------------------------------------------------------------------\nE             RealDictRow({'datasetid': 16232, 'datasetname': 'Rio Dell Assemblage'})\nE             RealDictRow({'datasetid': 18052, 'datasetname': 'Halifax Lakes'})\nE             RealDictRow({'datasetid': 18053, 'datasetname': 'Halifax Lakes'})\nE             RealDictRow({'datasetid': 21425, 'datasetname': 'gravity corer'})\nE             RealDictRow({'datasetid': 21673, 'datasetname': 'Rusk County ANSP'})\nE             RealDictRow({'datasetid': 22700, 'datasetname': None})\nE             RealDictRow({'datasetid': 22702, 'datasetname': None})\nE             RealDictRow({'datasetid': 24307, 'datasetname': 'EPD E# 1080'})\nE             RealDictRow({'datasetid': 24309, 'datasetname': 'EPD E# 1082'})\nE             RealDictRow({'datasetid': 24310, 'datasetname': 'EPD E# 1082'})\nE           assert 99 == 0\nE            +  where 99 = len([RealDictRow({'datasetid': 16232, 'datasetname': 'Rio Dell Assemblage'}), RealDictRow({'datasetid': 18052, 'datasetname': 'Halifax Lakes'}), RealDictRow({'datasetid': 18053, 'datasetname': 'Halifax Lakes'}), RealDictRow({'datasetid': 21425, 'datasetname': 'gravity corer'}), RealDictRow({'datasetid': 21673, 'datasetname': 'Rusk County ANSP'}), RealDictRow({'datasetid': 22700, 'datasetname': None}), ...])\n\ntests/data_quality/test_referential_integrity.py:59: AssertionError"}, "teardown": {"duration": 0.0001500080106779933, "outcome": "passed"}}, {"nodeid": "tests/data_quality/test_referential_integrity.py::test_referential_integrity[ref_002]", "lineno": 52, "outcome": "passed", "keywords": ["test_referential_integrity[ref_002]", "ref_002", "test_referential_integrity.py", "data_quality", "tests", "system_documentation", ""], "setup": {"duration": 0.00015856098616495728, "outcome": "passed"}, "call": {"duration": 0.1810596429859288, "outcome": "passed"}, "teardown": {"duration": 9.815196972340345e-05, "outcome": "passed"}}, {"nodeid": "tests/data_quality/test_referential_integrity.py::test_referential_integrity[ref_003]", "lineno": 52, "outcome": "failed", "keywords": ["test_referential_integrity[ref_003]", "ref_003", "test_referential_integrity.py", "data_quality", "tests", "system_documentation", ""], "setup": {"duration": 0.00021513900719583035, "outcome": "passed"}, "call": {"duration": 0.08363428898155689, "outcome": "failed", "crash": {"path": "/home/simon/Documents/Neotoma/system_documentation/tests/data_quality/test_referential_integrity.py", "lineno": 59, "message": "AssertionError: \n  ================================================================================\n  Test Failed: sites_have_collection_units (ref_003)\n  ================================================================================\n  Description: All sites should have at least one collection unit.\n  \n  Rationale: All sites should have one collection unit from which samples are obtained.\n  \n  \n  Expected: No violations\n  Found: 79 violations\n  \n  Sample violations:\n  --------------------------------------------------------------------------------\n  RealDictRow({'siteid': 30939, 'collectionunitid': None})\n  RealDictRow({'siteid': 30940, 'collectionunitid': None})\n  RealDictRow({'siteid': 30942, 'collectionunitid': None})\n  RealDictRow({'siteid': 30953, 'collectionunitid': None})\n  RealDictRow({'siteid': 30999, 'collectionunitid': None})\n  RealDictRow({'siteid': 31292, 'collectionunitid': None})\n  RealDictRow({'siteid': 31408, 'collectionunitid': None})\n  RealDictRow({'siteid': 31409, 'collectionunitid': None})\n  RealDictRow({'siteid': 31410, 'collectionunitid': None})\n  RealDictRow({'siteid': 31411, 'collectionunitid': None})\nassert 79 == 0\n +  where 79 = len([RealDictRow({'siteid': 30939, 'collectionunitid': None}), RealDictRow({'siteid': 30940, 'collectionunitid': None}), RealDictRow({'siteid': 30942, 'collectionunitid': None}), RealDictRow({'siteid': 30953, 'collectionunitid': None}), RealDictRow({'siteid': 30999, 'collectionunitid': None}), RealDictRow({'siteid': 31292, 'collectionunitid': None}), ...])"}, "traceback": [{"path": "tests/data_quality/test_referential_integrity.py", "lineno": 59, "message": "AssertionError"}], "longrepr": "cursor = <cursor object at 0x7ac91b9cc550; closed: 0>\ntest_def = {'description': 'All sites should have at least one collection unit.', 'expect': 'empty', 'id': 'ref_003', 'name': 'sites_have_collection_units', ...}\n\n    def test_referential_integrity(cursor, test_def):\n        \"\"\"Run referential integrity test\"\"\"\n        cursor.execute(test_def['query'])\n        results = cursor.fetchall()\n    \n        if test_def['expect'] == 'empty':\n>           assert len(results) == 0, (\n                f\"\\n{'='*80}\\n\"\n                f\"Test Failed: {test_def['name']} ({test_def['id']})\\n\"\n                f\"{'='*80}\\n\"\n                f\"Description: {test_def['description']}\\n\\n\"\n                f\"Rationale: {test_def['rationale']}\\n\\n\"\n                f\"Expected: No violations\\n\"\n                f\"Found: {len(results)} violations\\n\\n\"\n                f\"Sample violations:\\n\"\n                f\"{'-'*80}\\n\"\n            ) + \"\\n\".join([str(row) for row in results[:10]])\nE           AssertionError: \nE             ================================================================================\nE             Test Failed: sites_have_collection_units (ref_003)\nE             ================================================================================\nE             Description: All sites should have at least one collection unit.\nE             \nE             Rationale: All sites should have one collection unit from which samples are obtained.\nE             \nE             \nE             Expected: No violations\nE             Found: 79 violations\nE             \nE             Sample violations:\nE             --------------------------------------------------------------------------------\nE             RealDictRow({'siteid': 30939, 'collectionunitid': None})\nE             RealDictRow({'siteid': 30940, 'collectionunitid': None})\nE             RealDictRow({'siteid': 30942, 'collectionunitid': None})\nE             RealDictRow({'siteid': 30953, 'collectionunitid': None})\nE             RealDictRow({'siteid': 30999, 'collectionunitid': None})\nE             RealDictRow({'siteid': 31292, 'collectionunitid': None})\nE             RealDictRow({'siteid': 31408, 'collectionunitid': None})\nE             RealDictRow({'siteid': 31409, 'collectionunitid': None})\nE             RealDictRow({'siteid': 31410, 'collectionunitid': None})\nE             RealDictRow({'siteid': 31411, 'collectionunitid': None})\nE           assert 79 == 0\nE            +  where 79 = len([RealDictRow({'siteid': 30939, 'collectionunitid': None}), RealDictRow({'siteid': 30940, 'collectionunitid': None}), RealDictRow({'siteid': 30942, 'collectionunitid': None}), RealDictRow({'siteid': 30953, 'collectionunitid': None}), RealDictRow({'siteid': 30999, 'collectionunitid': None}), RealDictRow({'siteid': 31292, 'collectionunitid': None}), ...])\n\ntests/data_quality/test_referential_integrity.py:59: AssertionError"}, "teardown": {"duration": 0.00010784598998725414, "outcome": "passed"}}, {"nodeid": "tests/data_quality/test_referential_integrity.py::test_referential_integrity[ref_004]", "lineno": 52, "outcome": "passed", "keywords": ["test_referential_integrity[ref_004]", "ref_004", "test_referential_integrity.py", "data_quality", "tests", "system_documentation", ""], "setup": {"duration": 0.00016718701226636767, "outcome": "passed"}, "call": {"duration": 0.07491405302425846, "outcome": "passed"}, "teardown": {"duration": 0.00029921799432486296, "outcome": "passed"}}]}
+{
+  "created": 1764636412.5957298,
+  "duration": 30.455787658691406,
+  "exitcode": 1,
+  "root": "/home/simon/Documents/Neotoma/system_documentation",
+  "environment": {},
+  "summary": {
+    "failed": 10,
+    "passed": 6,
+    "total": 16,
+    "collected": 16
+  },
+  "collectors": [
+    {
+      "nodeid": "",
+      "outcome": "passed",
+      "result": [
+        {
+          "nodeid": "tests/data_quality",
+          "type": "Dir"
+        }
+      ]
+    },
+    {
+      "nodeid": "tests/data_quality/test_neotoma_database.py",
+      "outcome": "passed",
+      "result": [
+        {
+          "nodeid": "tests/data_quality/test_neotoma_database.py::test_data_quality[ref_001]",
+          "type": "Function",
+          "lineno": 23
+        },
+        {
+          "nodeid": "tests/data_quality/test_neotoma_database.py::test_data_quality[ref_002]",
+          "type": "Function",
+          "lineno": 23
+        },
+        {
+          "nodeid": "tests/data_quality/test_neotoma_database.py::test_data_quality[ref_003]",
+          "type": "Function",
+          "lineno": 23
+        },
+        {
+          "nodeid": "tests/data_quality/test_neotoma_database.py::test_data_quality[ref_004]",
+          "type": "Function",
+          "lineno": 23
+        },
+        {
+          "nodeid": "tests/data_quality/test_neotoma_database.py::test_data_quality[comp_001]",
+          "type": "Function",
+          "lineno": 23
+        },
+        {
+          "nodeid": "tests/data_quality/test_neotoma_database.py::test_data_quality[comp_002]",
+          "type": "Function",
+          "lineno": 23
+        },
+        {
+          "nodeid": "tests/data_quality/test_neotoma_database.py::test_data_quality[comp_003]",
+          "type": "Function",
+          "lineno": 23
+        },
+        {
+          "nodeid": "tests/data_quality/test_neotoma_database.py::test_data_quality[comp_004]",
+          "type": "Function",
+          "lineno": 23
+        },
+        {
+          "nodeid": "tests/data_quality/test_neotoma_database.py::test_data_quality[valid_001]",
+          "type": "Function",
+          "lineno": 23
+        },
+        {
+          "nodeid": "tests/data_quality/test_neotoma_database.py::test_data_quality[valid_003]",
+          "type": "Function",
+          "lineno": 23
+        },
+        {
+          "nodeid": "tests/data_quality/test_neotoma_database.py::test_data_quality[valid_004]",
+          "type": "Function",
+          "lineno": 23
+        },
+        {
+          "nodeid": "tests/data_quality/test_neotoma_database.py::test_data_quality[valid_005]",
+          "type": "Function",
+          "lineno": 23
+        },
+        {
+          "nodeid": "tests/data_quality/test_neotoma_database.py::test_data_quality[valid_006]",
+          "type": "Function",
+          "lineno": 23
+        },
+        {
+          "nodeid": "tests/data_quality/test_neotoma_database.py::test_data_quality[biz_001]",
+          "type": "Function",
+          "lineno": 23
+        },
+        {
+          "nodeid": "tests/data_quality/test_neotoma_database.py::test_data_quality[bix_002]",
+          "type": "Function",
+          "lineno": 23
+        },
+        {
+          "nodeid": "tests/data_quality/test_neotoma_database.py::test_data_quality[bix_003]",
+          "type": "Function",
+          "lineno": 23
+        }
+      ]
+    },
+    {
+      "nodeid": "tests/data_quality",
+      "outcome": "passed",
+      "result": [
+        {
+          "nodeid": "tests/data_quality/test_neotoma_database.py",
+          "type": "Module"
+        }
+      ]
+    }
+  ],
+  "tests": [
+    {
+      "nodeid": "tests/data_quality/test_neotoma_database.py::test_data_quality[ref_001]",
+      "lineno": 23,
+      "outcome": "failed",
+      "keywords": [
+        "test_data_quality[ref_001]",
+        "parametrize",
+        "pytestmark",
+        "ref_001",
+        "test_neotoma_database.py",
+        "data_quality",
+        "tests",
+        "system_documentation",
+        ""
+      ],
+      "setup": {
+        "duration": 1.0419366559945047,
+        "outcome": "passed"
+      },
+      "call": {
+        "duration": 0.4611066209618002,
+        "outcome": "failed",
+        "crash": {
+          "path": "/home/simon/Documents/Neotoma/system_documentation/tests/data_quality/test_neotoma_database.py",
+          "lineno": 31,
+          "message": "AssertionError: \n  ================================================================================\n  Test Failed: datasets_referenced_by_samples (ref_001)\n  Category: referential_integrity\n  ================================================================================\n  Description: All datasets should be referenced by at least one sample\n  \n  Rationale: Every dataset should have associated samples. A dataset without samples\n  indicates either incomplete data entry or orphaned records.\n  \n  \n  Expected: No violations\n  Found: 99 violations\n  \n  Sample violations:\n  --------------------------------------------------------------------------------\n  RealDictRow({'datasetid': 16232, 'datasetname': 'Rio Dell Assemblage'})\n  RealDictRow({'datasetid': 18052, 'datasetname': 'Halifax Lakes'})\n  RealDictRow({'datasetid': 18053, 'datasetname': 'Halifax Lakes'})\n  RealDictRow({'datasetid': 21425, 'datasetname': 'gravity corer'})\n  RealDictRow({'datasetid': 21673, 'datasetname': 'Rusk County ANSP'})\n  RealDictRow({'datasetid': 22700, 'datasetname': None})\n  RealDictRow({'datasetid': 22702, 'datasetname': None})\n  RealDictRow({'datasetid': 24307, 'datasetname': 'EPD E# 1080'})\n  RealDictRow({'datasetid': 24309, 'datasetname': 'EPD E# 1082'})\n  RealDictRow({'datasetid': 24310, 'datasetname': 'EPD E# 1082'})\nassert 99 == 0\n +  where 99 = len([RealDictRow({'datasetid': 16232, 'datasetname': 'Rio Dell Assemblage'}), RealDictRow({'datasetid': 18052, 'datasetname': 'Halifax Lakes'}), RealDictRow({'datasetid': 18053, 'datasetname': 'Halifax Lakes'}), RealDictRow({'datasetid': 21425, 'datasetname': 'gravity corer'}), RealDictRow({'datasetid': 21673, 'datasetname': 'Rusk County ANSP'}), RealDictRow({'datasetid': 22700, 'datasetname': None}), ...])"
+        },
+        "traceback": [
+          {
+            "path": "tests/data_quality/test_neotoma_database.py",
+            "lineno": 31,
+            "message": "in test_data_quality"
+          }
+        ],
+        "longrepr": "tests/data_quality/test_neotoma_database.py:31: in test_data_quality\n    assert len(results) == 0, (\nE   AssertionError: \nE     ================================================================================\nE     Test Failed: datasets_referenced_by_samples (ref_001)\nE     Category: referential_integrity\nE     ================================================================================\nE     Description: All datasets should be referenced by at least one sample\nE     \nE     Rationale: Every dataset should have associated samples. A dataset without samples\nE     indicates either incomplete data entry or orphaned records.\nE     \nE     \nE     Expected: No violations\nE     Found: 99 violations\nE     \nE     Sample violations:\nE     --------------------------------------------------------------------------------\nE     RealDictRow({'datasetid': 16232, 'datasetname': 'Rio Dell Assemblage'})\nE     RealDictRow({'datasetid': 18052, 'datasetname': 'Halifax Lakes'})\nE     RealDictRow({'datasetid': 18053, 'datasetname': 'Halifax Lakes'})\nE     RealDictRow({'datasetid': 21425, 'datasetname': 'gravity corer'})\nE     RealDictRow({'datasetid': 21673, 'datasetname': 'Rusk County ANSP'})\nE     RealDictRow({'datasetid': 22700, 'datasetname': None})\nE     RealDictRow({'datasetid': 22702, 'datasetname': None})\nE     RealDictRow({'datasetid': 24307, 'datasetname': 'EPD E# 1080'})\nE     RealDictRow({'datasetid': 24309, 'datasetname': 'EPD E# 1082'})\nE     RealDictRow({'datasetid': 24310, 'datasetname': 'EPD E# 1082'})\nE   assert 99 == 0\nE    +  where 99 = len([RealDictRow({'datasetid': 16232, 'datasetname': 'Rio Dell Assemblage'}), RealDictRow({'datasetid': 18052, 'datasetname': 'Halifax Lakes'}), RealDictRow({'datasetid': 18053, 'datasetname': 'Halifax Lakes'}), RealDictRow({'datasetid': 21425, 'datasetname': 'gravity corer'}), RealDictRow({'datasetid': 21673, 'datasetname': 'Rusk County ANSP'}), RealDictRow({'datasetid': 22700, 'datasetname': None}), ...])"
+      },
+      "teardown": {
+        "duration": 0.00013357214629650116,
+        "outcome": "passed"
+      }
+    },
+    {
+      "nodeid": "tests/data_quality/test_neotoma_database.py::test_data_quality[ref_002]",
+      "lineno": 23,
+      "outcome": "passed",
+      "keywords": [
+        "test_data_quality[ref_002]",
+        "parametrize",
+        "pytestmark",
+        "ref_002",
+        "test_neotoma_database.py",
+        "data_quality",
+        "tests",
+        "system_documentation",
+        ""
+      ],
+      "setup": {
+        "duration": 0.0001874531153589487,
+        "outcome": "passed"
+      },
+      "call": {
+        "duration": 0.3138113629538566,
+        "outcome": "passed"
+      },
+      "teardown": {
+        "duration": 0.00039566587656736374,
+        "outcome": "passed"
+      }
+    },
+    {
+      "nodeid": "tests/data_quality/test_neotoma_database.py::test_data_quality[ref_003]",
+      "lineno": 23,
+      "outcome": "failed",
+      "keywords": [
+        "test_data_quality[ref_003]",
+        "parametrize",
+        "pytestmark",
+        "ref_003",
+        "test_neotoma_database.py",
+        "data_quality",
+        "tests",
+        "system_documentation",
+        ""
+      ],
+      "setup": {
+        "duration": 0.000680489931255579,
+        "outcome": "passed"
+      },
+      "call": {
+        "duration": 0.23190198908559978,
+        "outcome": "failed",
+        "crash": {
+          "path": "/home/simon/Documents/Neotoma/system_documentation/tests/data_quality/test_neotoma_database.py",
+          "lineno": 31,
+          "message": "AssertionError: \n  ================================================================================\n  Test Failed: sites_have_collection_units (ref_003)\n  Category: referential_integrity\n  ================================================================================\n  Description: All sites should have at least one collection unit.\n  \n  Rationale: All sites should have one collection unit from which samples are obtained.\n  \n  \n  Expected: No violations\n  Found: 81 violations\n  \n  Sample violations:\n  --------------------------------------------------------------------------------\n  RealDictRow({'siteid': 30939, 'collectionunitid': None})\n  RealDictRow({'siteid': 30940, 'collectionunitid': None})\n  RealDictRow({'siteid': 30942, 'collectionunitid': None})\n  RealDictRow({'siteid': 30953, 'collectionunitid': None})\n  RealDictRow({'siteid': 30999, 'collectionunitid': None})\n  RealDictRow({'siteid': 31292, 'collectionunitid': None})\n  RealDictRow({'siteid': 31408, 'collectionunitid': None})\n  RealDictRow({'siteid': 31409, 'collectionunitid': None})\n  RealDictRow({'siteid': 31410, 'collectionunitid': None})\n  RealDictRow({'siteid': 31411, 'collectionunitid': None})\nassert 81 == 0\n +  where 81 = len([RealDictRow({'siteid': 30939, 'collectionunitid': None}), RealDictRow({'siteid': 30940, 'collectionunitid': None}), RealDictRow({'siteid': 30942, 'collectionunitid': None}), RealDictRow({'siteid': 30953, 'collectionunitid': None}), RealDictRow({'siteid': 30999, 'collectionunitid': None}), RealDictRow({'siteid': 31292, 'collectionunitid': None}), ...])"
+        },
+        "traceback": [
+          {
+            "path": "tests/data_quality/test_neotoma_database.py",
+            "lineno": 31,
+            "message": "in test_data_quality"
+          }
+        ],
+        "longrepr": "tests/data_quality/test_neotoma_database.py:31: in test_data_quality\n    assert len(results) == 0, (\nE   AssertionError: \nE     ================================================================================\nE     Test Failed: sites_have_collection_units (ref_003)\nE     Category: referential_integrity\nE     ================================================================================\nE     Description: All sites should have at least one collection unit.\nE     \nE     Rationale: All sites should have one collection unit from which samples are obtained.\nE     \nE     \nE     Expected: No violations\nE     Found: 81 violations\nE     \nE     Sample violations:\nE     --------------------------------------------------------------------------------\nE     RealDictRow({'siteid': 30939, 'collectionunitid': None})\nE     RealDictRow({'siteid': 30940, 'collectionunitid': None})\nE     RealDictRow({'siteid': 30942, 'collectionunitid': None})\nE     RealDictRow({'siteid': 30953, 'collectionunitid': None})\nE     RealDictRow({'siteid': 30999, 'collectionunitid': None})\nE     RealDictRow({'siteid': 31292, 'collectionunitid': None})\nE     RealDictRow({'siteid': 31408, 'collectionunitid': None})\nE     RealDictRow({'siteid': 31409, 'collectionunitid': None})\nE     RealDictRow({'siteid': 31410, 'collectionunitid': None})\nE     RealDictRow({'siteid': 31411, 'collectionunitid': None})\nE   assert 81 == 0\nE    +  where 81 = len([RealDictRow({'siteid': 30939, 'collectionunitid': None}), RealDictRow({'siteid': 30940, 'collectionunitid': None}), RealDictRow({'siteid': 30942, 'collectionunitid': None}), RealDictRow({'siteid': 30953, 'collectionunitid': None}), RealDictRow({'siteid': 30999, 'collectionunitid': None}), RealDictRow({'siteid': 31292, 'collectionunitid': None}), ...])"
+      },
+      "teardown": {
+        "duration": 0.00012627593241631985,
+        "outcome": "passed"
+      }
+    },
+    {
+      "nodeid": "tests/data_quality/test_neotoma_database.py::test_data_quality[ref_004]",
+      "lineno": 23,
+      "outcome": "passed",
+      "keywords": [
+        "test_data_quality[ref_004]",
+        "parametrize",
+        "pytestmark",
+        "ref_004",
+        "test_neotoma_database.py",
+        "data_quality",
+        "tests",
+        "system_documentation",
+        ""
+      ],
+      "setup": {
+        "duration": 0.00019304710440337658,
+        "outcome": "passed"
+      },
+      "call": {
+        "duration": 0.14858834398910403,
+        "outcome": "passed"
+      },
+      "teardown": {
+        "duration": 0.00036473479121923447,
+        "outcome": "passed"
+      }
+    },
+    {
+      "nodeid": "tests/data_quality/test_neotoma_database.py::test_data_quality[comp_001]",
+      "lineno": 23,
+      "outcome": "failed",
+      "keywords": [
+        "test_data_quality[comp_001]",
+        "parametrize",
+        "pytestmark",
+        "comp_001",
+        "test_neotoma_database.py",
+        "data_quality",
+        "tests",
+        "system_documentation",
+        ""
+      ],
+      "setup": {
+        "duration": 0.00034900405444204807,
+        "outcome": "passed"
+      },
+      "call": {
+        "duration": 0.16630056290887296,
+        "outcome": "failed",
+        "crash": {
+          "path": "/home/simon/Documents/Neotoma/system_documentation/tests/data_quality/test_neotoma_database.py",
+          "lineno": 31,
+          "message": "AssertionError: \n  ================================================================================\n  Test Failed: datasets_have_investigators (comp_001)\n  Category: data_completeness\n  ================================================================================\n  Description: Datasets should have at least one principal investigator\n  \n  Rationale: Every dataset should have an associated principal investigator for\n  data attribution and contact purposes.\n  \n  \n  Expected: No violations\n  Found: 6434 violations\n  \n  Sample violations:\n  --------------------------------------------------------------------------------\n  RealDictRow({'datasetid': 6122, 'datasetname': None})\n  RealDictRow({'datasetid': 8533, 'datasetname': None})\n  RealDictRow({'datasetid': 66609, 'datasetname': None})\n  RealDictRow({'datasetid': 10627, 'datasetname': None})\n  RealDictRow({'datasetid': 5161, 'datasetname': None})\n  RealDictRow({'datasetid': 10876, 'datasetname': None})\n  RealDictRow({'datasetid': 6680, 'datasetname': None})\n  RealDictRow({'datasetid': 8716, 'datasetname': None})\n  RealDictRow({'datasetid': 10293, 'datasetname': None})\n  RealDictRow({'datasetid': 9408, 'datasetname': None})\nassert 6434 == 0\n +  where 6434 = len([RealDictRow({'datasetid': 6122, 'datasetname': None}), RealDictRow({'datasetid': 8533, 'datasetname': None}), RealDictRow({'datasetid': 66609, 'datasetname': None}), RealDictRow({'datasetid': 10627, 'datasetname': None}), RealDictRow({'datasetid': 5161, 'datasetname': None}), RealDictRow({'datasetid': 10876, 'datasetname': None}), ...])"
+        },
+        "traceback": [
+          {
+            "path": "tests/data_quality/test_neotoma_database.py",
+            "lineno": 31,
+            "message": "in test_data_quality"
+          }
+        ],
+        "longrepr": "tests/data_quality/test_neotoma_database.py:31: in test_data_quality\n    assert len(results) == 0, (\nE   AssertionError: \nE     ================================================================================\nE     Test Failed: datasets_have_investigators (comp_001)\nE     Category: data_completeness\nE     ================================================================================\nE     Description: Datasets should have at least one principal investigator\nE     \nE     Rationale: Every dataset should have an associated principal investigator for\nE     data attribution and contact purposes.\nE     \nE     \nE     Expected: No violations\nE     Found: 6434 violations\nE     \nE     Sample violations:\nE     --------------------------------------------------------------------------------\nE     RealDictRow({'datasetid': 6122, 'datasetname': None})\nE     RealDictRow({'datasetid': 8533, 'datasetname': None})\nE     RealDictRow({'datasetid': 66609, 'datasetname': None})\nE     RealDictRow({'datasetid': 10627, 'datasetname': None})\nE     RealDictRow({'datasetid': 5161, 'datasetname': None})\nE     RealDictRow({'datasetid': 10876, 'datasetname': None})\nE     RealDictRow({'datasetid': 6680, 'datasetname': None})\nE     RealDictRow({'datasetid': 8716, 'datasetname': None})\nE     RealDictRow({'datasetid': 10293, 'datasetname': None})\nE     RealDictRow({'datasetid': 9408, 'datasetname': None})\nE   assert 6434 == 0\nE    +  where 6434 = len([RealDictRow({'datasetid': 6122, 'datasetname': None}), RealDictRow({'datasetid': 8533, 'datasetname': None}), RealDictRow({'datasetid': 66609, 'datasetname': None}), RealDictRow({'datasetid': 10627, 'datasetname': None}), RealDictRow({'datasetid': 5161, 'datasetname': None}), RealDictRow({'datasetid': 10876, 'datasetname': None}), ...])"
+      },
+      "teardown": {
+        "duration": 0.00012924009934067726,
+        "outcome": "passed"
+      }
+    },
+    {
+      "nodeid": "tests/data_quality/test_neotoma_database.py::test_data_quality[comp_002]",
+      "lineno": 23,
+      "outcome": "failed",
+      "keywords": [
+        "test_data_quality[comp_002]",
+        "parametrize",
+        "pytestmark",
+        "comp_002",
+        "test_neotoma_database.py",
+        "data_quality",
+        "tests",
+        "system_documentation",
+        ""
+      ],
+      "setup": {
+        "duration": 0.00018350500613451004,
+        "outcome": "passed"
+      },
+      "call": {
+        "duration": 0.1596436039544642,
+        "outcome": "failed",
+        "crash": {
+          "path": "/home/simon/Documents/Neotoma/system_documentation/tests/data_quality/test_neotoma_database.py",
+          "lineno": 31,
+          "message": "AssertionError: \n  ================================================================================\n  Test Failed: collectionunits_have_dates (comp_002)\n  Category: data_completeness\n  ================================================================================\n  Description: collectionunits should have collection dates\n  \n  Rationale: Collection dates are critical for temporal analysis and data quality.\n  \n  \n  Expected: No violations\n  Found: 13637 violations\n  \n  Sample violations:\n  --------------------------------------------------------------------------------\n  RealDictRow({'collectionunitid': 1, 'handle': '15-1'})\n  RealDictRow({'collectionunitid': 2, 'handle': '15-2'})\n  RealDictRow({'collectionunitid': 3, 'handle': '16-1'})\n  RealDictRow({'collectionunitid': 4, 'handle': '17-1'})\n  RealDictRow({'collectionunitid': 5, 'handle': '17-2'})\n  RealDictRow({'collectionunitid': 6, 'handle': '17-3'})\n  RealDictRow({'collectionunitid': 7, 'handle': '3PINES'})\n  RealDictRow({'collectionunitid': 8, 'handle': 'ABALONE'})\n  RealDictRow({'collectionunitid': 10, 'handle': 'ADC001'})\n  RealDictRow({'collectionunitid': 11, 'handle': 'ADYCHA'})\nassert 13637 == 0\n +  where 13637 = len([RealDictRow({'collectionunitid': 1, 'handle': '15-1'}), RealDictRow({'collectionunitid': 2, 'handle': '15-2'}), RealDictRow({'collectionunitid': 3, 'handle': '16-1'}), RealDictRow({'collectionunitid': 4, 'handle': '17-1'}), RealDictRow({'collectionunitid': 5, 'handle': '17-2'}), RealDictRow({'collectionunitid': 6, 'handle': '17-3'}), ...])"
+        },
+        "traceback": [
+          {
+            "path": "tests/data_quality/test_neotoma_database.py",
+            "lineno": 31,
+            "message": "in test_data_quality"
+          }
+        ],
+        "longrepr": "tests/data_quality/test_neotoma_database.py:31: in test_data_quality\n    assert len(results) == 0, (\nE   AssertionError: \nE     ================================================================================\nE     Test Failed: collectionunits_have_dates (comp_002)\nE     Category: data_completeness\nE     ================================================================================\nE     Description: collectionunits should have collection dates\nE     \nE     Rationale: Collection dates are critical for temporal analysis and data quality.\nE     \nE     \nE     Expected: No violations\nE     Found: 13637 violations\nE     \nE     Sample violations:\nE     --------------------------------------------------------------------------------\nE     RealDictRow({'collectionunitid': 1, 'handle': '15-1'})\nE     RealDictRow({'collectionunitid': 2, 'handle': '15-2'})\nE     RealDictRow({'collectionunitid': 3, 'handle': '16-1'})\nE     RealDictRow({'collectionunitid': 4, 'handle': '17-1'})\nE     RealDictRow({'collectionunitid': 5, 'handle': '17-2'})\nE     RealDictRow({'collectionunitid': 6, 'handle': '17-3'})\nE     RealDictRow({'collectionunitid': 7, 'handle': '3PINES'})\nE     RealDictRow({'collectionunitid': 8, 'handle': 'ABALONE'})\nE     RealDictRow({'collectionunitid': 10, 'handle': 'ADC001'})\nE     RealDictRow({'collectionunitid': 11, 'handle': 'ADYCHA'})\nE   assert 13637 == 0\nE    +  where 13637 = len([RealDictRow({'collectionunitid': 1, 'handle': '15-1'}), RealDictRow({'collectionunitid': 2, 'handle': '15-2'}), RealDictRow({'collectionunitid': 3, 'handle': '16-1'}), RealDictRow({'collectionunitid': 4, 'handle': '17-1'}), RealDictRow({'collectionunitid': 5, 'handle': '17-2'}), RealDictRow({'collectionunitid': 6, 'handle': '17-3'}), ...])"
+      },
+      "teardown": {
+        "duration": 0.00012844312004745007,
+        "outcome": "passed"
+      }
+    },
+    {
+      "nodeid": "tests/data_quality/test_neotoma_database.py::test_data_quality[comp_003]",
+      "lineno": 23,
+      "outcome": "failed",
+      "keywords": [
+        "test_data_quality[comp_003]",
+        "parametrize",
+        "pytestmark",
+        "comp_003",
+        "test_neotoma_database.py",
+        "data_quality",
+        "tests",
+        "system_documentation",
+        ""
+      ],
+      "setup": {
+        "duration": 0.0001890081912279129,
+        "outcome": "passed"
+      },
+      "call": {
+        "duration": 0.15517505584284663,
+        "outcome": "failed",
+        "crash": {
+          "path": "/home/simon/Documents/Neotoma/system_documentation/tests/data_quality/test_neotoma_database.py",
+          "lineno": 31,
+          "message": "AssertionError: \n  ================================================================================\n  Test Failed: taxa_have_been_added_by_stewards (comp_003)\n  Category: data_completeness\n  ================================================================================\n  Description: When a taxon is submitted to Neotoma there should be a person associated with that submission\n  \n  Rationale: We should know who placed a taxon into the hierarchy so we have some background on any decision making or choices that defined that placement.\n  \n  \n  Expected: No violations\n  Found: 5189 violations\n  \n  Sample violations:\n  --------------------------------------------------------------------------------\n  RealDictRow({'taxonid': 30})\n  RealDictRow({'taxonid': 63})\n  RealDictRow({'taxonid': 6261})\n  RealDictRow({'taxonid': 96})\n  RealDictRow({'taxonid': 97})\n  RealDictRow({'taxonid': 184})\n  RealDictRow({'taxonid': 2140})\n  RealDictRow({'taxonid': 276})\n  RealDictRow({'taxonid': 296})\n  RealDictRow({'taxonid': 305})\nassert 5189 == 0\n +  where 5189 = len([RealDictRow({'taxonid': 30}), RealDictRow({'taxonid': 63}), RealDictRow({'taxonid': 6261}), RealDictRow({'taxonid': 96}), RealDictRow({'taxonid': 97}), RealDictRow({'taxonid': 184}), ...])"
+        },
+        "traceback": [
+          {
+            "path": "tests/data_quality/test_neotoma_database.py",
+            "lineno": 31,
+            "message": "in test_data_quality"
+          }
+        ],
+        "longrepr": "tests/data_quality/test_neotoma_database.py:31: in test_data_quality\n    assert len(results) == 0, (\nE   AssertionError: \nE     ================================================================================\nE     Test Failed: taxa_have_been_added_by_stewards (comp_003)\nE     Category: data_completeness\nE     ================================================================================\nE     Description: When a taxon is submitted to Neotoma there should be a person associated with that submission\nE     \nE     Rationale: We should know who placed a taxon into the hierarchy so we have some background on any decision making or choices that defined that placement.\nE     \nE     \nE     Expected: No violations\nE     Found: 5189 violations\nE     \nE     Sample violations:\nE     --------------------------------------------------------------------------------\nE     RealDictRow({'taxonid': 30})\nE     RealDictRow({'taxonid': 63})\nE     RealDictRow({'taxonid': 6261})\nE     RealDictRow({'taxonid': 96})\nE     RealDictRow({'taxonid': 97})\nE     RealDictRow({'taxonid': 184})\nE     RealDictRow({'taxonid': 2140})\nE     RealDictRow({'taxonid': 276})\nE     RealDictRow({'taxonid': 296})\nE     RealDictRow({'taxonid': 305})\nE   assert 5189 == 0\nE    +  where 5189 = len([RealDictRow({'taxonid': 30}), RealDictRow({'taxonid': 63}), RealDictRow({'taxonid': 6261}), RealDictRow({'taxonid': 96}), RealDictRow({'taxonid': 97}), RealDictRow({'taxonid': 184}), ...])"
+      },
+      "teardown": {
+        "duration": 0.00011697295121848583,
+        "outcome": "passed"
+      }
+    },
+    {
+      "nodeid": "tests/data_quality/test_neotoma_database.py::test_data_quality[comp_004]",
+      "lineno": 23,
+      "outcome": "passed",
+      "keywords": [
+        "test_data_quality[comp_004]",
+        "parametrize",
+        "pytestmark",
+        "comp_004",
+        "test_neotoma_database.py",
+        "data_quality",
+        "tests",
+        "system_documentation",
+        ""
+      ],
+      "setup": {
+        "duration": 0.00019281799905002117,
+        "outcome": "passed"
+      },
+      "call": {
+        "duration": 0.6306186330039054,
+        "outcome": "passed"
+      },
+      "teardown": {
+        "duration": 0.00016175000928342342,
+        "outcome": "passed"
+      }
+    },
+    {
+      "nodeid": "tests/data_quality/test_neotoma_database.py::test_data_quality[valid_001]",
+      "lineno": 23,
+      "outcome": "passed",
+      "keywords": [
+        "test_data_quality[valid_001]",
+        "parametrize",
+        "pytestmark",
+        "valid_001",
+        "test_neotoma_database.py",
+        "data_quality",
+        "tests",
+        "system_documentation",
+        ""
+      ],
+      "setup": {
+        "duration": 0.00026236684061586857,
+        "outcome": "passed"
+      },
+      "call": {
+        "duration": 24.700155779952183,
+        "outcome": "passed"
+      },
+      "teardown": {
+        "duration": 0.00048577506095170975,
+        "outcome": "passed"
+      }
+    },
+    {
+      "nodeid": "tests/data_quality/test_neotoma_database.py::test_data_quality[valid_003]",
+      "lineno": 23,
+      "outcome": "failed",
+      "keywords": [
+        "test_data_quality[valid_003]",
+        "parametrize",
+        "pytestmark",
+        "valid_003",
+        "test_neotoma_database.py",
+        "data_quality",
+        "tests",
+        "system_documentation",
+        ""
+      ],
+      "setup": {
+        "duration": 0.0003852248191833496,
+        "outcome": "passed"
+      },
+      "call": {
+        "duration": 0.48097524093464017,
+        "outcome": "failed",
+        "crash": {
+          "path": "/home/simon/Documents/Neotoma/system_documentation/tests/data_quality/test_neotoma_database.py",
+          "lineno": 31,
+          "message": "AssertionError: \n  ================================================================================\n  Test Failed: valid_terminal_taxa_have_values (valid_003)\n  Category: data_validity\n  ================================================================================\n  Description: Taxa that are identified as 'leaves' in the database should be associated with values in the database.\n  \n  Rationale: If a taxon was entered into the database as a terminal leaf in the hierarchy, it ought to be associated with some data entry. If it is\n  absent from the variables table, then it was entered and never used.\n  \n  \n  Expected: No violations\n  Found: 17761 violations\n  \n  Sample violations:\n  --------------------------------------------------------------------------------\n  RealDictRow({'taxonid': 183, 'taxoncode': '[Mimdae]', 'taxonname': 'Mimosoideae', 'author': 'de Candolle, 1825', 'valid': False, 'highertaxonid': None, 'extinct': False, 'taxagroupid': 'VPL', 'publicationid': 9757, 'validatorid': 44, 'validatedate': datetime.date(2020, 7, 27), 'notes': None, 'recdatecreated': datetime.datetime(2012, 3, 21, 0, 0), 'recdatemodified': datetime.datetime(2020, 7, 27, 2, 4, 41), 'count': 0})\n  RealDictRow({'taxonid': 187, 'taxoncode': 'Bryida.ud', 'taxonname': 'Bryopsida undiff.', 'author': 'Pax, 1900', 'valid': True, 'highertaxonid': 659, 'extinct': False, 'taxagroupid': 'BRY', 'publicationid': 311, 'validatorid': 44, 'validatedate': datetime.date(2015, 1, 3), 'notes': None, 'recdatecreated': datetime.datetime(2013, 1, 1, 0, 0), 'recdatemodified': datetime.datetime(2015, 1, 3, 16, 55, 26), 'count': 0})\n  RealDictRow({'taxonid': 196, 'taxoncode': '[Osu.ud]', 'taxonname': 'Osmunda undiff.', 'author': 'Linnaeus, 1753', 'valid': False, 'highertaxonid': None, 'extinct': False, 'taxagroupid': 'VPL', 'publicationid': 9777, 'validatorid': 44, 'validatedate': datetime.date(2017, 4, 5), 'notes': None, 'recdatecreated': datetime.datetime(2012, 3, 21, 0, 0), 'recdatemodified': datetime.datetime(2017, 4, 5, 18, 44, 51), 'count': 0})\n  RealDictRow({'taxonid': 227, 'taxoncode': '[Pll.fi/my]', 'taxonname': 'Polygonella fimbriata/P. myriophylla', 'author': '(Elliott) Horton, 1963|(Small) Horton, 1963', 'valid': False, 'highertaxonid': None, 'extinct': False, 'taxagroupid': 'VPL', 'publicationid': 10135, 'validatorid': 44, 'validatedate': datetime.date(2017, 10, 17), 'notes': None, 'recdatecreated': datetime.datetime(2012, 3, 21, 0, 0), 'recdatemodified': datetime.datetime(2017, 10, 17, 15, 42, 41), 'count': 0})\n  RealDictRow({'taxonid': 229, 'taxoncode': '[Pol.ud]', 'taxonname': 'Polygonum undiff.', 'author': 'Linnaeus, 1753', 'valid': False, 'highertaxonid': None, 'extinct': False, 'taxagroupid': 'VPL', 'publicationid': 3702, 'validatorid': 44, 'validatedate': datetime.date(2017, 10, 17), 'notes': None, 'recdatecreated': datetime.datetime(2012, 3, 21, 0, 0), 'recdatemodified': datetime.datetime(2017, 10, 17, 3, 6, 4), 'count': 0})\n  RealDictRow({'taxonid': 273, 'taxoncode': 'Slx.ve', 'taxonname': 'Salix vestita', 'author': 'Pursh, 1814[1813]', 'valid': True, 'highertaxonid': 271, 'extinct': False, 'taxagroupid': 'VPL', 'publicationid': 3715, 'validatorid': 44, 'validatedate': datetime.date(2015, 1, 3), 'notes': None, 'recdatecreated': datetime.datetime(2012, 3, 21, 0, 0), 'recdatemodified': datetime.datetime(2015, 1, 3, 16, 45, 57), 'count': 0})\n  RealDictRow({'taxonid': 291, 'taxoncode': '[shrb.ud]', 'taxonname': 'Shrubs undiff.', 'author': None, 'valid': False, 'highertaxonid': None, 'extinct': False, 'taxagroupid': 'VPL', 'publicationid': None, 'validatorid': 44, 'validatedate': datetime.date(2015, 1, 10), 'notes': None, 'recdatecreated': datetime.datetime(2013, 1, 1, 0, 0), 'recdatemodified': datetime.datetime(2015, 1, 10, 18, 40, 32), 'count': 0})\n  RealDictRow({'taxonid': 303, 'taxoncode': '[tree.ud]', 'taxonname': 'Trees undiff.', 'author': None, 'valid': False, 'highertaxonid': None, 'extinct': False, 'taxagroupid': 'VPL', 'publicationid': None, 'validatorid': 44, 'validatedate': datetime.date(2015, 1, 10), 'notes': None, 'recdatecreated': datetime.datetime(2013, 1, 1, 0, 0), 'recdatemodified': datetime.datetime(2015, 1, 10, 18, 48, 53), 'count': 0})\n  RealDictRow({'taxonid': 333, 'taxoncode': 'Shr', 'taxonname': 'Schrankia', 'author': 'Willdenow, 1806', 'valid': True, 'highertaxonid': 29012, 'extinct': False, 'taxagroupid': 'VPL', 'publicationid': 314, 'validatorid': 44, 'validatedate': datetime.date(2017, 3, 23), 'notes': None, 'recdatecreated': datetime.datetime(2012, 3, 21, 0, 0), 'recdatemodified': datetime.datetime(2017, 3, 23, 14, 49, 36), 'count': 0})\n  RealDictRow({'taxonid': 401, 'taxoncode': 'Ama.re-t', 'taxonname': 'Amaranthus retroflexus-type', 'author': 'Linnaeus, 1753', 'valid': True, 'highertaxonid': 5431, 'extinct': False, 'taxagroupid': 'VPL', 'publicationid': 3658, 'validatorid': 44, 'validatedate': datetime.date(2017, 2, 7), 'notes': None, 'recdatecreated': datetime.datetime(2012, 3, 21, 0, 0), 'recdatemodified': datetime.datetime(2017, 2, 7, 20, 10, 13), 'count': 0})\nassert 17761 == 0\n +  where 17761 = len([RealDictRow({'taxonid': 183, 'taxoncode': '[Mimdae]', 'taxonname': 'Mimosoideae', 'author': 'de Candolle, 1825', 'valid': False, 'highertaxonid': None, 'extinct': False, 'taxagroupid': 'VPL', 'publicationid': 9757, 'validatorid': 44, 'validatedate': datetime.date(2020, 7, 27), 'notes': None, 'recdatecreated': datetime.datetime(2012, 3, 21, 0, 0), 'recdatemodified': datetime.datetime(2020, 7, 27, 2, 4, 41), 'count': 0}), RealDictRow({'taxonid': 187, 'taxoncode': 'Bryida.ud', 'taxonname': 'Bryopsida undiff.', 'author': 'Pax, 1900', 'valid': True, 'highertaxonid': 659, 'extinct': False, 'taxagroupid': 'BRY', 'publicationid': 311, 'validatorid': 44, 'validatedate': datetime.date(2015, 1, 3), 'notes': None, 'recdatecreated': datetime.datetime(2013, 1, 1, 0, 0), 'recdatemodified': datetime.datetime(2015, 1, 3, 16, 55, 26), 'count': 0}), RealDictRow({'taxonid': 196, 'taxoncode': '[Osu.ud]', 'taxonname': 'Osmunda undiff.', 'author': 'Linnaeus, 1753', 'valid': False, 'highertaxonid': None, 'extinct': False, 'taxagroupid': 'VPL', 'publicationid': 9777, 'validatorid': 44, 'validatedate': datetime.date(2017, 4, 5), 'notes': None, 'recdatecreated': datetime.datetime(2012, 3, 21, 0, 0), 'recd... 1963|(Small) Horton, 1963', 'valid': False, 'highertaxonid': None, 'extinct': False, 'taxagroupid': 'VPL', 'publicationid': 10135, 'validatorid': 44, 'validatedate': datetime.date(2017, 10, 17), 'notes': None, 'recdatecreated': datetime.datetime(2012, 3, 21, 0, 0), 'recdatemodified': datetime.datetime(2017, 10, 17, 15, 42, 41), 'count': 0}), RealDictRow({'taxonid': 229, 'taxoncode': '[Pol.ud]', 'taxonname': 'Polygonum undiff.', 'author': 'Linnaeus, 1753', 'valid': False, 'highertaxonid': None, 'extinct': False, 'taxagroupid': 'VPL', 'publicationid': 3702, 'validatorid': 44, 'validatedate': datetime.date(2017, 10, 17), 'notes': None, 'recdatecreated': datetime.datetime(2012, 3, 21, 0, 0), 'recdatemodified': datetime.datetime(2017, 10, 17, 3, 6, 4), 'count': 0}), RealDictRow({'taxonid': 273, 'taxoncode': 'Slx.ve', 'taxonname': 'Salix vestita', 'author': 'Pursh, 1814[1813]', 'valid': True, 'highertaxonid': 271, 'extinct': False, 'taxagroupid': 'VPL', 'publicationid': 3715, 'validatorid': 44, 'validatedate': datetime.date(2015, 1, 3), 'notes': None, 'recdatecreated': datetime.datetime(2012, 3, 21, 0, 0), 'recdatemodified': datetime.datetime(2015, 1, 3, 16, 45, 57), 'count': 0}), ...])"
+        },
+        "traceback": [
+          {
+            "path": "tests/data_quality/test_neotoma_database.py",
+            "lineno": 31,
+            "message": "in test_data_quality"
+          }
+        ],
+        "longrepr": "tests/data_quality/test_neotoma_database.py:31: in test_data_quality\n    assert len(results) == 0, (\nE   AssertionError: \nE     ================================================================================\nE     Test Failed: valid_terminal_taxa_have_values (valid_003)\nE     Category: data_validity\nE     ================================================================================\nE     Description: Taxa that are identified as 'leaves' in the database should be associated with values in the database.\nE     \nE     Rationale: If a taxon was entered into the database as a terminal leaf in the hierarchy, it ought to be associated with some data entry. If it is\nE     absent from the variables table, then it was entered and never used.\nE     \nE     \nE     Expected: No violations\nE     Found: 17761 violations\nE     \nE     Sample violations:\nE     --------------------------------------------------------------------------------\nE     RealDictRow({'taxonid': 183, 'taxoncode': '[Mimdae]', 'taxonname': 'Mimosoideae', 'author': 'de Candolle, 1825', 'valid': False, 'highertaxonid': None, 'extinct': False, 'taxagroupid': 'VPL', 'publicationid': 9757, 'validatorid': 44, 'validatedate': datetime.date(2020, 7, 27), 'notes': None, 'recdatecreated': datetime.datetime(2012, 3, 21, 0, 0), 'recdatemodified': datetime.datetime(2020, 7, 27, 2, 4, 41), 'count': 0})\nE     RealDictRow({'taxonid': 187, 'taxoncode': 'Bryida.ud', 'taxonname': 'Bryopsida undiff.', 'author': 'Pax, 1900', 'valid': True, 'highertaxonid': 659, 'extinct': False, 'taxagroupid': 'BRY', 'publicationid': 311, 'validatorid': 44, 'validatedate': datetime.date(2015, 1, 3), 'notes': None, 'recdatecreated': datetime.datetime(2013, 1, 1, 0, 0), 'recdatemodified': datetime.datetime(2015, 1, 3, 16, 55, 26), 'count': 0})\nE     RealDictRow({'taxonid': 196, 'taxoncode': '[Osu.ud]', 'taxonname': 'Osmunda undiff.', 'author': 'Linnaeus, 1753', 'valid': False, 'highertaxonid': None, 'extinct': False, 'taxagroupid': 'VPL', 'publicationid': 9777, 'validatorid': 44, 'validatedate': datetime.date(2017, 4, 5), 'notes': None, 'recdatecreated': datetime.datetime(2012, 3, 21, 0, 0), 'recdatemodified': datetime.datetime(2017, 4, 5, 18, 44, 51), 'count': 0})\nE     RealDictRow({'taxonid': 227, 'taxoncode': '[Pll.fi/my]', 'taxonname': 'Polygonella fimbriata/P. myriophylla', 'author': '(Elliott) Horton, 1963|(Small) Horton, 1963', 'valid': False, 'highertaxonid': None, 'extinct': False, 'taxagroupid': 'VPL', 'publicationid': 10135, 'validatorid': 44, 'validatedate': datetime.date(2017, 10, 17), 'notes': None, 'recdatecreated': datetime.datetime(2012, 3, 21, 0, 0), 'recdatemodified': datetime.datetime(2017, 10, 17, 15, 42, 41), 'count': 0})\nE     RealDictRow({'taxonid': 229, 'taxoncode': '[Pol.ud]', 'taxonname': 'Polygonum undiff.', 'author': 'Linnaeus, 1753', 'valid': False, 'highertaxonid': None, 'extinct': False, 'taxagroupid': 'VPL', 'publicationid': 3702, 'validatorid': 44, 'validatedate': datetime.date(2017, 10, 17), 'notes': None, 'recdatecreated': datetime.datetime(2012, 3, 21, 0, 0), 'recdatemodified': datetime.datetime(2017, 10, 17, 3, 6, 4), 'count': 0})\nE     RealDictRow({'taxonid': 273, 'taxoncode': 'Slx.ve', 'taxonname': 'Salix vestita', 'author': 'Pursh, 1814[1813]', 'valid': True, 'highertaxonid': 271, 'extinct': False, 'taxagroupid': 'VPL', 'publicationid': 3715, 'validatorid': 44, 'validatedate': datetime.date(2015, 1, 3), 'notes': None, 'recdatecreated': datetime.datetime(2012, 3, 21, 0, 0), 'recdatemodified': datetime.datetime(2015, 1, 3, 16, 45, 57), 'count': 0})\nE     RealDictRow({'taxonid': 291, 'taxoncode': '[shrb.ud]', 'taxonname': 'Shrubs undiff.', 'author': None, 'valid': False, 'highertaxonid': None, 'extinct': False, 'taxagroupid': 'VPL', 'publicationid': None, 'validatorid': 44, 'validatedate': datetime.date(2015, 1, 10), 'notes': None, 'recdatecreated': datetime.datetime(2013, 1, 1, 0, 0), 'recdatemodified': datetime.datetime(2015, 1, 10, 18, 40, 32), 'count': 0})\nE     RealDictRow({'taxonid': 303, 'taxoncode': '[tree.ud]', 'taxonname': 'Trees undiff.', 'author': None, 'valid': False, 'highertaxonid': None, 'extinct': False, 'taxagroupid': 'VPL', 'publicationid': None, 'validatorid': 44, 'validatedate': datetime.date(2015, 1, 10), 'notes': None, 'recdatecreated': datetime.datetime(2013, 1, 1, 0, 0), 'recdatemodified': datetime.datetime(2015, 1, 10, 18, 48, 53), 'count': 0})\nE     RealDictRow({'taxonid': 333, 'taxoncode': 'Shr', 'taxonname': 'Schrankia', 'author': 'Willdenow, 1806', 'valid': True, 'highertaxonid': 29012, 'extinct': False, 'taxagroupid': 'VPL', 'publicationid': 314, 'validatorid': 44, 'validatedate': datetime.date(2017, 3, 23), 'notes': None, 'recdatecreated': datetime.datetime(2012, 3, 21, 0, 0), 'recdatemodified': datetime.datetime(2017, 3, 23, 14, 49, 36), 'count': 0})\nE     RealDictRow({'taxonid': 401, 'taxoncode': 'Ama.re-t', 'taxonname': 'Amaranthus retroflexus-type', 'author': 'Linnaeus, 1753', 'valid': True, 'highertaxonid': 5431, 'extinct': False, 'taxagroupid': 'VPL', 'publicationid': 3658, 'validatorid': 44, 'validatedate': datetime.date(2017, 2, 7), 'notes': None, 'recdatecreated': datetime.datetime(2012, 3, 21, 0, 0), 'recdatemodified': datetime.datetime(2017, 2, 7, 20, 10, 13), 'count': 0})\nE   assert 17761 == 0\nE    +  where 17761 = len([RealDictRow({'taxonid': 183, 'taxoncode': '[Mimdae]', 'taxonname': 'Mimosoideae', 'author': 'de Candolle, 1825', 'valid': False, 'highertaxonid': None, 'extinct': False, 'taxagroupid': 'VPL', 'publicationid': 9757, 'validatorid': 44, 'validatedate': datetime.date(2020, 7, 27), 'notes': None, 'recdatecreated': datetime.datetime(2012, 3, 21, 0, 0), 'recdatemodified': datetime.datetime(2020, 7, 27, 2, 4, 41), 'count': 0}), RealDictRow({'taxonid': 187, 'taxoncode': 'Bryida.ud', 'taxonname': 'Bryopsida undiff.', 'author': 'Pax, 1900', 'valid': True, 'highertaxonid': 659, 'extinct': False, 'taxagroupid': 'BRY', 'publicationid': 311, 'validatorid': 44, 'validatedate': datetime.date(2015, 1, 3), 'notes': None, 'recdatecreated': datetime.datetime(2013, 1, 1, 0, 0), 'recdatemodified': datetime.datetime(2015, 1, 3, 16, 55, 26), 'count': 0}), RealDictRow({'taxonid': 196, 'taxoncode': '[Osu.ud]', 'taxonname': 'Osmunda undiff.', 'author': 'Linnaeus, 1753', 'valid': False, 'highertaxonid': None, 'extinct': False, 'taxagroupid': 'VPL', 'publicationid': 9777, 'validatorid': 44, 'validatedate': datetime.date(2017, 4, 5), 'notes': None, 'recdatecreated': datetime.datetime(2012, 3, 21, 0, 0), 'recd... 1963|(Small) Horton, 1963', 'valid': False, 'highertaxonid': None, 'extinct': False, 'taxagroupid': 'VPL', 'publicationid': 10135, 'validatorid': 44, 'validatedate': datetime.date(2017, 10, 17), 'notes': None, 'recdatecreated': datetime.datetime(2012, 3, 21, 0, 0), 'recdatemodified': datetime.datetime(2017, 10, 17, 15, 42, 41), 'count': 0}), RealDictRow({'taxonid': 229, 'taxoncode': '[Pol.ud]', 'taxonname': 'Polygonum undiff.', 'author': 'Linnaeus, 1753', 'valid': False, 'highertaxonid': None, 'extinct': False, 'taxagroupid': 'VPL', 'publicationid': 3702, 'validatorid': 44, 'validatedate': datetime.date(2017, 10, 17), 'notes': None, 'recdatecreated': datetime.datetime(2012, 3, 21, 0, 0), 'recdatemodified': datetime.datetime(2017, 10, 17, 3, 6, 4), 'count': 0}), RealDictRow({'taxonid': 273, 'taxoncode': 'Slx.ve', 'taxonname': 'Salix vestita', 'author': 'Pursh, 1814[1813]', 'valid': True, 'highertaxonid': 271, 'extinct': False, 'taxagroupid': 'VPL', 'publicationid': 3715, 'validatorid': 44, 'validatedate': datetime.date(2015, 1, 3), 'notes': None, 'recdatecreated': datetime.datetime(2012, 3, 21, 0, 0), 'recdatemodified': datetime.datetime(2015, 1, 3, 16, 45, 57), 'count': 0}), ...])"
+      },
+      "teardown": {
+        "duration": 0.00024212617427110672,
+        "outcome": "passed"
+      }
+    },
+    {
+      "nodeid": "tests/data_quality/test_neotoma_database.py::test_data_quality[valid_004]",
+      "lineno": 23,
+      "outcome": "passed",
+      "keywords": [
+        "test_data_quality[valid_004]",
+        "parametrize",
+        "pytestmark",
+        "valid_004",
+        "test_neotoma_database.py",
+        "data_quality",
+        "tests",
+        "system_documentation",
+        ""
+      ],
+      "setup": {
+        "duration": 0.00018567009828984737,
+        "outcome": "passed"
+      },
+      "call": {
+        "duration": 0.4219366358593106,
+        "outcome": "passed"
+      },
+      "teardown": {
+        "duration": 0.00011257501319050789,
+        "outcome": "passed"
+      }
+    },
+    {
+      "nodeid": "tests/data_quality/test_neotoma_database.py::test_data_quality[valid_005]",
+      "lineno": 23,
+      "outcome": "failed",
+      "keywords": [
+        "test_data_quality[valid_005]",
+        "parametrize",
+        "pytestmark",
+        "valid_005",
+        "test_neotoma_database.py",
+        "data_quality",
+        "tests",
+        "system_documentation",
+        ""
+      ],
+      "setup": {
+        "duration": 0.0001844349317252636,
+        "outcome": "passed"
+      },
+      "call": {
+        "duration": 0.239675709977746,
+        "outcome": "failed",
+        "crash": {
+          "path": "/home/simon/Documents/Neotoma/system_documentation/tests/data_quality/test_neotoma_database.py",
+          "lineno": 31,
+          "message": "AssertionError: \n  ================================================================================\n  Test Failed: sample_ages_scaled_properly (valid_005)\n  Category: data_validity\n  ================================================================================\n  Description: Sample ages and chronologies should have ages that have the correct age range. younger ages should always be more recent than older ages.\n  \n  Rationale: The older and younger dates need to be ordered properly.\n  \n  Expected: No violations\n  Found: 2 violations\n  \n  Sample violations:\n  --------------------------------------------------------------------------------\n  RealDictRow({'sampleageid': 138101, 'sampleid': 148850, 'chronologyid': 8389, 'age': None, 'ageyounger': 1970.0, 'ageolder': 1995.0, 'recdatecreated': datetime.datetime(2015, 5, 1, 1, 19, 22), 'recdatemodified': datetime.datetime(2015, 5, 1, 1, 19, 22)})\n  RealDictRow({'sampleageid': 138102, 'sampleid': 148849, 'chronologyid': 8389, 'age': None, 'ageyounger': 1970.0, 'ageolder': 1995.0, 'recdatecreated': datetime.datetime(2015, 5, 1, 1, 19, 22), 'recdatemodified': datetime.datetime(2015, 5, 1, 1, 19, 22)})\nassert 2 == 0\n +  where 2 = len([RealDictRow({'sampleageid': 138101, 'sampleid': 148850, 'chronologyid': 8389, 'age': None, 'ageyounger': 1970.0, 'ageolder': 1995.0, 'recdatecreated': datetime.datetime(2015, 5, 1, 1, 19, 22), 'recdatemodified': datetime.datetime(2015, 5, 1, 1, 19, 22)}), RealDictRow({'sampleageid': 138102, 'sampleid': 148849, 'chronologyid': 8389, 'age': None, 'ageyounger': 1970.0, 'ageolder': 1995.0, 'recdatecreated': datetime.datetime(2015, 5, 1, 1, 19, 22), 'recdatemodified': datetime.datetime(2015, 5, 1, 1, 19, 22)})])"
+        },
+        "traceback": [
+          {
+            "path": "tests/data_quality/test_neotoma_database.py",
+            "lineno": 31,
+            "message": "in test_data_quality"
+          }
+        ],
+        "longrepr": "tests/data_quality/test_neotoma_database.py:31: in test_data_quality\n    assert len(results) == 0, (\nE   AssertionError: \nE     ================================================================================\nE     Test Failed: sample_ages_scaled_properly (valid_005)\nE     Category: data_validity\nE     ================================================================================\nE     Description: Sample ages and chronologies should have ages that have the correct age range. younger ages should always be more recent than older ages.\nE     \nE     Rationale: The older and younger dates need to be ordered properly.\nE     \nE     Expected: No violations\nE     Found: 2 violations\nE     \nE     Sample violations:\nE     --------------------------------------------------------------------------------\nE     RealDictRow({'sampleageid': 138101, 'sampleid': 148850, 'chronologyid': 8389, 'age': None, 'ageyounger': 1970.0, 'ageolder': 1995.0, 'recdatecreated': datetime.datetime(2015, 5, 1, 1, 19, 22), 'recdatemodified': datetime.datetime(2015, 5, 1, 1, 19, 22)})\nE     RealDictRow({'sampleageid': 138102, 'sampleid': 148849, 'chronologyid': 8389, 'age': None, 'ageyounger': 1970.0, 'ageolder': 1995.0, 'recdatecreated': datetime.datetime(2015, 5, 1, 1, 19, 22), 'recdatemodified': datetime.datetime(2015, 5, 1, 1, 19, 22)})\nE   assert 2 == 0\nE    +  where 2 = len([RealDictRow({'sampleageid': 138101, 'sampleid': 148850, 'chronologyid': 8389, 'age': None, 'ageyounger': 1970.0, 'ageolder': 1995.0, 'recdatecreated': datetime.datetime(2015, 5, 1, 1, 19, 22), 'recdatemodified': datetime.datetime(2015, 5, 1, 1, 19, 22)}), RealDictRow({'sampleageid': 138102, 'sampleid': 148849, 'chronologyid': 8389, 'age': None, 'ageyounger': 1970.0, 'ageolder': 1995.0, 'recdatecreated': datetime.datetime(2015, 5, 1, 1, 19, 22), 'recdatemodified': datetime.datetime(2015, 5, 1, 1, 19, 22)})])"
+      },
+      "teardown": {
+        "duration": 0.00011966796591877937,
+        "outcome": "passed"
+      }
+    },
+    {
+      "nodeid": "tests/data_quality/test_neotoma_database.py::test_data_quality[valid_006]",
+      "lineno": 23,
+      "outcome": "failed",
+      "keywords": [
+        "test_data_quality[valid_006]",
+        "parametrize",
+        "pytestmark",
+        "valid_006",
+        "test_neotoma_database.py",
+        "data_quality",
+        "tests",
+        "system_documentation",
+        ""
+      ],
+      "setup": {
+        "duration": 0.00018527195788919926,
+        "outcome": "passed"
+      },
+      "call": {
+        "duration": 0.7936153169721365,
+        "outcome": "failed",
+        "crash": {
+          "path": "/home/simon/Documents/Neotoma/system_documentation/tests/data_quality/test_neotoma_database.py",
+          "lineno": 31,
+          "message": "AssertionError: \n  ================================================================================\n  Test Failed: samples_per_analysisunit (valid_006)\n  Category: data_validity\n  ================================================================================\n  Description: Although some datasets may have multiple samples per analysis unit per dataset, we should generally expect that most analysis units have only one set of samples.\n  \n  Rationale: We definitely see duplicate samples within an analysis unit (and within a dataset), but we want to make sure that we're not seeing errors here. \n  This is set as a warning, and possibly we can work to improve the query a bit.\n  \n  \n  Expected: No violations\n  Found: 2996 violations\n  \n  Sample violations:\n  --------------------------------------------------------------------------------\n  RealDictRow({'array_agg': [1351, 1352], 'datasetid': 202, 'databasename': 'North American Pollen Database'})\n  RealDictRow({'array_agg': [1346, 1347], 'datasetid': 202, 'databasename': 'North American Pollen Database'})\n  RealDictRow({'array_agg': [1354, 1355], 'datasetid': 202, 'databasename': 'North American Pollen Database'})\n  RealDictRow({'array_agg': [675985, 676028, 675974, 676031, 676027, 676035, 676033, 676036, 676030, 676029], 'datasetid': 61117, 'databasename': 'Neotoma'})\n  RealDictRow({'array_agg': [116071, 116072], 'datasetid': 9566, 'databasename': 'FAUNMAP'})\n  RealDictRow({'array_agg': [500963, 500966], 'datasetid': 50240, 'databasename': 'European Pollen Database'})\n  RealDictRow({'array_agg': [676037, 676042, 676038, 676041, 676039, 676045, 676043, 676046, 676044, 676040], 'datasetid': 61117, 'databasename': 'Neotoma'})\n  RealDictRow({'array_agg': [704752, 704753], 'datasetid': 66097, 'databasename': 'FAUNMAP'})\n  RealDictRow({'array_agg': [117735, 117736, 117737, 117738], 'datasetid': 10006, 'databasename': 'FAUNMAP'})\n  RealDictRow({'array_agg': [116633, 116634, 116635, 116636, 116637, 116638, 116639], 'datasetid': 9736, 'databasename': 'FAUNMAP'})\nassert 2996 == 0\n +  where 2996 = len([RealDictRow({'array_agg': [1351, 1352], 'datasetid': 202, 'databasename': 'North American Pollen Database'}), RealDictRow({'array_agg': [1346, 1347], 'datasetid': 202, 'databasename': 'North American Pollen Database'}), RealDictRow({'array_agg': [1354, 1355], 'datasetid': 202, 'databasename': 'North American Pollen Database'}), RealDictRow({'array_agg': [675985, 676028, 675974, 676031, 676027, 676035, 676033, 676036, 676030, 676029], 'datasetid': 61117, 'databasename': 'Neotoma'}), RealDictRow({'array_agg': [116071, 116072], 'datasetid': 9566, 'databasename': 'FAUNMAP'}), RealDictRow({'array_agg': [500963, 500966], 'datasetid': 50240, 'databasename': 'European Pollen Database'}), ...])"
+        },
+        "traceback": [
+          {
+            "path": "tests/data_quality/test_neotoma_database.py",
+            "lineno": 31,
+            "message": "in test_data_quality"
+          }
+        ],
+        "longrepr": "tests/data_quality/test_neotoma_database.py:31: in test_data_quality\n    assert len(results) == 0, (\nE   AssertionError: \nE     ================================================================================\nE     Test Failed: samples_per_analysisunit (valid_006)\nE     Category: data_validity\nE     ================================================================================\nE     Description: Although some datasets may have multiple samples per analysis unit per dataset, we should generally expect that most analysis units have only one set of samples.\nE     \nE     Rationale: We definitely see duplicate samples within an analysis unit (and within a dataset), but we want to make sure that we're not seeing errors here. \nE     This is set as a warning, and possibly we can work to improve the query a bit.\nE     \nE     \nE     Expected: No violations\nE     Found: 2996 violations\nE     \nE     Sample violations:\nE     --------------------------------------------------------------------------------\nE     RealDictRow({'array_agg': [1351, 1352], 'datasetid': 202, 'databasename': 'North American Pollen Database'})\nE     RealDictRow({'array_agg': [1346, 1347], 'datasetid': 202, 'databasename': 'North American Pollen Database'})\nE     RealDictRow({'array_agg': [1354, 1355], 'datasetid': 202, 'databasename': 'North American Pollen Database'})\nE     RealDictRow({'array_agg': [675985, 676028, 675974, 676031, 676027, 676035, 676033, 676036, 676030, 676029], 'datasetid': 61117, 'databasename': 'Neotoma'})\nE     RealDictRow({'array_agg': [116071, 116072], 'datasetid': 9566, 'databasename': 'FAUNMAP'})\nE     RealDictRow({'array_agg': [500963, 500966], 'datasetid': 50240, 'databasename': 'European Pollen Database'})\nE     RealDictRow({'array_agg': [676037, 676042, 676038, 676041, 676039, 676045, 676043, 676046, 676044, 676040], 'datasetid': 61117, 'databasename': 'Neotoma'})\nE     RealDictRow({'array_agg': [704752, 704753], 'datasetid': 66097, 'databasename': 'FAUNMAP'})\nE     RealDictRow({'array_agg': [117735, 117736, 117737, 117738], 'datasetid': 10006, 'databasename': 'FAUNMAP'})\nE     RealDictRow({'array_agg': [116633, 116634, 116635, 116636, 116637, 116638, 116639], 'datasetid': 9736, 'databasename': 'FAUNMAP'})\nE   assert 2996 == 0\nE    +  where 2996 = len([RealDictRow({'array_agg': [1351, 1352], 'datasetid': 202, 'databasename': 'North American Pollen Database'}), RealDictRow({'array_agg': [1346, 1347], 'datasetid': 202, 'databasename': 'North American Pollen Database'}), RealDictRow({'array_agg': [1354, 1355], 'datasetid': 202, 'databasename': 'North American Pollen Database'}), RealDictRow({'array_agg': [675985, 676028, 675974, 676031, 676027, 676035, 676033, 676036, 676030, 676029], 'datasetid': 61117, 'databasename': 'Neotoma'}), RealDictRow({'array_agg': [116071, 116072], 'datasetid': 9566, 'databasename': 'FAUNMAP'}), RealDictRow({'array_agg': [500963, 500966], 'datasetid': 50240, 'databasename': 'European Pollen Database'}), ...])"
+      },
+      "teardown": {
+        "duration": 0.00010955706238746643,
+        "outcome": "passed"
+      }
+    },
+    {
+      "nodeid": "tests/data_quality/test_neotoma_database.py::test_data_quality[biz_001]",
+      "lineno": 23,
+      "outcome": "passed",
+      "keywords": [
+        "test_data_quality[biz_001]",
+        "parametrize",
+        "pytestmark",
+        "biz_001",
+        "test_neotoma_database.py",
+        "data_quality",
+        "tests",
+        "system_documentation",
+        ""
+      ],
+      "setup": {
+        "duration": 0.00017223390750586987,
+        "outcome": "passed"
+      },
+      "call": {
+        "duration": 0.13759822212159634,
+        "outcome": "passed"
+      },
+      "teardown": {
+        "duration": 0.000376315088942647,
+        "outcome": "passed"
+      }
+    },
+    {
+      "nodeid": "tests/data_quality/test_neotoma_database.py::test_data_quality[bix_002]",
+      "lineno": 23,
+      "outcome": "failed",
+      "keywords": [
+        "test_data_quality[bix_002]",
+        "parametrize",
+        "pytestmark",
+        "bix_002",
+        "test_neotoma_database.py",
+        "data_quality",
+        "tests",
+        "system_documentation",
+        ""
+      ],
+      "setup": {
+        "duration": 0.0005903458222746849,
+        "outcome": "passed"
+      },
+      "call": {
+        "duration": 0.16224720678292215,
+        "outcome": "failed",
+        "crash": {
+          "path": "/home/simon/Documents/Neotoma/system_documentation/tests/data_quality/test_neotoma_database.py",
+          "lineno": 31,
+          "message": "AssertionError: \n  ================================================================================\n  Test Failed: taxonnames_are_not_duplicated_within_groups (bix_002)\n  Category: business_rules\n  ================================================================================\n  Description: Although different ecological groups may have similar taxon names (e.g., Abronia in reptiles, plants, protists and fungi), within groups the taxonomic name should be unique.\n  \n  \n  Rationale: If the same name is entered multiple times within the taxonomic table for a particular taxonomic group, we can expect that there is likely some\n  issue with conflicting hierarchies that needs to be resolved by the data stewardship team.\n  \n  \n  Expected: No violations\n  Found: 140 violations\n  \n  Sample violations:\n  --------------------------------------------------------------------------------\n  RealDictRow({'taxonname': 'Parasida mckittricki', 'taxagroupid': 'INS', 'count': 2})\n  RealDictRow({'taxonname': 'Rhadine howdeni', 'taxagroupid': 'INS', 'count': 2})\n  RealDictRow({'taxonname': 'Jussiaea', 'taxagroupid': 'VPL', 'count': 2})\n  RealDictRow({'taxonname': 'Anchicera', 'taxagroupid': 'INS', 'count': 2})\n  RealDictRow({'taxonname': 'Acacia seyal', 'taxagroupid': 'VPL', 'count': 2})\n  RealDictRow({'taxonname': 'Epistrophe', 'taxagroupid': 'INS', 'count': 2})\n  RealDictRow({'taxonname': 'Dictamnus', 'taxagroupid': 'VPL', 'count': 2})\n  RealDictRow({'taxonname': 'Heliotropium-type', 'taxagroupid': 'VPL', 'count': 2})\n  RealDictRow({'taxonname': 'Pilea-type', 'taxagroupid': 'VPL', 'count': 2})\n  RealDictRow({'taxonname': 'Phyllanthus reticulatus-type', 'taxagroupid': 'VPL', 'count': 2})\nassert 140 == 0\n +  where 140 = len([RealDictRow({'taxonname': 'Parasida mckittricki', 'taxagroupid': 'INS', 'count': 2}), RealDictRow({'taxonname': 'Rhadine howdeni', 'taxagroupid': 'INS', 'count': 2}), RealDictRow({'taxonname': 'Jussiaea', 'taxagroupid': 'VPL', 'count': 2}), RealDictRow({'taxonname': 'Anchicera', 'taxagroupid': 'INS', 'count': 2}), RealDictRow({'taxonname': 'Acacia seyal', 'taxagroupid': 'VPL', 'count': 2}), RealDictRow({'taxonname': 'Epistrophe', 'taxagroupid': 'INS', 'count': 2}), ...])"
+        },
+        "traceback": [
+          {
+            "path": "tests/data_quality/test_neotoma_database.py",
+            "lineno": 31,
+            "message": "in test_data_quality"
+          }
+        ],
+        "longrepr": "tests/data_quality/test_neotoma_database.py:31: in test_data_quality\n    assert len(results) == 0, (\nE   AssertionError: \nE     ================================================================================\nE     Test Failed: taxonnames_are_not_duplicated_within_groups (bix_002)\nE     Category: business_rules\nE     ================================================================================\nE     Description: Although different ecological groups may have similar taxon names (e.g., Abronia in reptiles, plants, protists and fungi), within groups the taxonomic name should be unique.\nE     \nE     \nE     Rationale: If the same name is entered multiple times within the taxonomic table for a particular taxonomic group, we can expect that there is likely some\nE     issue with conflicting hierarchies that needs to be resolved by the data stewardship team.\nE     \nE     \nE     Expected: No violations\nE     Found: 140 violations\nE     \nE     Sample violations:\nE     --------------------------------------------------------------------------------\nE     RealDictRow({'taxonname': 'Parasida mckittricki', 'taxagroupid': 'INS', 'count': 2})\nE     RealDictRow({'taxonname': 'Rhadine howdeni', 'taxagroupid': 'INS', 'count': 2})\nE     RealDictRow({'taxonname': 'Jussiaea', 'taxagroupid': 'VPL', 'count': 2})\nE     RealDictRow({'taxonname': 'Anchicera', 'taxagroupid': 'INS', 'count': 2})\nE     RealDictRow({'taxonname': 'Acacia seyal', 'taxagroupid': 'VPL', 'count': 2})\nE     RealDictRow({'taxonname': 'Epistrophe', 'taxagroupid': 'INS', 'count': 2})\nE     RealDictRow({'taxonname': 'Dictamnus', 'taxagroupid': 'VPL', 'count': 2})\nE     RealDictRow({'taxonname': 'Heliotropium-type', 'taxagroupid': 'VPL', 'count': 2})\nE     RealDictRow({'taxonname': 'Pilea-type', 'taxagroupid': 'VPL', 'count': 2})\nE     RealDictRow({'taxonname': 'Phyllanthus reticulatus-type', 'taxagroupid': 'VPL', 'count': 2})\nE   assert 140 == 0\nE    +  where 140 = len([RealDictRow({'taxonname': 'Parasida mckittricki', 'taxagroupid': 'INS', 'count': 2}), RealDictRow({'taxonname': 'Rhadine howdeni', 'taxagroupid': 'INS', 'count': 2}), RealDictRow({'taxonname': 'Jussiaea', 'taxagroupid': 'VPL', 'count': 2}), RealDictRow({'taxonname': 'Anchicera', 'taxagroupid': 'INS', 'count': 2}), RealDictRow({'taxonname': 'Acacia seyal', 'taxagroupid': 'VPL', 'count': 2}), RealDictRow({'taxonname': 'Epistrophe', 'taxagroupid': 'INS', 'count': 2}), ...])"
+      },
+      "teardown": {
+        "duration": 0.0001183459535241127,
+        "outcome": "passed"
+      }
+    },
+    {
+      "nodeid": "tests/data_quality/test_neotoma_database.py::test_data_quality[bix_003]",
+      "lineno": 23,
+      "outcome": "failed",
+      "keywords": [
+        "test_data_quality[bix_003]",
+        "parametrize",
+        "pytestmark",
+        "bix_003",
+        "test_neotoma_database.py",
+        "data_quality",
+        "tests",
+        "system_documentation",
+        ""
+      ],
+      "setup": {
+        "duration": 0.0001781289465725422,
+        "outcome": "passed"
+      },
+      "call": {
+        "duration": 0.15011883294209838,
+        "outcome": "failed",
+        "crash": {
+          "path": "/home/simon/Documents/Neotoma/system_documentation/tests/data_quality/test_neotoma_database.py",
+          "lineno": 31,
+          "message": "AssertionError: \n  ================================================================================\n  Test Failed: variable_elements_in_use (bix_003)\n  Category: business_rules\n  ================================================================================\n  Description: Over time a number of variable contexts, units and elements have been created but not neccessarily used. In some cases this may have resulted from improperly entered data \n  in the Tilia spreadsheet.\n  \n  \n  Rationale: We want to ensure that the variables defined within the controlled vocabularies match with accepted external values, and that the variables that a user may\n  select for data analysis are reflected in reality.\n  \n  \n  Expected: No violations\n  Found: 91 violations\n  \n  Sample violations:\n  --------------------------------------------------------------------------------\n  RealDictRow({'table': 'variablecontexts', 'identifier': 125, 'value': 'Pre-Quaternary'})\n  RealDictRow({'table': 'variablecontexts', 'identifier': 133, 'value': 'corroded'})\n  RealDictRow({'table': 'variableunits', 'identifier': 209, 'value': 'g/cm2/yr'})\n  RealDictRow({'table': 'variableunits', 'identifier': 218, 'value': 'count of PCR replicates'})\n  RealDictRow({'table': 'variableunits', 'identifier': 27, 'value': 'units not specified'})\n  RealDictRow({'table': 'variableunits', 'identifier': 241, 'value': 'mmol/mol'})\n  RealDictRow({'table': 'variableunits', 'identifier': 211, 'value': 'kg/m2/yr'})\n  RealDictRow({'table': 'variableunits', 'identifier': 46, 'value': 'elemental ratio'})\n  RealDictRow({'table': 'variableunits', 'identifier': 32, 'value': 'meq/L'})\n  RealDictRow({'table': 'variableunits', 'identifier': 78, 'value': '1-2 scale'})\nassert 91 == 0\n +  where 91 = len([RealDictRow({'table': 'variablecontexts', 'identifier': 125, 'value': 'Pre-Quaternary'}), RealDictRow({'table': 'variablecontexts', 'identifier': 133, 'value': 'corroded'}), RealDictRow({'table': 'variableunits', 'identifier': 209, 'value': 'g/cm2/yr'}), RealDictRow({'table': 'variableunits', 'identifier': 218, 'value': 'count of PCR replicates'}), RealDictRow({'table': 'variableunits', 'identifier': 27, 'value': 'units not specified'}), RealDictRow({'table': 'variableunits', 'identifier': 241, 'value': 'mmol/mol'}), ...])"
+        },
+        "traceback": [
+          {
+            "path": "tests/data_quality/test_neotoma_database.py",
+            "lineno": 31,
+            "message": "in test_data_quality"
+          }
+        ],
+        "longrepr": "tests/data_quality/test_neotoma_database.py:31: in test_data_quality\n    assert len(results) == 0, (\nE   AssertionError: \nE     ================================================================================\nE     Test Failed: variable_elements_in_use (bix_003)\nE     Category: business_rules\nE     ================================================================================\nE     Description: Over time a number of variable contexts, units and elements have been created but not neccessarily used. In some cases this may have resulted from improperly entered data \nE     in the Tilia spreadsheet.\nE     \nE     \nE     Rationale: We want to ensure that the variables defined within the controlled vocabularies match with accepted external values, and that the variables that a user may\nE     select for data analysis are reflected in reality.\nE     \nE     \nE     Expected: No violations\nE     Found: 91 violations\nE     \nE     Sample violations:\nE     --------------------------------------------------------------------------------\nE     RealDictRow({'table': 'variablecontexts', 'identifier': 125, 'value': 'Pre-Quaternary'})\nE     RealDictRow({'table': 'variablecontexts', 'identifier': 133, 'value': 'corroded'})\nE     RealDictRow({'table': 'variableunits', 'identifier': 209, 'value': 'g/cm2/yr'})\nE     RealDictRow({'table': 'variableunits', 'identifier': 218, 'value': 'count of PCR replicates'})\nE     RealDictRow({'table': 'variableunits', 'identifier': 27, 'value': 'units not specified'})\nE     RealDictRow({'table': 'variableunits', 'identifier': 241, 'value': 'mmol/mol'})\nE     RealDictRow({'table': 'variableunits', 'identifier': 211, 'value': 'kg/m2/yr'})\nE     RealDictRow({'table': 'variableunits', 'identifier': 46, 'value': 'elemental ratio'})\nE     RealDictRow({'table': 'variableunits', 'identifier': 32, 'value': 'meq/L'})\nE     RealDictRow({'table': 'variableunits', 'identifier': 78, 'value': '1-2 scale'})\nE   assert 91 == 0\nE    +  where 91 = len([RealDictRow({'table': 'variablecontexts', 'identifier': 125, 'value': 'Pre-Quaternary'}), RealDictRow({'table': 'variablecontexts', 'identifier': 133, 'value': 'corroded'}), RealDictRow({'table': 'variableunits', 'identifier': 209, 'value': 'g/cm2/yr'}), RealDictRow({'table': 'variableunits', 'identifier': 218, 'value': 'count of PCR replicates'}), RealDictRow({'table': 'variableunits', 'identifier': 27, 'value': 'units not specified'}), RealDictRow({'table': 'variableunits', 'identifier': 241, 'value': 'mmol/mol'}), ...])"
+      },
+      "teardown": {
+        "duration": 0.0003435600083321333,
+        "outcome": "passed"
+      }
+    }
+  ]
+}

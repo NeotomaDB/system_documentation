@@ -1,18 +1,18 @@
 {
-  "generated_at": "2025-11-21T11:09:37.154247",
-  "total_tests": 13,
-  "passed": 2,
-  "failed": 11,
+  "generated_at": "2025-12-01T16:46:52.650683",
+  "total_tests": 16,
+  "passed": 6,
+  "failed": 10,
   "by_severity": {
     "error": {
       "total": 7,
-      "passed": 1,
-      "failed": 6
+      "passed": 3,
+      "failed": 4
     },
     "warning": {
-      "total": 6,
-      "passed": 1,
-      "failed": 5
+      "total": 9,
+      "passed": 3,
+      "failed": 6
     }
   },
   "by_category": {
@@ -22,18 +22,18 @@
       "failed": 2
     },
     "data_completeness": {
-      "total": 3,
-      "passed": 0,
+      "total": 4,
+      "passed": 1,
       "failed": 3
     },
     "data_validity": {
-      "total": 4,
-      "passed": 0,
-      "failed": 4
+      "total": 5,
+      "passed": 2,
+      "failed": 3
     },
     "business_rules": {
-      "total": 2,
-      "passed": 0,
+      "total": 3,
+      "passed": 1,
       "failed": 2
     }
   }
