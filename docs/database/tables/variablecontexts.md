@@ -98,14 +98,23 @@ LIMIT 10;
 **TODO**: Add more specific examples relevant to common research questions or operational tasks.
 
 ## Data Quality Notes
+### Automated Data Quality Tests
 
-**TODO**: Document:
-- Known data quality issues
-- Validation rules
-- Expected data ranges
-- Update frequency and mechanisms
-- Any ETL processes that populate this table
+This table is subject to the following automated quality checks:
 
+**❌ bix_003**: variable_elements_in_use
+
+- **Severity**: WARNING
+- **Status**: FAILED
+- **Description**: Over time a number of variable contexts, units and elements have been created but not neccessarily used. In some cases this may have resulted from improperly entered data 
+in the Tilia spreadsheet.
+
+
+- **Suggested Remediation**: - Where possible, remove unused units/elements/contexts - Ensure any near-duplicates of existing units/elements/contexts are using best-practice or accepted notations.
+
+
+
+See the [Data Quality Report](../../reports/data_quality_report.md) for details.
 ## Maintenance
 
 - **Data Owner**: TODO: Assign owner

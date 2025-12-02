@@ -120,10 +120,10 @@ LIMIT 10;
 
 This table is subject to the following automated quality checks:
 
-**❌ biz_001**: modern_samples_have_recent_dates
+**✅ biz_001**: modern_samples_have_recent_dates
 
 - **Severity**: WARNING
-- **Status**: UNKNOWN
+- **Status**: PASSED
 - **Description**: Samples marked as modern should have dates after 1950
 
 

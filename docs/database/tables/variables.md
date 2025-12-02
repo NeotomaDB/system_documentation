@@ -125,8 +125,12 @@ This table is subject to the following automated quality checks:
 **❌ valid_003**: valid_terminal_taxa_have_values
 
 - **Severity**: WARNING
-- **Status**: UNKNOWN
+- **Status**: FAILED
 - **Description**: Taxa that are identified as 'leaves' in the database should be associated with values in the database.
+
+- **Suggested Remediation**: - Check with data stewards for the particular data type.
+- Ensure that the taxa are valid.
+
 
 
 See the [Data Quality Report](../../reports/data_quality_report.md) for details.

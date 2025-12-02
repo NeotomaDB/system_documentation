@@ -127,6 +127,11 @@ This table is subject to the following automated quality checks:
 - **Status**: FAILED
 - **Description**: All datasets should be referenced by at least one sample
 
+- **Suggested Remediation**: - Check if samples were never entered for this dataset
+- Verify if dataset should be archived/deleted
+- Contact data owner for clarification
+
+
 **✅ ref_002**: samples_have_valid_datasets
 
 - **Severity**: ERROR
@@ -136,8 +141,23 @@ This table is subject to the following automated quality checks:
 **❌ comp_001**: datasets_have_investigators
 
 - **Severity**: WARNING
-- **Status**: UNKNOWN
+- **Status**: FAILED
 - **Description**: Datasets should have at least one principal investigator
+
+- **Suggested Remediation**: - Research and add PI information
+- Contact data owner to identify responsible investigator
+
+
+**❌ valid_006**: samples_per_analysisunit
+
+- **Severity**: WARNING
+- **Status**: FAILED
+- **Description**: Although some datasets may have multiple samples per analysis unit per dataset, we should generally expect that most analysis units have only one set of samples.
+
+- **Suggested Remediation**: - Check the dataset to see if the samples are legitimately multiple samples within a single dataset.
+- Check with the original publication, or upload data steward.
+- Potentially remove duplicate or empty samples if they exist.
+
 
 
 See the [Data Quality Report](../../reports/data_quality_report.md) for details.

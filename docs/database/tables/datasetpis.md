@@ -121,8 +121,12 @@ This table is subject to the following automated quality checks:
 **❌ comp_001**: datasets_have_investigators
 
 - **Severity**: WARNING
-- **Status**: UNKNOWN
+- **Status**: FAILED
 - **Description**: Datasets should have at least one principal investigator
+
+- **Suggested Remediation**: - Research and add PI information
+- Contact data owner to identify responsible investigator
+
 
 
 See the [Data Quality Report](../../reports/data_quality_report.md) for details.

@@ -120,10 +120,26 @@ LIMIT 10;
 
 This table is subject to the following automated quality checks:
 
-**❌ biz_001**: modern_samples_have_recent_dates
+**✅ comp_004**: sample_ages_for_samples
 
 - **Severity**: WARNING
-- **Status**: UNKNOWN
+- **Status**: PASSED
+- **Description**: Samples should have sample ages, whether from a chronology or collection date.
+
+**❌ valid_005**: sample_ages_scaled_properly
+
+- **Severity**: ERROR
+- **Status**: FAILED
+- **Description**: Sample ages and chronologies should have ages that have the correct age range. younger ages should always be more recent than older ages.
+
+- **Suggested Remediation**: - Likely we just need to flip the ages around from younger to older.
+- The chronology may also need some examination.
+
+
+**✅ biz_001**: modern_samples_have_recent_dates
+
+- **Severity**: WARNING
+- **Status**: PASSED
 - **Description**: Samples marked as modern should have dates after 1950
 
 

@@ -108,11 +108,21 @@ This table is subject to the following automated quality checks:
 - **Status**: FAILED
 - **Description**: All sites should have at least one collection unit.
 
-**❌ valid_001**: coordinates_in_valid_range
+- **Suggested Remediation**: - Remove "floating" sites.
+- Ensure that the collection units have not been accidentally deleted.
+
+
+**✅ valid_001**: coordinates_in_valid_range
 
 - **Severity**: ERROR
-- **Status**: UNKNOWN
+- **Status**: PASSED
 - **Description**: Site coordinates must be within valid lat/long ranges
+
+**✅ valid_004**: sites_not_on_equator
+
+- **Severity**: ERROR
+- **Status**: PASSED
+- **Description**: Some sites seem to have been placed at the equator for one reason or another.
 
 
 See the [Data Quality Report](../../reports/data_quality_report.md) for details.

@@ -129,19 +129,34 @@ This table is subject to the following automated quality checks:
 - **Description**: Taxa that have been added to the database should have a valid higher taxonomic identifier, unless those taxa are no longer considered valid taxonomically.
 
 
+**❌ comp_003**: taxa_have_been_added_by_stewards
+
+- **Severity**: WARNING
+- **Status**: FAILED
+- **Description**: When a taxon is submitted to Neotoma there should be a person associated with that submission
+
+- **Suggested Remediation**: - Confirm placement with stewards, identify those stewards as the
+validators.
+
+
 **❌ valid_003**: valid_terminal_taxa_have_values
 
 - **Severity**: WARNING
-- **Status**: UNKNOWN
+- **Status**: FAILED
 - **Description**: Taxa that are identified as 'leaves' in the database should be associated with values in the database.
+
+- **Suggested Remediation**: - Check with data stewards for the particular data type.
+- Ensure that the taxa are valid.
+
 
 **❌ bix_002**: taxonnames_are_not_duplicated_within_groups
 
 - **Severity**: ERROR
-- **Status**: UNKNOWN
-- **Description**: Although different ecological groups may have similar taxon names (e.g., Abronia in reptiles, plants, protists and fungi), within groups the
-taxonomic name should be unique.
+- **Status**: FAILED
+- **Description**: Although different ecological groups may have similar taxon names (e.g., Abronia in reptiles, plants, protists and fungi), within groups the taxonomic name should be unique.
 
+
+- **Suggested Remediation**: ['Identify the `correct` entry, remove duplicate entries.']
 
 
 See the [Data Quality Report](../../reports/data_quality_report.md) for details.

@@ -124,11 +124,11 @@ LIMIT 10;
 
 This table is subject to the following automated quality checks:
 
-**❌ valid_002**: ages_are_positive
+**✅ comp_004**: sample_ages_for_samples
 
-- **Severity**: ERROR
-- **Status**: UNKNOWN
-- **Description**: Age values should be positive
+- **Severity**: WARNING
+- **Status**: PASSED
+- **Description**: Samples should have sample ages, whether from a chronology or collection date.
 
 
 See the [Data Quality Report](../../reports/data_quality_report.md) for details.

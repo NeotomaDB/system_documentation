@@ -127,22 +127,38 @@ This table is subject to the following automated quality checks:
 - **Status**: FAILED
 - **Description**: All datasets should be referenced by at least one sample
 
+- **Suggested Remediation**: - Check if samples were never entered for this dataset
+- Verify if dataset should be archived/deleted
+- Contact data owner for clarification
+
+
 **✅ ref_002**: samples_have_valid_datasets
 
 - **Severity**: ERROR
 - **Status**: PASSED
 - **Description**: All samples must reference valid collection sites
 
-**❌ comp_002**: samples_have_dates
+**✅ comp_004**: sample_ages_for_samples
 
 - **Severity**: WARNING
-- **Status**: UNKNOWN
-- **Description**: Samples should have collection dates
+- **Status**: PASSED
+- **Description**: Samples should have sample ages, whether from a chronology or collection date.
 
-**❌ biz_001**: modern_samples_have_recent_dates
+**❌ valid_006**: samples_per_analysisunit
 
 - **Severity**: WARNING
-- **Status**: UNKNOWN
+- **Status**: FAILED
+- **Description**: Although some datasets may have multiple samples per analysis unit per dataset, we should generally expect that most analysis units have only one set of samples.
+
+- **Suggested Remediation**: - Check the dataset to see if the samples are legitimately multiple samples within a single dataset.
+- Check with the original publication, or upload data steward.
+- Potentially remove duplicate or empty samples if they exist.
+
+
+**✅ biz_001**: modern_samples_have_recent_dates
+
+- **Severity**: WARNING
+- **Status**: PASSED
 - **Description**: Samples marked as modern should have dates after 1950
 
 

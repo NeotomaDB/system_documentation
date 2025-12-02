@@ -128,6 +128,27 @@ This table is subject to the following automated quality checks:
 - **Status**: FAILED
 - **Description**: All sites should have at least one collection unit.
 
+- **Suggested Remediation**: - Remove "floating" sites.
+- Ensure that the collection units have not been accidentally deleted.
+
+
+**❌ comp_002**: collectionunits_have_dates
+
+- **Severity**: WARNING
+- **Status**: FAILED
+- **Description**: collectionunits should have collection dates
+
+- **Suggested Remediation**: - Review original data sources for date information.
+- Derive dates from publications where available.
+- Record the decision making processes at a Constituent Database level. 
+
+
+**✅ comp_004**: sample_ages_for_samples
+
+- **Severity**: WARNING
+- **Status**: PASSED
+- **Description**: Samples should have sample ages, whether from a chronology or collection date.
+
 
 See the [Data Quality Report](../../reports/data_quality_report.md) for details.
 ## Maintenance
