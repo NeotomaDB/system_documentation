@@ -11,18 +11,60 @@ import re
 
 def run_tests():
     """Run pytest and capture results"""
+    print("Executing pytest...")
+    
     result = subprocess.run(
-        ['pytest', 'tests/data_quality/', '--json-report', '--json-report-file=tests/reports/results.json', '-v'],
+        [
+            'pytest', 
+            'tests/data_quality/', 
+            '--json-report', 
+            '--json-report-file=tests/reports/results.json',
+            '--json-report-indent=2',  # Make it readable
+            '-v',
+            '--tb=short'  # Shorter tracebacks
+        ],
         capture_output=True,
         text=True
     )
+    
+    # Always show output for debugging
+    if result.stdout:
+        print("\n--- PYTEST STDOUT ---")
+        print(result.stdout)
+    
+    if result.stderr:
+        print("\n--- PYTEST STDERR ---")
+        print(result.stderr)
+    
+    # Check if JSON report was created
+    json_path = Path('tests/reports/results.json')
+    if not json_path.exists():
+        raise RuntimeError(
+            "Pytest did not generate results.json. "
+            "This usually means pytest crashed before completing. "
+            "Check the output above for errors."
+        )
+    
+    print(f"\n✓ Pytest completed (exit code: {result.returncode})")
     return result
 
-def load_test_definitions():
-    """Load test definitions"""
-    yaml_path = Path("tests/data_quality/data_test_definition.yaml")
+
+def load_test_definitions(filename:str):
+    """_Load test definitions_
+
+    Args:
+        filename (_str_): _A valid path to an existing yaml file._
+
+    Returns:
+        _dict_: _A dict obect representing the YAML file contents._
+    """
+    assert Path(filename).is_file(), f"The file {filename} is either not a valid file, or does not exist. Please create this file or provide a valid filename."
+
+    yaml_path = Path(filename)
     with open(yaml_path) as f:
-        return yaml.safe_load(f)
+        output = yaml.safe_load(f)
+        assert type(output) is dict, f"The file {filename} is not valid YAML. Please check the file and try again."
+        return output
 
 def generate_markdown_report(results, definitions):
     """Generate markdown report from test results"""
@@ -57,7 +99,6 @@ def generate_markdown_report(results, definitions):
     # Categorize test results
     for test_result in results.get('tests', []):
         test_id = extract_test_id(test_result.get('nodeid', ''))
-        
         # Find test definition
         test_def = find_test_definition(test_id, definitions)
         if test_def:
@@ -76,17 +117,18 @@ def generate_markdown_report(results, definitions):
     for category_name, category_data in categories.items():
         md += f"## {category_name.replace('_', ' ').title()}\n\n"
         md += f"**Pass Rate**: {category_data['passed']}/{category_data['total']}\n\n"
-        
         # Failed tests first
         failed_tests = [t for t in category_data['tests'] if t['result'].get('outcome') != 'passed']
         if failed_tests:
             md += "### ❌ Failed Tests\n\n"
             for test in failed_tests:
+                print(test)
                 test_def = test['definition']
                 md += f"#### {test_def['id']}: {test_def['name']}\n\n"
                 md += f"**Severity**: {test_def['severity'].upper()}\n\n"
                 md += f"**Description**: {test_def['description']}\n\n"
                 md += f"**Affected Tables**: {', '.join([f'`{t}`' for t in test_def['tables']])}\n\n"
+                md += f"**Error**: {test['result']['call']['crash']['message']}\n\n"
                 md += f"**Rationale**: {test_def['rationale']}\n\n"
                 md += f"**Remediation**:\n{test_def['remediation']}\n\n"
                 md += "---\n\n"
@@ -146,7 +188,9 @@ def update_table_documentation(definitions, results):
             quality_section += f"- **Severity**: {test['severity'].upper()}\n"
             quality_section += f"- **Status**: {test_status.upper()}\n"
             quality_section += f"- **Description**: {test['description']}\n\n"
-        
+            if test_status != "passed":
+                quality_section += f"- **Suggested Remediation**: {test['remediation']}\n\n"
+                
         quality_section += "\nSee the [Data Quality Report](../../reports/data_quality_report.md) for details.\n\n"
         
         # Insert or replace quality tests section
@@ -168,8 +212,8 @@ def update_table_documentation(definitions, results):
 
 def extract_test_id(nodeid):
     """Extract test ID from pytest nodeid"""
-    # Example: tests/data_quality/test_referential_integrity.py::test_ref_001
-    match = re.search(r'test_(\w+_\d+)', nodeid)
+    # Example: tests/data_quality/test_neotoma_database.py::test_data_quality[ref_001]
+    match = re.search(r'\[(\w+_\d+)\]', nodeid)
     return match.group(1) if match else None
 
 def find_test_definition(test_id, definitions):
@@ -182,7 +226,15 @@ def find_test_definition(test_id, definitions):
     return None
 
 def get_test_status(test_id, results):
-    """Get test status from results"""
+    """_Get test status from results_
+
+    Args:
+        test_id (_str_): _description_
+        results (_type_): _description_
+
+    Returns:
+        _type_: _description_
+    """
     for test in results.get('tests', []):
         if test_id in test.get('nodeid', ''):
             return test.get('outcome', 'unknown')
@@ -190,10 +242,12 @@ def get_test_status(test_id, results):
 
 def main():
     print("Running data quality tests...")
-    test_results = run_tests()
+    _ = run_tests()
     
     print("\nLoading test definitions...")
-    definitions = load_test_definitions()
+    script_dir = Path(__file__).parent
+    yaml_path = script_dir.parent / "tests/data_quality/data_test_definition.yaml"
+    definitions = load_test_definitions(str(yaml_path))
     
     print("\nGenerating quality report...")
     # Load JSON results
