@@ -1,6 +1,3 @@
-# Data Quality Test Definitions
-# Each test includes SQL query and expected result
-
 referential_integrity:
   - id: ref_001
     name: datasets_referenced_by_samples
@@ -62,8 +59,10 @@ referential_integrity:
       - Ensure that the collection units have not been accidentally deleted.
   - id: ref_004
     name: valid_taxa_need_highertaxonids
-    description: |
-      Taxa that have been added to the database should have a valid higher taxonomic identifier, unless those taxa are no longer considered valid taxonomically.
+    description: >
+      Taxa that have been added to the database should have a valid
+      higher taxonomic identifier, unless those taxa are no longer considered
+      valid taxonomically.
     severity: warning
     tables:
       - taxa
@@ -74,13 +73,14 @@ referential_integrity:
       AND tx.valid IS TRUE
       GROUP BY tx.taxonid
     expect: empty
-    rationale: |
-      All taxa should exit within the hierarchy, however we do remove taxa from the hierarchy when we identify them as being non-valid taxon names.
+    rationale: >
+      All taxa should exit within the hierarchy, however we do remove taxa
+      from the hierarchy when we identify them as being non-valid taxon names.
+
       If a taxon is considered valid by the contributor, then it should have a higher ID.
     remediation:
       - Check who entered the taxon using the validator ID and contact them
       - Check with the appropriate data steward for the taxonomic community
-
 data_completeness:
   - id: comp_001
     name: datasets_have_investigators
@@ -93,7 +93,7 @@ data_completeness:
       SELECT ds.datasetid, ds.datasetname
       FROM ndb.datasets AS ds
       LEFT JOIN ndb.datasetpis AS dpi ON dpi.datasetid = ds.datasetid
-      WHERE dpi.datasetpiid IS NULL
+      WHERE dpi.contactid IS NULL
     expect: empty
     rationale: |
       Every dataset should have an associated principal investigator for
@@ -101,7 +101,6 @@ data_completeness:
     remediation: |
       - Research and add PI information
       - Contact data owner to identify responsible investigator
-
   - id: comp_002
     name: collectionunits_have_dates
     description: collectionunits should have collection dates
@@ -121,7 +120,8 @@ data_completeness:
       - Record the decision making processes at a Constituent Database level. 
   - id: comp_003
     name: taxa_have_been_added_by_stewards
-    description: When a taxon is submitted to Neotoma there should be a person associated with that submission
+    description: When a taxon is submitted to Neotoma there should be a person
+      associated with that submission
     severity: warning
     tables:
       - taxa
@@ -130,12 +130,34 @@ data_completeness:
       FROM ndb.taxa
       WHERE validatorid IS NULL
     expect: empty
-    rationale: |
-      We should know who placed a taxon into the hierarchy so we have some background 
-      on any decision making or choices that defined that placement.
+    rationale: >
+      We should know who placed a taxon into the hierarchy so we have some
+      background on any decision making or choices that defined that placement.
     remediation: |
-      - Confirm placement with stewards, identify those stewards as the validators.
-
+      - Confirm placement with stewards, identify those stewards as the
+      validators.
+  - id: comp_004
+    name: sample_ages_for_samples
+    description: Samples should have sample ages, whether from a chronology or
+      collection date.
+    severity: warning
+    tables:
+      - collectionunits
+      - samples
+      - sampleages
+      - chronologies
+    query: |
+      SELECT distinct smpa.sampleid
+      FROM ndb.sampleages AS smpa
+      LEFT JOIN ndb.samples as smp on smp.sampleid = smpa.sampleid
+      WHERE smp.sampleid is null
+    expect: empty
+    rationale: |
+      A sample (and associated analysis unit) should be given an age from a
+      named chronology. Without a sample age the record floats in time.
+    remediation: |
+      - Check the original publication for collection dates and chronologies
+      - Update the records using Tilia or directly through the database.
 data_validity:
   - id: valid_001
     name: coordinates_in_valid_range
@@ -147,7 +169,7 @@ data_validity:
       SELECT siteid, sitename
       FROM ndb.sites
       WHERE latitudenorth < -90 OR latitudesouth < -90
-         OR longitude < -180 OR longitude > 180
+         OR longitudewest < -180 OR longitudeeast < -180
     expect: empty
     rationale: |
       Latitude must be between -90 and 90, longitude between -180 and 180.
@@ -155,27 +177,10 @@ data_validity:
       - Correct coordinate values
       - Check if coordinates need decimal point adjustment
       - Verify coordinate system (should be WGS84)
-
-  - id: valid_002
-    name: ages_are_positive
-    description: Age values should be positive
-    severity: error
-    tables:
-      - chronologies
-    query: |
-      SELECT chronologyid, age
-      FROM ndb.chronologies
-      WHERE age < 0
-    expect: empty
-    rationale: |
-      Negative ages indicate data entry errors.
-    remediation: |
-      - Correct age values
-      - Check if BP/AD convention was applied incorrectly
-  
   - id: valid_003
     name: valid_terminal_taxa_have_values
-    description: Taxa that are identified as 'leaves' in the database should be associated with values in the database.
+    description: Taxa that are identified as 'leaves' in the database should be
+      associated with values in the database.
     severity: warning
     tables:
       - taxa
@@ -190,15 +195,18 @@ data_validity:
       GROUP BY tx.taxonid
       HAVING COUNT(var.variableid) = 0
     expect: empty
-    rationale: |
-      If a taxon was entered into the database as a terminal leaf in the hierarchy, it ought to be associated with some data entry. If it is
+    rationale: >
+      If a taxon was entered into the database as a terminal leaf in the
+      hierarchy, it ought to be associated with some data entry. If it is
+
       absent from the variables table, then it was entered and never used.
     remediation: |
       - Check with data stewards for the particular data type.
       - Ensure that the taxa are valid.
   - id: valid_004
     name: sites_not_on_equator
-    description: Some sites seem to have been placed at the equator for one reason or another.
+    description: Some sites seem to have been placed at the equator for one reason
+      or another.
     severity: error
     tables:
       - sites
@@ -214,7 +222,58 @@ data_validity:
     remediation: |
       - Check with the relevant steward, and check with the data uploader
       - Check the associated publication for site information
+  - id: valid_005
+    name: sample_ages_scaled_properly
+    description: Sample ages and chronologies should have ages that have the correct
+      age range. younger ages should always be more recent than older ages.
+    severity: error
+    tables:
+      - sampleages
+    query: >
+      SELECT sa.*
 
+      FROM ndb.sampleages AS sa
+
+      INNER JOIN ndb.chronologies AS ch ON ch.chronologyid = sa.chronologyid
+
+      WHERE (sa.ageyounger  > sa.ageolder and ch.agetypeid = ANY(array[2,3,4,5]))
+        OR (sa.ageyounger < sa.ageolder AND ch.agetypeid = ANY(array[1]))
+    expect: empty
+    rationale: The older and younger dates need to be ordered properly.
+    remediation: |
+      - Likely we just need to flip the ages around from younger to older.
+      - The chronology may also need some examination.
+  - id: valid_006
+    name: samples_per_analysisunit
+    description: Although some datasets may have multiple samples per analysis unit
+      per dataset, we should generally expect that most analysis units have only
+      one set of samples.
+    severity: warning
+    tables:
+      - samples
+      - datasets
+    query: >
+      SELECT array_agg(smp.sampleid), ds.datasetid, db.databasename
+      FROM ndb.samples AS smp
+      INNER JOIN ndb.datasets AS ds ON ds.datasetid = smp.datasetid
+      INNER JOIN ndb.datasetdatabases AS dsdb ON dsdb.datasetid = ds.datasetid
+      INNER JOIN ndb.constituentdatabases AS db ON db.databaseid = dsdb.databaseid
+      GROUP BY smp.analysisunitid, ds.datasetid, db.databaseid 
+      HAVING COUNT(smp.sampleid) > 1;
+    expect: empty
+    rationale: >
+      We definitely see duplicate samples within an analysis unit (and
+      within a dataset), but we want to make sure that we're not seeing errors
+      here. 
+
+      This is set as a warning, and possibly we can work to improve the query a bit.
+    remediation: >
+      - Check the dataset to see if the samples are legitimately multiple
+      samples within a single dataset.
+
+      - Check with the original publication, or upload data steward.
+
+      - Potentially remove duplicate or empty samples if they exist.
 business_rules:
   - id: biz_001
     name: modern_samples_have_recent_dates
@@ -239,24 +298,69 @@ business_rules:
     remediation: |
       - Verify sample type classification
       - Correct sample date if erroneous
-
   - id: bix_002
     name: taxonnames_are_not_duplicated_within_groups
-    description: |
-      Although different ecological groups may have similar taxon names (e.g., Abronia in reptiles, plants, protists and fungi), within groups the
+    description: >
+      Although different ecological groups may have similar taxon names
+      (e.g., Abronia in reptiles, plants, protists and fungi), within groups the
       taxonomic name should be unique.
     severity: error
     tables:
       - taxa
     query: |
-      SELECT tx.taxonname, tx.ecolgroupid, COUNT(*)
+      SELECT tx.taxonname, tx.taxagroupid, COUNT(*)
       FROM ndb.taxa AS tx
-      GROUP BY tx.taxonname, tx.ecolgroupid
+      GROUP BY tx.taxonname, tx.taxagroupid
       HAVING COUNT(*) > 1
-    rationale: |
-      If the same name is entered multiple times within the taxonomic table for a particular taxonomic group, we can expect that there is likely some
+    expect: empty
+    rationale: >
+      If the same name is entered multiple times within the taxonomic table
+      for a particular taxonomic group, we can expect that there is likely some
+
       issue with conflicting hierarchies that needs to be resolved by the data stewardship team.
     remediation:
       - Identify the `correct` entry, remove duplicate entries.
-  
+  - id: bix_003
+    name: variable_elements_in_use
+    description: >
+      Over time a number of variable contexts, units and elements have
+      been created but not neccessarily used. In some cases this may have
+      resulted from improperly entered data 
 
+      in the Tilia spreadsheet.
+    severity: warning
+    tables:
+      - variablecontexts
+      - variableelements
+      - variableunits
+    query: >
+      select 'variablecontexts' as table,
+        vc.variablecontextid as identifier,
+        vc.variablecontext as value
+      from ndb.variablecontexts as vc
+      left join ndb.variables as var on vc.variablecontextid = var.variablecontextid 
+      where var.variableid is null
+      union all
+      select 'variableelements' as table,
+        ve.variableelementid as identifier,
+        ve.variableelement as value
+      from ndb.variableelements as ve
+      left join ndb.variables as var on ve.variableelementid = var.variableelementid 
+      where var.variableid is null
+      union all 
+      select 'variableunits' as table,
+        vu.variableunitsid as identifier,
+        vu.variableunits as value
+      from ndb.variableunits as vu
+      left join ndb.variables as var on vu.variableunitsid = var.variableunitsid 
+      where var.variableid is null;
+    expect: empty
+    rationale: >
+      We want to ensure that the variables defined within the controlled
+      vocabularies match with accepted external values, and that the variables
+      that a user may
+
+      select for data analysis are reflected in reality.
+    remediation: >
+      - Where possible, remove unused units/elements/contexts
+      - Ensure any near-duplicates of existing units/elements/contexts are using best-practice or accepted notations.
