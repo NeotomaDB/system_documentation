@@ -1,12 +1,18 @@
+---
+tags:
+  - S3
+  - landing pages
+  - explorer
+  - github
+  - route53
+---
 # S3 Storage
-
-## S3 Resources
 
 S3 is the storage we use for serving static resources (Landing Pages, Explorer) and to serve snapshots of Neotoma data.
 
-### System Overview
+## System Overview
 
-The S3 services are connected to our Route53 service which connects applications and internal AWS URLs to namespaces (`neotomadb.org`). Static resources (they are compiled and then largely served through the client's own browser) include Neotoma Explorer (built with Dojo) and the Neotoma Landing pages (built with Vue.js). Remote storage of database snapshots is managed through FarGate and the Batch service.
+S3 services are connected to our Route53 service which connects applications and internal AWS URLs to namespaces (`neotomadb.org`). Static resources (they are compiled and then largely served through the client's own browser) include Neotoma Explorer (built with Dojo) and the Neotoma Landing pages (built with Vue.js). Remote storage of database snapshots is managed through FarGate and the Batch service.
 
 ```mermaid
 ---
@@ -96,4 +102,94 @@ click data_dev_web "https://data-dev.neotomadb.org" "Neotoma Landing Pages Dev"
 ```
 
 ## Resources
+### Buckets
 
+#### apps-dev.neotomadb.org
+##### Created
+ * 2025-11-28 21:52:18+00:00
+##### Description
+  * S3 bucket for the storage of static files associated with services deployed through dev apps.neotomadb.org. Primarily the Neotoma Explorer application.
+#### apps.neotomadb.org
+##### Created
+ * 2025-10-30 22:28:49+00:00
+##### Description
+  * S3 bucket for the storage of static files associated with services deployed through apps.neotomadb.org. Primarily the Neotoma Explorer application.
+#### data-dev.neotomadb.org
+##### Created
+ * 2025-10-29 03:40:32+00:00
+##### Description
+  * S3 bucket for the storage of static files associated with the development branch of the Neotoma landing pages.
+#### data.neotomadb.org
+##### Created
+ * 2025-11-28 19:54:23+00:00
+##### Description
+  * S3 bucket for the storage of static files associated with the production version of the Neotoma Landing Pages.
+#### elasticbeanstalk-us-east-1-417278330808
+##### Created
+ * 2023-07-13 23:02:54+00:00
+#### elasticbeanstalk-us-east-2-417278330808
+##### Created
+ * 2024-10-16 05:19:07+00:00
+#### log-file-management
+##### Created
+ * 2024-10-16 07:49:38+00:00
+#### metareview
+##### Created
+ * 2025-10-30 21:37:27+00:00
+#### neotoma-remote-store
+##### Created
+ * 2025-10-30 21:12:11+00:00
+##### Description
+  * The S3 bucket for storing cloud data related to the database - in particular - the location of the Neotoma cloud backups
+#### neotomadb.org
+##### Created
+ * 2024-10-16 08:42:55+00:00
+#### tiliaresources
+##### Created
+ * 2024-10-18 19:26:50+00:00
+### Buckets
+
+#### apps-dev.neotomadb.org
+##### Created
+ * 2025-11-28 21:52:18+00:00
+##### Description
+  * S3 bucket for the storage of static files associated with services deployed through dev apps.neotomadb.org. Primarily the Neotoma Explorer application.
+#### apps.neotomadb.org
+##### Created
+ * 2025-10-30 22:28:49+00:00
+##### Description
+  * S3 bucket for the storage of static files associated with services deployed through apps.neotomadb.org. Primarily the Neotoma Explorer application.
+#### data-dev.neotomadb.org
+##### Created
+ * 2025-10-29 03:40:32+00:00
+##### Description
+  * S3 bucket for the storage of static files associated with the development branch of the Neotoma landing pages.
+#### data.neotomadb.org
+##### Created
+ * 2025-11-28 19:54:23+00:00
+##### Description
+  * S3 bucket for the storage of static files associated with the production version of the Neotoma Landing Pages.
+#### elasticbeanstalk-us-east-1-417278330808
+##### Created
+ * 2023-07-13 23:02:54+00:00
+#### elasticbeanstalk-us-east-2-417278330808
+##### Created
+ * 2024-10-16 05:19:07+00:00
+#### log-file-management
+##### Created
+ * 2024-10-16 07:49:38+00:00
+#### metareview
+##### Created
+ * 2025-10-30 21:37:27+00:00
+#### neotoma-remote-store
+##### Created
+ * 2025-10-30 21:12:11+00:00
+##### Description
+  * The S3 bucket for storing cloud data related to the database - in particular - the location of the Neotoma cloud backups
+#### neotomadb.org
+##### Created
+ * 2024-10-16 08:42:55+00:00
+#### tiliaresources
+##### Created
+ * 2024-10-18 19:26:50+00:00
+---

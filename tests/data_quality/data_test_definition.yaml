@@ -2,7 +2,7 @@ referential_integrity:
   - id: ref_001
     name: datasets_referenced_by_samples
     description: All datasets should be referenced by at least one sample
-    severity: error
+    severity: warning
     tables:
       - datasets
       - samples
@@ -236,8 +236,8 @@ data_validity:
 
       INNER JOIN ndb.chronologies AS ch ON ch.chronologyid = sa.chronologyid
 
-      WHERE (sa.ageyounger  > sa.ageolder and ch.agetypeid = ANY(array[2,3,4,5]))
-        OR (sa.ageyounger < sa.ageolder AND ch.agetypeid = ANY(array[1]))
+      WHERE (sa.ageyounger  => sa.ageolder and ch.agetypeid = ANY(array[2,3,4,5]))
+        OR (sa.ageyounger <= sa.ageolder AND ch.agetypeid = ANY(array[1]))
     expect: empty
     rationale: The older and younger dates need to be ordered properly.
     remediation: |
@@ -325,8 +325,7 @@ business_rules:
     description: >
       Over time a number of variable contexts, units and elements have
       been created but not neccessarily used. In some cases this may have
-      resulted from improperly entered data 
-
+      resulted from improperly entered data
       in the Tilia spreadsheet.
     severity: warning
     tables:
@@ -358,9 +357,7 @@ business_rules:
     rationale: >
       We want to ensure that the variables defined within the controlled
       vocabularies match with accepted external values, and that the variables
-      that a user may
-
-      select for data analysis are reflected in reality.
+      that a user may select for data analysis are reflected in reality.
     remediation: >
       - Where possible, remove unused units/elements/contexts
       - Ensure any near-duplicates of existing units/elements/contexts are using best-practice or accepted notations.

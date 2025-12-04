@@ -1,3 +1,14 @@
+---
+tags:
+    - github
+    - aws
+    - s3
+    - github/actions
+    - ecr
+    - architecture
+    - vpc
+---
+
 # Cloud Infrastructure
 
 Neotoma runs as a set of components using cloud infrastructure. Neotoma's transition to the cloud occurred as a result of an NSF Grant through the CloudBank program, providing direct project funding for cloud compute resources. Through this grant we were able to deploy Neotoma as a secure cloud-available database, with multiple services, including the API, landing pages, backup and file storage and web domain management.

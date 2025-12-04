@@ -5,11 +5,17 @@ site_url: https://open.neotomadb.org/system_documentation
 
 repo_url: https://github.com/NeotomaDB/system_documentation
 repo_name: NeotomaDB/system_documentation
+edit_uri: edit/main/docs
 
 theme:
   name: material
   font:
-    code: 
+    text: Roboto
+    code: Roboto Mono
+  icon:
+    repo: fontawesome/brands/git-alt
+    edit: material/pencil 
+    view: material/eye
   palette:
     # Light mode
     - scheme: default
@@ -30,12 +36,17 @@ theme:
     - navigation.sections
     - navigation.expand
     - navigation.top
+    - navigation.footer
     - navigation.tracking
     - search.suggest
     - search.highlight
     - search.share
     - content.code.copy
     - content.code.annotate
+    - content.action.edit
+
+extra_css:
+  - docs/assets/styles.css
 
 plugins:
   - search
@@ -89,7 +100,11 @@ nav:
   - Database:
       - Introduction: database/index.md
       - Neotoma Database History: database/neotoma_history.md
-      - Design Concepts: database/design_concepts.md
+      - Design Concepts:
+        - Overview: database/design_concepts.md
+        - Schemas: database/schemas.md
+        - Functions: database/functions.md
+        - Queries: database/queries.md
       - Connecting to Neotoma: database/connection.md
       - Table Overview: database/overview.md
   - API:
@@ -97,7 +112,31 @@ nav:
       - Quick Start: api/quickstart.md
       - Authentication: api/authentication.md
       - Endpoints by Table: api/endpoints/by-table.md
-  - AWS Infrastructure: aws/index.md
+      - Design Concepts:
+        - Overview: api/overview.md
+        - Adding API Endpoints: api/buildingapi.md
+  - AWS Infrastructure:
+      - Introduction: aws/introduction.md
+      - Design Concepts:
+        - Overview: aws/index.md
+        - Production and Development: aws/developing.md
+        - Troubleshooting: aws/troubleshooting.md
+      - S3 Services: aws/s3storage/index.md
+      - AppRunner: aws/apprunner/index.md
+      - RDS: aws/rds/index.md
+      - Route 53: aws/route53/index.md
+      - Cron Jobs: aws/batch/index.md
+      - Containers: aws/ecr/index.md
+      - CloudWatch: aws/cloudwatch/index.md
+  - GitHub:
+      - Introduction: github/index.md
+      - Design Concepts:
+        - Overview: github/designconcepts/index.md
+        - R Programming: github/designconcepts/rcode.md
+        - Python: github/designconcepts/python.md
+        - JavaScript: github/designconcepts/javascript.md
+        - SQL: github/designconcepts/SQL.md
+      - Services: github/services.md
   - Runbooks: runbooks/index.md
   - Reports: reports/data_quality_report.md
 
@@ -105,6 +144,7 @@ extra:
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/NeotomaDB
+      name: Neotoma on Github
 
 watch:
   - docs/macros.py

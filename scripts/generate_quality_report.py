@@ -128,9 +128,10 @@ def generate_markdown_report(results, definitions):
                 md += f"**Severity**: {test_def['severity'].upper()}\n\n"
                 md += f"**Description**: {test_def['description']}\n\n"
                 md += f"**Affected Tables**: {', '.join([f'`{t}`' for t in test_def['tables']])}\n\n"
-                md += f"**Error**: {test['result']['call']['crash']['message']}\n\n"
+                md += "**Error**:\n"
+                md += f"```\n{test['result']['call']['crash']['message']}\n```\n"
                 md += f"**Rationale**: {test_def['rationale']}\n\n"
-                md += f"**Remediation**:\n{test_def['remediation']}\n\n"
+                md += f"**Remediation**:\n\n{test_def['remediation']}\n\n"
                 md += "---\n\n"
         
         # Passed tests summary

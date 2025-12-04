@@ -2,6 +2,17 @@
 
 Welcome to the research database documentation. This section provides comprehensive information about the database schema, tables, and usage patterns.
 
+## Navigation
+
+The database documentation (specifically) includes several views of the data, tables and table structures.
+
+- **[Introduction](#about-the-database)** - This document
+- **[Design Concepts](design_concepts.md)** - An overview of some of the design choices made in developing the database
+- **[Table Overview](overview.md)** - Summary of all database tables
+- **[Common Queries](queries.md)** - Frequently used query patterns
+- **[Schema Diagram](https://open.neotomadb.org/dbschema/ndb)** - [External Resource] Searchable representation of table relationships
+- **[Connection Guide](connection.md)** - A guide to connecting to the database, either for data use, or for data administration
+
 ## About the Database
 
 The Neotoma Paleoecology Database is a public, community curated database containing fossil data from the Holocene, Pleistocene, and Pliocene, or approximately the last 5.3 million years [@Williams2018a]. Neotoma stores biological data, and associated physical data from fossil bearing deposits or the depositional environments from which datasets have been obtained. For example, sediment loss-on-ignition and geochemical data from lake sediments, or modern water chemistry data from water bodies from which diatoms have been collected. The database also stores data from modern samples that are used to interpret fossil data.
@@ -65,15 +76,6 @@ The existing databases have been used widely for a variety of studies. Because t
 * **Scientists** trying to understand the potential response of plants, animals, biomes, ecosystems, and biodiversity to global warming (e.g., Bartlein et al. 1997, Davis et al. 2000, Barnosky et al. 2003, Burns et al. 2003, Kaplan et al. 2003, Schmitz et al. 2003, Jackson and Williams 2004, Martínez-Meyer et al. 2004)
 * **Teachers** who use the databases for teaching purposes and class exercises [@Goring2018].
 
-## Navigation
-
-- **[Table Overview](overview.md)** - Summary of all database tables
-- **[Common Queries](queries.md)** - Frequently used query patterns
-- **[Schema Diagram](schema.md)** - Visual representation of table relationships
-
-## Connection Information
-
-See the [connection guide](connection.md) for details on accessing the database.
 
 ---
 
