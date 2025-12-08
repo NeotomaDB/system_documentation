@@ -104,7 +104,7 @@ nav:
         - Overview: database/design_concepts.md
         - Security: database/security.md
         - User Management: database/user_management.md
-        - Schemas: database/schemas.md
+        - Schemas and the Holding Tank: database/schemas.md
         - Functions: database/functions.md
         - Queries: database/queries.md
         - Extensions: database/extensions.md
@@ -118,19 +118,17 @@ nav:
         - Endpoints by Table: api/endpoints/by-table.md
         - Design Concepts:
           - Overview: api/overview.md
-          - Security: api/overview.md
+          - Security: api/security.md
           - Adding API Endpoints:
-            - Endpoints from the Database: api/building/db.md
+            - Endpoints from the Database: api/building/dbhelpers.md
             - External Endpoints: api/building/external.md
       - Tilia:
         - Quick Start: api/tilia/quickstart.md
         - Authentication: api/tilia/authentication.md
-        - Endpoints by Table: api/tilia/endpoints/by-table.md
+        - Endpoints by Table: api/tilia/endpoints.md
         - Design Concepts:
           - Overview: api/tilia/overview.md
-          - Adding API Endpoints:
-            - Endpoints from the Database: api/tilia/building/db.md
-            - External Endpoints: api/tilia/building/external.md
+          - Adding API Endpoints: api/tilia/building.md
   - Landing Pages:
       - Overview: landingpages/index.md
       - Design Concepts:
@@ -138,29 +136,29 @@ nav:
         - Authentication: landingpages/orcid.md
   - Explorer:
     - Overview: explorer/index.md
-    - Design Concepts:
-      - Deploying: explorer/components.md
+    - Design Concepts: explorer/design.md
   - AWS Infrastructure:
       - Introduction: aws/introduction.md
       - Design Concepts:
-        - Overview: aws/index.md
-        - Production and Development: aws/developing.md
-        - Troubleshooting: aws/troubleshooting.md
-      - S3 Services: aws/s3storage/index.md
-      - AppRunner: aws/apprunner/index.md
-      - RDS: aws/rds/index.md
-      - Route 53: aws/route53/index.md
-      - Cron Jobs: aws/batch/index.md
-      - Containers: aws/ecr/index.md
-      - CloudWatch: aws/cloudwatch/index.md
+        - Overview: aws/concepts/index.md
+        - Production and Development: aws/concepts/developing.md
+        - Troubleshooting: aws/concepts/troubleshooting.md
+      - Services:
+        - S3 Services: aws/services/s3storage/index.md
+        - AppRunner: aws/services/apprunner/index.md
+        - RDS: aws/services/rds/index.md
+        - Route 53: aws/services/route53/index.md
+        - Cron Jobs: aws/services/batch/index.md
+        - Containers: aws/services/ecr/index.md
+        - CloudWatch: aws/services/cloudwatch/index.md
   - GitHub:
       - Introduction: github/index.md
       - Design Concepts:
-        - Overview: github/designconcepts/index.md
-        - R Programming: github/designconcepts/rcode.md
-        - Python: github/designconcepts/python.md
-        - JavaScript: github/designconcepts/javascript.md
-        - SQL: github/designconcepts/SQL.md
+        - Overview: github/concepts/index.md
+        - R Programming: github/concepts/rcode.md
+        - Python: github/concepts/python.md
+        - JavaScript: github/concepts/javascript.md
+        - SQL: github/concepts/SQL.md
       - Services:
         - Landing Pages: github/landingpages.md
         - DataBUS: github/databus.md
