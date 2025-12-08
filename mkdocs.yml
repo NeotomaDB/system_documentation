@@ -102,19 +102,44 @@ nav:
       - Neotoma Database History: database/neotoma_history.md
       - Design Concepts:
         - Overview: database/design_concepts.md
+        - Security: database/security.md
+        - User Management: database/user_management.md
         - Schemas: database/schemas.md
         - Functions: database/functions.md
         - Queries: database/queries.md
+        - Extensions: database/extensions.md
       - Connecting to Neotoma: database/connection.md
       - Table Overview: database/overview.md
   - API:
       - Overview: api/index.md
-      - Quick Start: api/quickstart.md
-      - Authentication: api/authentication.md
-      - Endpoints by Table: api/endpoints/by-table.md
+      - Neotoma API:
+        - Quick Start: api/quickstart.md
+        - Authentication: api/authentication.md
+        - Endpoints by Table: api/endpoints/by-table.md
+        - Design Concepts:
+          - Overview: api/overview.md
+          - Security: api/overview.md
+          - Adding API Endpoints:
+            - Endpoints from the Database: api/building/db.md
+            - External Endpoints: api/building/external.md
+      - Tilia:
+        - Quick Start: api/tilia/quickstart.md
+        - Authentication: api/tilia/authentication.md
+        - Endpoints by Table: api/tilia/endpoints/by-table.md
+        - Design Concepts:
+          - Overview: api/tilia/overview.md
+          - Adding API Endpoints:
+            - Endpoints from the Database: api/tilia/building/db.md
+            - External Endpoints: api/tilia/building/external.md
+  - Landing Pages:
+      - Overview: landingpages/index.md
       - Design Concepts:
-        - Overview: api/overview.md
-        - Adding API Endpoints: api/buildingapi.md
+        - Components: landingpages/components.md
+        - Authentication: landingpages/orcid.md
+  - Explorer:
+    - Overview: explorer/index.md
+    - Design Concepts:
+      - Deploying: explorer/components.md
   - AWS Infrastructure:
       - Introduction: aws/introduction.md
       - Design Concepts:
@@ -136,7 +161,10 @@ nav:
         - Python: github/designconcepts/python.md
         - JavaScript: github/designconcepts/javascript.md
         - SQL: github/designconcepts/SQL.md
-      - Services: github/services.md
+      - Services:
+        - Landing Pages: github/landingpages.md
+        - DataBUS: github/databus.md
+        - NeotomaPyDOI: github/neotomapydoi.md
   - Runbooks: runbooks/index.md
   - Reports: reports/data_quality_report.md
 

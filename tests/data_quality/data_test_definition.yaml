@@ -191,6 +191,7 @@ data_validity:
       LEFT JOIN ndb.taxa AS htx ON tx.taxonid = htx.highertaxonid
       LEFT JOIN ndb.variables AS var ON var.taxonid = tx.taxonid
       WHERE htx.taxonid IS NULL
+      AND tx.valid IS TRUE
       AND var.variableid IS NULL
       GROUP BY tx.taxonid
       HAVING COUNT(var.variableid) = 0
@@ -198,7 +199,6 @@ data_validity:
     rationale: >
       If a taxon was entered into the database as a terminal leaf in the
       hierarchy, it ought to be associated with some data entry. If it is
-
       absent from the variables table, then it was entered and never used.
     remediation: |
       - Check with data stewards for the particular data type.
@@ -270,9 +270,7 @@ data_validity:
     remediation: >
       - Check the dataset to see if the samples are legitimately multiple
       samples within a single dataset.
-
       - Check with the original publication, or upload data steward.
-
       - Potentially remove duplicate or empty samples if they exist.
 business_rules:
   - id: biz_001
