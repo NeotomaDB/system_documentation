@@ -2,802 +2,946 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://open.neotomadb.org/system_documentation/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/tags/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/api/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/api/authentication/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
+    </url>
+    <url>
+         <loc>https://open.neotomadb.org/system_documentation/api/overview/</loc>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/api/quickstart/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
+    </url>
+    <url>
+         <loc>https://open.neotomadb.org/system_documentation/api/security/</loc>
+         <lastmod>2025-12-08</lastmod>
+    </url>
+    <url>
+         <loc>https://open.neotomadb.org/system_documentation/api/building/dbhelpers/</loc>
+         <lastmod>2025-12-08</lastmod>
+    </url>
+    <url>
+         <loc>https://open.neotomadb.org/system_documentation/api/building/external/</loc>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/api/endpoints/by-table/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
-         <loc>https://open.neotomadb.org/system_documentation/aws/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <loc>https://open.neotomadb.org/system_documentation/api/tilia/authentication/</loc>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
-         <loc>https://open.neotomadb.org/system_documentation/aws/s3storage/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <loc>https://open.neotomadb.org/system_documentation/api/tilia/building/</loc>
+         <lastmod>2025-12-08</lastmod>
+    </url>
+    <url>
+         <loc>https://open.neotomadb.org/system_documentation/api/tilia/endpoints/</loc>
+         <lastmod>2025-12-08</lastmod>
+    </url>
+    <url>
+         <loc>https://open.neotomadb.org/system_documentation/api/tilia/overview/</loc>
+         <lastmod>2025-12-08</lastmod>
+    </url>
+    <url>
+         <loc>https://open.neotomadb.org/system_documentation/api/tilia/quickstart/</loc>
+         <lastmod>2025-12-08</lastmod>
+    </url>
+    <url>
+         <loc>https://open.neotomadb.org/system_documentation/aws/introduction/</loc>
+         <lastmod>2025-12-08</lastmod>
+    </url>
+    <url>
+         <loc>https://open.neotomadb.org/system_documentation/aws/concepts/</loc>
+         <lastmod>2025-12-08</lastmod>
+    </url>
+    <url>
+         <loc>https://open.neotomadb.org/system_documentation/aws/concepts/developing/</loc>
+         <lastmod>2025-12-08</lastmod>
+    </url>
+    <url>
+         <loc>https://open.neotomadb.org/system_documentation/aws/concepts/troubleshooting/</loc>
+         <lastmod>2025-12-08</lastmod>
+    </url>
+    <url>
+         <loc>https://open.neotomadb.org/system_documentation/aws/services/apprunner/</loc>
+         <lastmod>2025-12-08</lastmod>
+    </url>
+    <url>
+         <loc>https://open.neotomadb.org/system_documentation/aws/services/batch/</loc>
+         <lastmod>2025-12-08</lastmod>
+    </url>
+    <url>
+         <loc>https://open.neotomadb.org/system_documentation/aws/services/cloudwatch/</loc>
+         <lastmod>2025-12-08</lastmod>
+    </url>
+    <url>
+         <loc>https://open.neotomadb.org/system_documentation/aws/services/ecr/</loc>
+         <lastmod>2025-12-08</lastmod>
+    </url>
+    <url>
+         <loc>https://open.neotomadb.org/system_documentation/aws/services/rds/</loc>
+         <lastmod>2025-12-08</lastmod>
+    </url>
+    <url>
+         <loc>https://open.neotomadb.org/system_documentation/aws/services/route53/</loc>
+         <lastmod>2025-12-08</lastmod>
+    </url>
+    <url>
+         <loc>https://open.neotomadb.org/system_documentation/aws/services/s3storage/</loc>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/connection/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/design_concepts/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
+    </url>
+    <url>
+         <loc>https://open.neotomadb.org/system_documentation/database/extensions/</loc>
+         <lastmod>2025-12-08</lastmod>
+    </url>
+    <url>
+         <loc>https://open.neotomadb.org/system_documentation/database/functions/</loc>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/neotoma_history/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/overview/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/queries/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
-         <loc>https://open.neotomadb.org/system_documentation/database/schema/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <loc>https://open.neotomadb.org/system_documentation/database/schemas/</loc>
+         <lastmod>2025-12-08</lastmod>
+    </url>
+    <url>
+         <loc>https://open.neotomadb.org/system_documentation/database/security/</loc>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/table_structure/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
+    </url>
+    <url>
+         <loc>https://open.neotomadb.org/system_documentation/database/user_management/</loc>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/_template/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/accumulationrates/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/agetypes/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/aggregatechronologies/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/aggregatedatasets/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/aggregateordertypes/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/aggregatesampleages/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/aggregatesamples/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/analysisunitaltdepths/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/analysisunitaltdepthscales/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/analysisunitlithostrat/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/analysisunits/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/calibrationcurves/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/calibrationprograms/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/chroncontrolaccuracydirections/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/chroncontrolaccuracydistributions/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/chroncontrolaccuracyranks/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/chroncontrolprecisionranks/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/chroncontrolranks/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/chroncontrols/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/chroncontrolscal14c/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/chroncontroltypes/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/chronologies/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/collectiontypes/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/collectionunits/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/collectors/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/constituentdatabases/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/contactreferences/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/contacts/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/contactstatuses/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/contextsdatasettypes/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/data/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/dataprocessors/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/datasetdatabases/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/datasetdoi/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/datasetpis/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/datasetpublications/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/datasets/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/datasetsubmissions/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/datasetsubmissiontypes/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/datasettaxagrouptypes/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/datasettaxonnotes/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/datasettypes/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/datasetvariables/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/datataxonnotes/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/datauncertainties/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/decayconstants/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/depagents/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/depagenttypes/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/depenvttypes/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/depthreferencesystem/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/ecolgroups/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/ecolgrouptypes/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/ecolsettypes/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/elementdatasettaxagroups/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/elementmaturities/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/elementportions/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/elementsymmetries/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/elementtaxagroupmaturities/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/elementtaxagroupportions/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/elementtaxagroups/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/elementtaxagroupsymmetries/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/elementtypes/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/embargo/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/entitycovers/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/entitycovertypes/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/entitydripheight/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/entitygeology/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/entitylandusecover/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/entityrelationship/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/entitysamples/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/entityvegetationcover/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/eventchronology/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/eventpublications/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/events/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/eventtypes/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/externalcontacts/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/externaldatabases/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/externalgeochronology/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/externalpublications/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/externalspeleothemdata/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/externaltaxa/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/faciestypes/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/formtaxa/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/fractiondated/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/geochroncontrols/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/geochronology/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/geochronpublications/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/geochrontypes/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/geopaths/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/geopoliticalunits/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/hiatuschronology/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/hiatuses/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/isobiomarkerbandtypes/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/isobiomarkertypes/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/isoinstrumentation/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/isoinstrumentationtypes/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/isomatanalsubstrate/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/isomaterialanalyzedtypes/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/isometadata/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/isopretreatmenttypes/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/isosampleintrosystemtypes/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/isosampleorigintypes/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/isosamplepretreatments/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/isoscaletypes/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/isospecimendata/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/isosrmetadata/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/isostandards/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/isostandardtypes/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/isostratdata/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/isosubstratetypes/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/isovariablescaletypes/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/keywords/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/lakeparameters/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/lakeparametertypes/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/landusetypes/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/leadmodelbasis/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/leadmodels/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/lithology/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/lithostrat/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/lithostratunits/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/publicationauthors/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/publicationeditors/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/publications/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/publicationtranslators/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/publicationtypes/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/radiocarbon/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/radiocarboncalibration/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/radiocarbonmethods/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/relativeagepublications/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/relativeages/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/relativeagescales/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/relativeageunits/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/relativechronology/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/repositoryinstitutions/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/repositoryspecimens/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/rocktypes/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/sampleages/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/sampleanalysts/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/samplekeywords/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/samples/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/sitegeopolitical/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/siteimages/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/sitelandusecover/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/sites/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/sitestemp/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/sitevegetationcover/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/specimendates/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/specimendatescal/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/specimendomesticstatustypes/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/specimengenbank/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/specimens/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/specimensextypes/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/specimentaphonomy/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/speleothemcollectionunits/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/speleothemdriptypes/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/speleothementitystatuses/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/speleothems/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/speleothemtypes/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/summarydatataphonomy/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/synonyms/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/synonymtypes/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/synonymy/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/sysdiagrams/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/taphonomicsystems/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/taphonomicsystemsdatasettypes/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/taphonomictypes/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/taxa/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/taxaalthierarchy/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/taxaalthierarchytypes/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/taxagrouptypes/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/taxonpaths/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/tephras/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/uncertaintybases/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/unitsdatasettypes/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/uraniumseries/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/uraniumseriesdata/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/variablecontexts/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/variableelements/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/variables/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/variableunits/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/database/tables/vegetationcovertypes/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
+    </url>
+    <url>
+         <loc>https://open.neotomadb.org/system_documentation/explorer/</loc>
+         <lastmod>2025-12-08</lastmod>
+    </url>
+    <url>
+         <loc>https://open.neotomadb.org/system_documentation/explorer/design/</loc>
+         <lastmod>2025-12-08</lastmod>
+    </url>
+    <url>
+         <loc>https://open.neotomadb.org/system_documentation/github/</loc>
+         <lastmod>2025-12-08</lastmod>
+    </url>
+    <url>
+         <loc>https://open.neotomadb.org/system_documentation/github/databus/</loc>
+         <lastmod>2025-12-08</lastmod>
+    </url>
+    <url>
+         <loc>https://open.neotomadb.org/system_documentation/github/landingpages/</loc>
+         <lastmod>2025-12-08</lastmod>
+    </url>
+    <url>
+         <loc>https://open.neotomadb.org/system_documentation/github/neotomapydoi/</loc>
+         <lastmod>2025-12-08</lastmod>
+    </url>
+    <url>
+         <loc>https://open.neotomadb.org/system_documentation/github/concepts/</loc>
+         <lastmod>2025-12-08</lastmod>
+    </url>
+    <url>
+         <loc>https://open.neotomadb.org/system_documentation/github/concepts/SQL/</loc>
+         <lastmod>2025-12-08</lastmod>
+    </url>
+    <url>
+         <loc>https://open.neotomadb.org/system_documentation/github/concepts/javascript/</loc>
+         <lastmod>2025-12-08</lastmod>
+    </url>
+    <url>
+         <loc>https://open.neotomadb.org/system_documentation/github/concepts/python/</loc>
+         <lastmod>2025-12-08</lastmod>
+    </url>
+    <url>
+         <loc>https://open.neotomadb.org/system_documentation/github/concepts/rcode/</loc>
+         <lastmod>2025-12-08</lastmod>
+    </url>
+    <url>
+         <loc>https://open.neotomadb.org/system_documentation/landingpages/</loc>
+         <lastmod>2025-12-08</lastmod>
+    </url>
+    <url>
+         <loc>https://open.neotomadb.org/system_documentation/landingpages/components/</loc>
+         <lastmod>2025-12-08</lastmod>
+    </url>
+    <url>
+         <loc>https://open.neotomadb.org/system_documentation/landingpages/orcid/</loc>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/reports/data_quality_report/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
     <url>
          <loc>https://open.neotomadb.org/system_documentation/runbooks/</loc>
-         <lastmod>2025-12-04</lastmod>
+         <lastmod>2025-12-08</lastmod>
     </url>
 </urlset>
