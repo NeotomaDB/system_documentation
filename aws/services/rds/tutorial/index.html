@@ -1,0 +1,6377 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Comprehensive documentation for the Neotoma database and infrastructure">
+      
+      
+        <meta name="author" content="Simon J. Goring">
+      
+      
+        <link rel="canonical" href="https://open.neotomadb.org/system_documentation/aws/services/rds/tutorial/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../../route53/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Tutorial - Neotoma System Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        
+        <link rel="stylesheet" href="../../../../assets/external/fonts.googleapis.com/css.49ea35f2.css">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../css/timeago.css">
+    
+      <link rel="stylesheet" href="../../../../docs/assets/styles.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="grey" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#aws_rds_database_management_tutorial" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="Neotoma System Documentation" class="md-header__button md-logo" aria-label="Neotoma System Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Neotoma System Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Tutorial
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="grey" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="grey" data-md-color-accent="teal"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/NeotomaDB/system_documentation" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NeotomaDB/system_documentation
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../database/" class="md-tabs__link">
+          
+  
+  
+  Database
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../api/" class="md-tabs__link">
+          
+  
+  
+  API
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../landingpages/" class="md-tabs__link">
+          
+  
+  
+  Landing Pages
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../explorer/" class="md-tabs__link">
+          
+  
+  
+  Explorer
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../introduction/" class="md-tabs__link">
+          
+  
+  
+  AWS Infrastructure
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../github/" class="md-tabs__link">
+          
+  
+  
+  GitHub
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../runbooks/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Runbooks
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../reports/data_quality_report/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Reports
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="Neotoma System Documentation" class="md-nav__button md-logo" aria-label="Neotoma System Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Neotoma System Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/NeotomaDB/system_documentation" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NeotomaDB/system_documentation
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Database
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Database
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../database/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../database/neotoma_history/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Neotoma Database History
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Concepts
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Design Concepts
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../database/design_concepts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../database/security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../database/user_management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User Management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../database/schemas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schemas and the Holding Tank
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../database/functions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Functions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../database/queries/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Queries
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../database/extensions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Extensions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../database/backups/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backups
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../database/connection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Connecting to Neotoma
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../database/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Table Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Neotoma API
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Neotoma API
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick Start
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/authentication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Authentication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/endpoints/by-table/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Endpoints by Table
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2_4" id="__nav_3_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Concepts
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Design Concepts
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_2_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2_4_3" id="__nav_3_2_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Adding API Endpoints
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_2_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Adding API Endpoints
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/building/dbhelpers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Endpoints from the Database
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/building/external/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    External Endpoints
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tilia
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Tilia
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/tilia/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick Start
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/tilia/authentication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Authentication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/tilia/endpoints/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Endpoints by Table
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3_4" id="__nav_3_3_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Concepts
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Design Concepts
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/tilia/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/tilia/building/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Adding API Endpoints
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Landing Pages
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Landing Pages
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../landingpages/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Concepts
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Design Concepts
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../landingpages/components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../landingpages/orcid/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Authentication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Explorer
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Explorer
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../explorer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../explorer/design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Concepts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AWS Infrastructure
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    AWS Infrastructure
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_2" id="__nav_6_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Concepts
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Design Concepts
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../concepts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../concepts/developing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Production and Development
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../concepts/troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6_3" id="__nav_6_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Services
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Services
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../s3storage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S3 Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../apprunner/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AppRunner
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_3_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6_3_3" id="__nav_6_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RDS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_6_3_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    RDS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tutorial
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introduction
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Introduction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#accessing_the_aws_console" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Accessing the AWS Console
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Accessing the AWS Console">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step_1_log_in_to_aws_console" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Log in to AWS Console
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step_2_pin_frequently_used_services" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Pin Frequently Used Services
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understanding_rds_database_instances" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Understanding RDS Database Instances
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Understanding RDS Database Instances">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what_is_an_rds_instance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is an RDS Instance?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step_3_navigate_to_your_database_instance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Navigate to Your Database Instance
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#database_instance_overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Database Instance Overview
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Database Instance Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step_4_view_instance_details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: View Instance Details
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#understanding_database_status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Understanding Database Status
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#database_actions_and_quick_operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Database Actions and Quick Operations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Database Actions and Quick Operations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step_5_common_database_actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5: Common Database Actions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 5: Common Database Actions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#take_snapshot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Take Snapshot
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reboot_database" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reboot Database
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#monitoring_database_performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Monitoring Database Performance
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Monitoring Database Performance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step_6_review_connection_and_resource_information" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 6: Review Connection and Resource Information
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 6: Review Connection and Resource Information">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key_configuration_details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Configuration Details
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step_7_understanding_security_groups" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 7: Understanding Security Groups
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step_8_view_active_sessions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 8: View Active Sessions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#monitoring_database_health" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Monitoring Database Health
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Monitoring Database Health">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step_9_review_monitoring_metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 9: Review Monitoring Metrics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key_metrics_to_watch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Metrics to Watch
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Key Metrics to Watch">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cpu_utilization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CPU Utilization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#burst_balance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Burst Balance
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#connections" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Connections
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#free_storage_space" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Free Storage Space
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#readwrite_latency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Read/Write Latency
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cloudwatch_monitoring_and_alarms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CloudWatch Monitoring and Alarms
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CloudWatch Monitoring and Alarms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step_10_configure_cloudwatch_alarms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 10: Configure CloudWatch Alarms
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setting_up_an_alarm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Setting Up an Alarm
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reviewing_database_logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reviewing Database Logs
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Reviewing Database Logs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step_11_access_error_logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 11: Access Error Logs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#understanding_log_files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Understanding Log Files
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Understanding Log Files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#viewing_a_log_file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Viewing a Log File
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what_to_look_for_in_logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What to Look For in Logs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debugging_failed_queries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Debugging Failed Queries
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#limitations_identifying_query_sources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Limitations: Identifying Query Sources
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#database_backups_and_snapshots" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Database Backups and Snapshots
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Database Backups and Snapshots">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step_12_review_backup_configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 12: Review Backup Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#automated_backups" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Automated Backups
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#types_of_backups" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Types of Backups
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Types of Backups">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#system_automated_snapshots" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        System (Automated) Snapshots
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#manual_snapshots" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Manual Snapshots
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step_13_view_available_snapshots" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 13: View Available Snapshots
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step_14_restore_from_a_snapshot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 14: Restore from a Snapshot
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#additional_backup_strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Additional Backup Strategy
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Additional Backup Strategy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#monthly_backups_to_s3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Monthly Backups to S3
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#database_configuration_and_parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Database Configuration and Parameters
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Database Configuration and Parameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step_15_understanding_parameter_groups" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 15: Understanding Parameter Groups
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what_are_parameter_groups" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Are Parameter Groups?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key_modified_parameters_for_neotoma" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Modified Parameters for Neotoma
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Key Modified Parameters for Neotoma">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#shared_preload_libraries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        shared_preload_libraries
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crondatabase_name" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        cron.database_name
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#page_cost_settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Page Cost Settings
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when_to_modify_parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Modify Parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step_16_view_and_edit_parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 16: View and Edit Parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#database_maintenance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Database Maintenance
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Database Maintenance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#automatic_minor_version_updates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Automatic Minor Version Updates
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pending_maintenance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pending Maintenance
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when_database_maintenance_happens" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When Database Maintenance Happens
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance_optimization_notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance Optimization Notes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Performance Optimization Notes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#current_instance_size" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Current Instance Size
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#is_this_the_right_size" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Is This the Right Size?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#database_optimization_strategies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Database Optimization Strategies
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#when_to_reboot_the_database" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Reboot the Database
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="When to Reboot the Database">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reboot_scenarios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reboot Scenarios
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Reboot Scenarios">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_memory_completely_full" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Memory Completely Full
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_parameter_group_changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Parameter Group Changes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_applying_major_updates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Applying Major Updates
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4_restoring_snapshots" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Restoring Snapshots
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how_to_reboot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How to Reboot
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#database_isolation_and_security" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Database Isolation and Security
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Database Isolation and Security">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#network_architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Network Architecture
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why_this_matters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why This Matters
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting_common_issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting Common Issues
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting Common Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#issue_database_status_storage-full" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Issue: Database Status "Storage-Full"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue_high_cpu_usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Issue: High CPU Usage
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue_too_many_connections" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Issue: Too Many Connections
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue_slow_query_performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Issue: Slow Query Performance
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary_and_best_practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary and Best Practices
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Summary and Best Practices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key_takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Takeaways
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#regular_monitoring_tasks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Regular Monitoring Tasks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when_to_get_help" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Get Help
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#additional_resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Additional Resources
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../route53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Route 53
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../batch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cron Jobs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ecr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Containers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cloudwatch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CloudWatch
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GitHub
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    GitHub
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../github/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_2" id="__nav_7_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Concepts
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Design Concepts
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../github/concepts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../github/concepts/rcode/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    R Programming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../github/concepts/python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../github/concepts/javascript/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JavaScript
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../github/concepts/SQL/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_3" id="__nav_7_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Services
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Services
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../github/landingpages/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Landing Pages
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../github/databus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DataBUS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../github/neotomapydoi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NeotomaPyDOI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../runbooks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Runbooks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reports/data_quality_report/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reports
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introduction
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Introduction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#accessing_the_aws_console" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Accessing the AWS Console
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Accessing the AWS Console">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step_1_log_in_to_aws_console" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Log in to AWS Console
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step_2_pin_frequently_used_services" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Pin Frequently Used Services
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understanding_rds_database_instances" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Understanding RDS Database Instances
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Understanding RDS Database Instances">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what_is_an_rds_instance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is an RDS Instance?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step_3_navigate_to_your_database_instance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Navigate to Your Database Instance
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#database_instance_overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Database Instance Overview
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Database Instance Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step_4_view_instance_details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: View Instance Details
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#understanding_database_status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Understanding Database Status
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#database_actions_and_quick_operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Database Actions and Quick Operations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Database Actions and Quick Operations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step_5_common_database_actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5: Common Database Actions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 5: Common Database Actions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#take_snapshot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Take Snapshot
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reboot_database" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reboot Database
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#monitoring_database_performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Monitoring Database Performance
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Monitoring Database Performance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step_6_review_connection_and_resource_information" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 6: Review Connection and Resource Information
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 6: Review Connection and Resource Information">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key_configuration_details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Configuration Details
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step_7_understanding_security_groups" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 7: Understanding Security Groups
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step_8_view_active_sessions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 8: View Active Sessions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#monitoring_database_health" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Monitoring Database Health
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Monitoring Database Health">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step_9_review_monitoring_metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 9: Review Monitoring Metrics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key_metrics_to_watch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Metrics to Watch
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Key Metrics to Watch">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cpu_utilization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CPU Utilization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#burst_balance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Burst Balance
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#connections" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Connections
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#free_storage_space" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Free Storage Space
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#readwrite_latency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Read/Write Latency
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cloudwatch_monitoring_and_alarms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CloudWatch Monitoring and Alarms
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CloudWatch Monitoring and Alarms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step_10_configure_cloudwatch_alarms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 10: Configure CloudWatch Alarms
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setting_up_an_alarm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Setting Up an Alarm
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reviewing_database_logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reviewing Database Logs
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Reviewing Database Logs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step_11_access_error_logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 11: Access Error Logs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#understanding_log_files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Understanding Log Files
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Understanding Log Files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#viewing_a_log_file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Viewing a Log File
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what_to_look_for_in_logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What to Look For in Logs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debugging_failed_queries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Debugging Failed Queries
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#limitations_identifying_query_sources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Limitations: Identifying Query Sources
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#database_backups_and_snapshots" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Database Backups and Snapshots
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Database Backups and Snapshots">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step_12_review_backup_configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 12: Review Backup Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#automated_backups" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Automated Backups
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#types_of_backups" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Types of Backups
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Types of Backups">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#system_automated_snapshots" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        System (Automated) Snapshots
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#manual_snapshots" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Manual Snapshots
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step_13_view_available_snapshots" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 13: View Available Snapshots
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step_14_restore_from_a_snapshot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 14: Restore from a Snapshot
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#additional_backup_strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Additional Backup Strategy
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Additional Backup Strategy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#monthly_backups_to_s3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Monthly Backups to S3
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#database_configuration_and_parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Database Configuration and Parameters
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Database Configuration and Parameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step_15_understanding_parameter_groups" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 15: Understanding Parameter Groups
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what_are_parameter_groups" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Are Parameter Groups?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key_modified_parameters_for_neotoma" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Modified Parameters for Neotoma
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Key Modified Parameters for Neotoma">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#shared_preload_libraries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        shared_preload_libraries
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crondatabase_name" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        cron.database_name
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#page_cost_settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Page Cost Settings
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when_to_modify_parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Modify Parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step_16_view_and_edit_parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 16: View and Edit Parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#database_maintenance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Database Maintenance
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Database Maintenance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#automatic_minor_version_updates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Automatic Minor Version Updates
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pending_maintenance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pending Maintenance
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when_database_maintenance_happens" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When Database Maintenance Happens
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance_optimization_notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance Optimization Notes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Performance Optimization Notes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#current_instance_size" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Current Instance Size
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#is_this_the_right_size" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Is This the Right Size?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#database_optimization_strategies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Database Optimization Strategies
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#when_to_reboot_the_database" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Reboot the Database
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="When to Reboot the Database">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reboot_scenarios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reboot Scenarios
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Reboot Scenarios">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_memory_completely_full" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Memory Completely Full
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_parameter_group_changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Parameter Group Changes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_applying_major_updates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Applying Major Updates
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4_restoring_snapshots" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Restoring Snapshots
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how_to_reboot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How to Reboot
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#database_isolation_and_security" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Database Isolation and Security
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Database Isolation and Security">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#network_architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Network Architecture
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why_this_matters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why This Matters
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting_common_issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting Common Issues
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting Common Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#issue_database_status_storage-full" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Issue: Database Status "Storage-Full"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue_high_cpu_usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Issue: High CPU Usage
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue_too_many_connections" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Issue: Too Many Connections
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue_slow_query_performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Issue: Slow Query Performance
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary_and_best_practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary and Best Practices
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Summary and Best Practices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key_takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Takeaways
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#regular_monitoring_tasks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Regular Monitoring Tasks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when_to_get_help" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Get Help
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#additional_resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Additional Resources
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/NeotomaDB/system_documentation/edit/main/docs/aws/services/rds/tutorial.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="aws_rds_database_management_tutorial">AWS RDS Database Management Tutorial<a class="headerlink" href="#aws_rds_database_management_tutorial" title="Permanent link">#</a></h1>
+<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">#</a></h2>
+<p>This tutorial walks through the AWS RDS (Relational Database Service) interface, showing you how to manage and monitor the Neotoma database instance. This guide covers the essential features you'll need for day-to-day database administration.</p>
+<h3 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">#</a></h3>
+<ul>
+<li>AWS account with appropriate permissions</li>
+<li>Access to the Neotoma AWS environment</li>
+<li>Basic understanding of PostgreSQL databases</li>
+</ul>
+<p><strong>Estimated time:</strong> 20-30 minutes</p>
+<hr />
+<h2 id="accessing_the_aws_console">Accessing the AWS Console<a class="headerlink" href="#accessing_the_aws_console" title="Permanent link">#</a></h2>
+<h3 id="step_1_log_in_to_aws_console">Step 1: Log in to AWS Console<a class="headerlink" href="#step_1_log_in_to_aws_console" title="Permanent link">#</a></h3>
+<p>When you first log in to AWS, you'll see the <strong>Console Home</strong> page.</p>
+<p>The console displays:</p>
+<ul>
+<li>Recently visited services</li>
+<li>Quick access to common AWS resources</li>
+<li>Search bar for finding services</li>
+</ul>
+<h3 id="step_2_pin_frequently_used_services">Step 2: Pin Frequently Used Services<a class="headerlink" href="#step_2_pin_frequently_used_services" title="Permanent link">#</a></h3>
+<p>To streamline your workflow, you can pin services you use frequently.</p>
+<ol>
+<li>Type "RDS" in the search bar at the top</li>
+<li>Click the <strong>star icon</strong> next to "RDS" to pin it</li>
+<li>The service will now appear in your top navigation bar</li>
+</ol>
+<p><img alt="A screenshot of the main AWS console page showing a search for RDS, with results. The top result has been &quot;starred&quot; to allow it to be displayed on the user's bookmarks." src="/assets/images/RDS_search_screenshot.png" /></p>
+<p><strong>Tip:</strong> You can unpin services you no longer use by clicking the star again. This helps keep your interface clean and focused on the tools you actually need.</p>
+<hr />
+<h2 id="understanding_rds_database_instances">Understanding RDS Database Instances<a class="headerlink" href="#understanding_rds_database_instances" title="Permanent link">#</a></h2>
+<h3 id="what_is_an_rds_instance">What is an RDS Instance?<a class="headerlink" href="#what_is_an_rds_instance" title="Permanent link">#</a></h3>
+<p>An RDS database instance is a dedicated database server in the cloud. Key concepts:</p>
+<ul>
+<li><strong>One instance = One database server</strong> (not one database)</li>
+<li>A single instance can host multiple databases (e.g., <code>neotoma</code> and <code>neotomatank</code>)</li>
+<li>Each instance has a specific combination of CPU, memory, and storage, as well as any custom configurations you may apply.</li>
+<li>Instances are virtual servers optimized specifically for database workloads</li>
+</ul>
+<h3 id="step_3_navigate_to_your_database_instance">Step 3: Navigate to Your Database Instance<a class="headerlink" href="#step_3_navigate_to_your_database_instance" title="Permanent link">#</a></h3>
+<ol>
+<li>Click on <strong>RDS</strong> in your pinned services or search bar</li>
+<li>
+<p>From the RDS dashboard, you'll see an overview including:</p>
+</li>
+<li>
+<p>Available storage</p>
+</li>
+<li>Number of database instances</li>
+<li>
+<p>Quick links to tutorials</p>
+</li>
+<li>
+<p>Click on <strong>DB instances</strong> in the left sidebar</p>
+</li>
+</ol>
+<p><strong>Screenshot placeholder:</strong> <em>RDS dashboard showing overview statistics</em></p>
+<p>You should see your database instance listed. For Neotoma, the identifier is <strong>neotomaPrivate</strong>.</p>
+<hr />
+<h2 id="database_instance_overview">Database Instance Overview<a class="headerlink" href="#database_instance_overview" title="Permanent link">#</a></h2>
+<h3 id="step_4_view_instance_details">Step 4: View Instance Details<a class="headerlink" href="#step_4_view_instance_details" title="Permanent link">#</a></h3>
+<p>Click on your database identifier (e.g., <strong>neotomaPrivate</strong>) to see detailed information.</p>
+<p><strong>Screenshot placeholder:</strong> <em>Database instance list showing neotomaPrivate with status "Available"</em></p>
+<p>Key information displayed:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>What It Means</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Status</strong></td>
+<td>Should show "Available" when running normally</td>
+</tr>
+<tr>
+<td><strong>Region</strong></td>
+<td>"us-east-2" (Ohio) for Neotoma</td>
+</tr>
+<tr>
+<td><strong>Engine</strong></td>
+<td>PostgreSQL version</td>
+</tr>
+<tr>
+<td><strong>DB Instance Class</strong></td>
+<td>Server size (e.g., db.m5.large)</td>
+</tr>
+<tr>
+<td><strong>Storage</strong></td>
+<td>Amount of disk space allocated</td>
+</tr>
+</tbody>
+</table>
+<h3 id="understanding_database_status">Understanding Database Status<a class="headerlink" href="#understanding_database_status" title="Permanent link">#</a></h3>
+<p>The <strong>Status</strong> field is critical for monitoring:</p>
+<ul>
+<li><strong>Available</strong>: Database is running normally</li>
+<li><strong>Storage-full</strong>: No available disk space (requires immediate action)</li>
+<li><strong>Backing-up</strong>: Automated backup in progress</li>
+<li><strong>Modifying</strong>: Configuration changes being applied</li>
+</ul>
+<p><strong>Warning:</strong> If status shows "unavailable" or "storage-full", the database needs immediate attention. See the Troubleshooting section below.</p>
+<hr />
+<h2 id="database_actions_and_quick_operations">Database Actions and Quick Operations<a class="headerlink" href="#database_actions_and_quick_operations" title="Permanent link">#</a></h2>
+<h3 id="step_5_common_database_actions">Step 5: Common Database Actions<a class="headerlink" href="#step_5_common_database_actions" title="Permanent link">#</a></h3>
+<p>At the top of the instance details page, you'll see an <strong>Actions</strong> dropdown menu.</p>
+<p><strong>Screenshot placeholder:</strong> <em>Actions dropdown menu showing available operations</em></p>
+<p>Common actions include:</p>
+<h4 id="take_snapshot">Take Snapshot<a class="headerlink" href="#take_snapshot" title="Permanent link">#</a></h4>
+<p>Creates a point-in-time backup of the entire database.</p>
+<p><strong>When to use:</strong></p>
+<ul>
+<li>Before major data uploads or changes</li>
+<li>Before schema modifications</li>
+<li>As an extra backup before maintenance</li>
+</ul>
+<p><strong>How to:</strong></p>
+<ol>
+<li>Click <strong>Actions</strong> → <strong>Take snapshot</strong></li>
+<li>Provide a descriptive name (e.g., "pre-upload-2024-12-10")</li>
+<li>Click <strong>Take Snapshot</strong></li>
+</ol>
+<p>Snapshots are stored in AWS and don't count against your database storage.</p>
+<h4 id="reboot_database">Reboot Database<a class="headerlink" href="#reboot_database" title="Permanent link">#</a></h4>
+<p>Restarts the database server.</p>
+<p><strong>When to use:</strong></p>
+<ul>
+<li>After certain parameter group changes</li>
+<li>When database becomes unresponsive</li>
+<li>If memory fills up completely (rare)</li>
+</ul>
+<p><strong>Caution:</strong> Rebooting will briefly disconnect all active users and applications.</p>
+<hr />
+<h2 id="monitoring_database_performance">Monitoring Database Performance<a class="headerlink" href="#monitoring_database_performance" title="Permanent link">#</a></h2>
+<h3 id="step_6_review_connection_and_resource_information">Step 6: Review Connection and Resource Information<a class="headerlink" href="#step_6_review_connection_and_resource_information" title="Permanent link">#</a></h3>
+<p>Scroll down to see detailed instance information:</p>
+<p><strong>Screenshot placeholder:</strong> <em>Configuration section showing endpoint, port, and VPC information</em></p>
+<h4 id="key_configuration_details">Key Configuration Details<a class="headerlink" href="#key_configuration_details" title="Permanent link">#</a></h4>
+<p><strong>Endpoint</strong>: <code>neotomaprivate.xxxxx.us-east-2.rds.amazonaws.com</code></p>
+<ul>
+<li>This is the actual database server address</li>
+<li>Used in environment variables for applications (API, AppRunner, etc.)</li>
+<li>For local development, you'll use an SSH tunnel to <code>localhost:5555</code> instead</li>
+</ul>
+<p><strong>Port</strong>: <code>5432</code></p>
+<ul>
+<li>Standard PostgreSQL port</li>
+<li>Required for connection strings</li>
+</ul>
+<p><strong>VPC (Virtual Private Cloud)</strong>: Network isolation</p>
+<ul>
+<li>Database is in a <strong>private subnet</strong> for security</li>
+<li>Cannot be accessed directly from the internet</li>
+<li>Must tunnel through public VPC for external access</li>
+</ul>
+<p><strong>Public Accessibility</strong>: <code>No</code></p>
+<ul>
+<li>Database is not exposed to the public internet</li>
+<li>Access only through secure tunnels or authorized AWS services</li>
+</ul>
+<h3 id="step_7_understanding_security_groups">Step 7: Understanding Security Groups<a class="headerlink" href="#step_7_understanding_security_groups" title="Permanent link">#</a></h3>
+<p>Security groups control network access to your database.</p>
+<p><strong>Screenshot placeholder:</strong> <em>Security groups section showing RDS-EC2 and AppRunner groups</em></p>
+<p>You'll see several security group rules:</p>
+<ul>
+<li><strong>RDS-EC2</strong>: Allows SSH tunnel connections from EC2 instances</li>
+<li><strong>AppRunner-Group-for-RDS</strong>: Allows API and application connections</li>
+<li>Each rule defines which services can connect to the database</li>
+</ul>
+<p><strong>Note:</strong> Security groups are nested and include multiple sub-rules. In general, these are stable and don't require frequent changes. You'll only modify them when adding new services.</p>
+<h3 id="step_8_view_active_sessions">Step 8: View Active Sessions<a class="headerlink" href="#step_8_view_active_sessions" title="Permanent link">#</a></h3>
+<p>The <strong>Current sessions</strong> section shows all active database connections.</p>
+<p><strong>Screenshot placeholder:</strong> <em>Current sessions showing multiple connections</em></p>
+<p>Each connection represents:</p>
+<ul>
+<li>The API making requests</li>
+<li>Tilia application connections</li>
+<li>DBeaver or other database tools</li>
+<li>Explorer (via the API)</li>
+<li>Direct user connections</li>
+</ul>
+<p><strong>Tip:</strong> If you see an unusually high number of connections, it may indicate:</p>
+<ul>
+<li>A runaway process</li>
+<li>Connection pooling issues</li>
+<li>An application not closing connections properly</li>
+</ul>
+<hr />
+<h2 id="monitoring_database_health">Monitoring Database Health<a class="headerlink" href="#monitoring_database_health" title="Permanent link">#</a></h2>
+<h3 id="step_9_review_monitoring_metrics">Step 9: Review Monitoring Metrics<a class="headerlink" href="#step_9_review_monitoring_metrics" title="Permanent link">#</a></h3>
+<p>Click on the <strong>Monitoring</strong> tab to see performance graphs.</p>
+<p><strong>Screenshot placeholder:</strong> <em>Monitoring tab showing multiple performance graphs</em></p>
+<h3 id="key_metrics_to_watch">Key Metrics to Watch<a class="headerlink" href="#key_metrics_to_watch" title="Permanent link">#</a></h3>
+<h4 id="cpu_utilization">CPU Utilization<a class="headerlink" href="#cpu_utilization" title="Permanent link">#</a></h4>
+<p>Shows how much processing power is being used.</p>
+<ul>
+<li><strong>Normal</strong>: 5-30% for typical Neotoma usage</li>
+<li><strong>High</strong>: &gt;70% sustained may indicate need for optimization or larger instance</li>
+<li><strong>Current status</strong>: Generally quite low, suggesting we may be over-provisioned</li>
+</ul>
+<h4 id="burst_balance">Burst Balance<a class="headerlink" href="#burst_balance" title="Permanent link">#</a></h4>
+<p>Should normally be at 100%.</p>
+<ul>
+<li>Drops when database experiences sudden high activity</li>
+<li>If consistently below 100%, may need different instance type</li>
+<li>Neotoma rarely has issues with this</li>
+</ul>
+<h4 id="connections">Connections<a class="headerlink" href="#connections" title="Permanent link">#</a></h4>
+<p>Number of active database connections.</p>
+<ul>
+<li>Monitor for unusual spikes</li>
+<li>Too many connections can slow performance</li>
+<li>Each application (API, Tilia, etc.) maintains connection pools</li>
+</ul>
+<h4 id="free_storage_space">Free Storage Space<a class="headerlink" href="#free_storage_space" title="Permanent link">#</a></h4>
+<p>Amount of available disk space.</p>
+<ul>
+<li><strong>Critical metric</strong> - running out of space will cause database failure</li>
+<li>An alarm is configured to alert when space is low</li>
+<li>If space fills up, database will become unavailable</li>
+</ul>
+<p><strong>Screenshot placeholder:</strong> <em>Free storage space graph showing current usage</em></p>
+<h4 id="readwrite_latency">Read/Write Latency<a class="headerlink" href="#readwrite_latency" title="Permanent link">#</a></h4>
+<p>How long database operations take.</p>
+<ul>
+<li>Low latency = fast queries</li>
+<li>Spikes may indicate slow queries or indexing issues</li>
+<li>Generally stable for Neotoma</li>
+</ul>
+<hr />
+<h2 id="cloudwatch_monitoring_and_alarms">CloudWatch Monitoring and Alarms<a class="headerlink" href="#cloudwatch_monitoring_and_alarms" title="Permanent link">#</a></h2>
+<h3 id="step_10_configure_cloudwatch_alarms">Step 10: Configure CloudWatch Alarms<a class="headerlink" href="#step_10_configure_cloudwatch_alarms" title="Permanent link">#</a></h3>
+<p>CloudWatch provides advanced monitoring and alerting.</p>
+<ol>
+<li>From the Monitoring tab, click <strong>View in CloudWatch</strong> or navigate to CloudWatch from the AWS console</li>
+<li>You can create custom alarms for specific conditions</li>
+</ol>
+<p><strong>Screenshot placeholder:</strong> <em>CloudWatch alarms configuration page</em></p>
+<h3 id="setting_up_an_alarm">Setting Up an Alarm<a class="headerlink" href="#setting_up_an_alarm" title="Permanent link">#</a></h3>
+<p><strong>Example:</strong> Alert when free storage drops below 20GB</p>
+<ol>
+<li>Click <strong>Create Alarm</strong></li>
+<li>Select metric: <strong>FreeStorageSpace</strong></li>
+<li>Set condition: <strong>Lower than 20 GB</strong></li>
+<li>Configure notification (SNS topic or email)</li>
+<li>Name the alarm descriptively: "RDS-Low-Storage-Alert"</li>
+</ol>
+<p><strong>Existing Alarms for Neotoma:</strong></p>
+<ul>
+<li>Low free storage space (configured)</li>
+<li>You can add alarms for:</li>
+<li>High CPU usage</li>
+<li>Too many connections</li>
+<li>High query latency</li>
+</ul>
+<hr />
+<h2 id="reviewing_database_logs">Reviewing Database Logs<a class="headerlink" href="#reviewing_database_logs" title="Permanent link">#</a></h2>
+<h3 id="step_11_access_error_logs">Step 11: Access Error Logs<a class="headerlink" href="#step_11_access_error_logs" title="Permanent link">#</a></h3>
+<p>Logs are essential for debugging and monitoring database health.</p>
+<ol>
+<li>Click on the <strong>Logs &amp; events</strong> tab</li>
+<li>You'll see a list of log files organized by date</li>
+</ol>
+<p><strong>Screenshot placeholder:</strong> <em>Logs &amp; events tab showing multiple log files</em></p>
+<h3 id="understanding_log_files">Understanding Log Files<a class="headerlink" href="#understanding_log_files" title="Permanent link">#</a></h3>
+<p>Each log file shows:</p>
+<ul>
+<li>
+<p><strong>File name</strong>: Includes date/time stamp</p>
+</li>
+<li>
+<p><strong>Size</strong>: Larger files may indicate issues or high activity</p>
+</li>
+<li><strong>Last written</strong>: When the log was last updated</li>
+</ul>
+<h4 id="viewing_a_log_file">Viewing a Log File<a class="headerlink" href="#viewing_a_log_file" title="Permanent link">#</a></h4>
+<ol>
+<li>Click on a log file name</li>
+<li>The log will open showing database events</li>
+<li>Most entries are routine checkpoints and status updates</li>
+</ol>
+<p><strong>Screenshot placeholder:</strong> <em>Log file contents showing various database events</em></p>
+<h3 id="what_to_look_for_in_logs">What to Look For in Logs<a class="headerlink" href="#what_to_look_for_in_logs" title="Permanent link">#</a></h3>
+<p><strong>Normal entries:</strong></p>
+<ul>
+<li>Checkpoint completed</li>
+<li>Connection established/closed</li>
+<li>Automated backup started/completed</li>
+</ul>
+<p><strong>Issues to investigate:</strong></p>
+<ul>
+<li>Repeated error messages</li>
+<li>Failed query attempts</li>
+<li>Connection failures</li>
+<li>Out of memory warnings</li>
+</ul>
+<h3 id="debugging_failed_queries">Debugging Failed Queries<a class="headerlink" href="#debugging_failed_queries" title="Permanent link">#</a></h3>
+<p>When you see an error in the logs:</p>
+<ol>
+<li><strong>Identify the query</strong>: Look for SQL statements that failed</li>
+<li><strong>Check the error message</strong>: What went wrong?</li>
+<li><strong>Note the timestamp</strong>: Correlate with application logs</li>
+<li><strong>Download the log</strong>: Click <strong>Download</strong> to save for analysis</li>
+</ol>
+<p><strong>Example use cases:</strong></p>
+<ul>
+<li>API endpoint returning errors → Check logs for failed queries</li>
+<li>Tilia not saving data → Look for INSERT/UPDATE failures</li>
+<li>Landing pages loading slowly → Identify long-running queries</li>
+</ul>
+<h3 id="limitations_identifying_query_sources">Limitations: Identifying Query Sources<a class="headerlink" href="#limitations_identifying_query_sources" title="Permanent link">#</a></h3>
+<p>Currently, all applications (API, Tilia, Explorer) connect using the same database role: <code>neotoma_admin</code>.</p>
+<p><strong>Limitation:</strong> You cannot immediately tell which application executed a query just from the database logs.</p>
+<p><strong>Workaround:</strong></p>
+<ol>
+<li>
+<p>Identify the failing query in database logs</p>
+</li>
+<li>
+<p>Go to the specific application (API, Tilia, etc.)</p>
+</li>
+<li>
+<p>Check the application's logs in AppRunner</p>
+</li>
+<li>
+<p>Match timestamps to find the source</p>
+</li>
+</ol>
+<p><strong>Future Improvement:</strong> Create separate database roles for each application (e.g., <code>neotoma_api_user</code>, <code>tilia_user</code>) to make log analysis easier.</p>
+<hr />
+<h2 id="database_backups_and_snapshots">Database Backups and Snapshots<a class="headerlink" href="#database_backups_and_snapshots" title="Permanent link">#</a></h2>
+<h3 id="step_12_review_backup_configuration">Step 12: Review Backup Configuration<a class="headerlink" href="#step_12_review_backup_configuration" title="Permanent link">#</a></h3>
+<p>Click on the <strong>Maintenance &amp; backups</strong> tab.</p>
+<p><strong>Screenshot placeholder:</strong> <em>Maintenance &amp; backups showing automated backup settings</em></p>
+<h3 id="automated_backups">Automated Backups<a class="headerlink" href="#automated_backups" title="Permanent link">#</a></h3>
+<p>The database automatically creates daily backups:</p>
+<ul>
+<li>
+<p><strong>Backup window</strong>: 10:00 PM Ohio time</p>
+</li>
+<li>
+<p><strong>Retention period</strong>: 7 days (configurable)</p>
+</li>
+<li>
+<p><strong>Type</strong>: Full database snapshot</p>
+</li>
+<li>
+<p><strong>Storage location</strong>: AWS S3</p>
+</li>
+</ul>
+<h3 id="types_of_backups">Types of Backups<a class="headerlink" href="#types_of_backups" title="Permanent link">#</a></h3>
+<h4 id="system_automated_snapshots">System (Automated) Snapshots<a class="headerlink" href="#system_automated_snapshots" title="Permanent link">#</a></h4>
+<p>Created automatically by AWS:</p>
+<ul>
+<li>
+<p>Daily at scheduled time</p>
+</li>
+<li>
+<p>Retained for specified period</p>
+</li>
+<li>
+<p>Cannot be manually deleted</p>
+</li>
+<li>
+<p>Used for point-in-time recovery</p>
+</li>
+</ul>
+<h4 id="manual_snapshots">Manual Snapshots<a class="headerlink" href="#manual_snapshots" title="Permanent link">#</a></h4>
+<p>Created by you as needed:</p>
+<ul>
+<li>
+<p>Before major changes</p>
+</li>
+<li>
+<p>For long-term archival</p>
+</li>
+<li>
+<p>Can be kept indefinitely</p>
+</li>
+<li>
+<p>Can be deleted when no longer needed</p>
+</li>
+</ul>
+<h3 id="step_13_view_available_snapshots">Step 13: View Available Snapshots<a class="headerlink" href="#step_13_view_available_snapshots" title="Permanent link">#</a></h3>
+<ol>
+<li>
+<p>Click <strong>Snapshots</strong> in the left sidebar of RDS console</p>
+</li>
+<li>
+<p>Filter by your database instance</p>
+</li>
+<li>
+<p>View both system and manual snapshots</p>
+</li>
+</ol>
+<p><strong>Screenshot placeholder:</strong> <em>Snapshots list showing dates and types</em></p>
+<p>Snapshot information includes:</p>
+<ul>
+<li>
+<p><strong>Snapshot ID</strong>: Unique identifier</p>
+</li>
+<li>
+<p><strong>Creation date/time</strong>: When it was taken</p>
+</li>
+<li>
+<p><strong>Type</strong>: System or Manual</p>
+</li>
+<li>
+<p><strong>Size</strong>: Storage space used</p>
+</li>
+<li>
+<p><strong>Status</strong>: Available, Creating, etc.</p>
+</li>
+</ul>
+<h3 id="step_14_restore_from_a_snapshot">Step 14: Restore from a Snapshot<a class="headerlink" href="#step_14_restore_from_a_snapshot" title="Permanent link">#</a></h3>
+<p>If you need to recover the database:</p>
+<ol>
+<li>
+<p>Select the snapshot you want to restore</p>
+</li>
+<li>
+<p>Click <strong>Actions</strong> → <strong>Restore snapshot</strong></p>
+</li>
+<li>
+<p>Configure the restored instance:</p>
+</li>
+<li>
+<p>Instance identifier (must be unique)</p>
+</li>
+<li>
+<p>Instance type</p>
+</li>
+<li>
+<p>VPC and security groups</p>
+</li>
+<li>
+<p>Click <strong>Restore DB Instance</strong></p>
+</li>
+</ol>
+<p><strong>Important:</strong> Restoring creates a NEW database instance - it doesn't overwrite the existing one. This is a safety feature.</p>
+<p><strong>Caution:</strong> After restoration, you'll need to:</p>
+<ul>
+<li>
+<p>Update application connection strings</p>
+</li>
+<li>
+<p>Verify data integrity</p>
+</li>
+<li>
+<p>Test all connections</p>
+</li>
+<li>
+<p>Consider deleting the old instance if replacement was intended</p>
+</li>
+</ul>
+<hr />
+<h2 id="additional_backup_strategy">Additional Backup Strategy<a class="headerlink" href="#additional_backup_strategy" title="Permanent link">#</a></h2>
+<h3 id="monthly_backups_to_s3">Monthly Backups to S3<a class="headerlink" href="#monthly_backups_to_s3" title="Permanent link">#</a></h3>
+<p>In addition to automated RDS snapshots, Neotoma maintains monthly backups uploaded directly to S3.</p>
+<p><strong>How it works:</strong></p>
+<ol>
+<li>
+<p>A Python script creates a database dump</p>
+</li>
+<li>
+<p>The dump is compressed</p>
+</li>
+<li>
+<p>Uploaded to an S3 bucket for long-term storage</p>
+</li>
+<li>
+<p>Managed through AWS Batch service (runs automatically)</p>
+</li>
+<li>
+<p>Uses Fargate for compute resources</p>
+</li>
+</ol>
+<p><strong>Note:</strong> This is separate from RDS snapshots and provides an additional layer of data protection. These backups can be downloaded and restored independently of AWS.</p>
+<hr />
+<h2 id="database_configuration_and_parameters">Database Configuration and Parameters<a class="headerlink" href="#database_configuration_and_parameters" title="Permanent link">#</a></h2>
+<h3 id="step_15_understanding_parameter_groups">Step 15: Understanding Parameter Groups<a class="headerlink" href="#step_15_understanding_parameter_groups" title="Permanent link">#</a></h3>
+<p>Parameter groups define PostgreSQL configuration settings for your RDS instance.</p>
+<ol>
+<li>
+<p>From the instance details, find <strong>Parameter group</strong> under Configuration</p>
+</li>
+<li>
+<p>Click on the parameter group name (e.g., <code>neotoma-postgres</code>)</p>
+</li>
+</ol>
+<p><strong>Screenshot placeholder:</strong> <em>Parameter group details showing modified parameters</em></p>
+<h3 id="what_are_parameter_groups">What Are Parameter Groups?<a class="headerlink" href="#what_are_parameter_groups" title="Permanent link">#</a></h3>
+<ul>
+<li>
+<p>Collections of database engine configuration settings</p>
+</li>
+<li>
+<p>Control how PostgreSQL behaves</p>
+</li>
+<li>
+<p>Some changes require database reboot</p>
+</li>
+<li>
+<p>Can be shared across multiple instances</p>
+</li>
+</ul>
+<h3 id="key_modified_parameters_for_neotoma">Key Modified Parameters for Neotoma<a class="headerlink" href="#key_modified_parameters_for_neotoma" title="Permanent link">#</a></h3>
+<p>By default, RDS uses standard PostgreSQL settings. For Neotoma, several parameters have been customized:</p>
+<h4 id="shared_preload_libraries"><code>shared_preload_libraries</code><a class="headerlink" href="#shared_preload_libraries" title="Permanent link">#</a></h4>
+<p><strong>Modified to include</strong>: <code>pg_cron</code>, <code>pg_stat_statements</code></p>
+<ul>
+<li>
+<p><strong>pg_cron</strong>: Enables scheduled database jobs</p>
+</li>
+<li>
+<p><strong>pg_stat_statements</strong>: Tracks query performance statistics</p>
+</li>
+<li>
+<p><strong>PostGIS</strong>: Spatial data extension</p>
+</li>
+</ul>
+<h4 id="crondatabase_name"><code>cron.database_name</code><a class="headerlink" href="#crondatabase_name" title="Permanent link">#</a></h4>
+<p>Specifies which database contains the cron scheduling tables.</p>
+<h4 id="page_cost_settings">Page Cost Settings<a class="headerlink" href="#page_cost_settings" title="Permanent link">#</a></h4>
+<ul>
+<li>
+<p><strong>random_page_cost</strong>: Cost estimate for non-sequential disk reads</p>
+</li>
+<li>
+<p><strong>seq_page_cost</strong>: Cost estimate for sequential disk reads</p>
+</li>
+<li>
+<p>These affect query planner decisions and indexing efficiency</p>
+</li>
+</ul>
+<h3 id="when_to_modify_parameters">When to Modify Parameters<a class="headerlink" href="#when_to_modify_parameters" title="Permanent link">#</a></h3>
+<p><strong>Common scenarios:</strong></p>
+<ul>
+<li>
+<p><strong>Adding extensions</strong>: PostGIS, pg_cron, etc. require preload configuration</p>
+</li>
+<li>
+<p><strong>Performance tuning</strong>: Adjusting memory allocation, connection limits</p>
+</li>
+<li>
+<p><strong>Logging</strong>: Changing what gets logged and how much detail</p>
+</li>
+<li>
+<p><strong>Maintenance</strong>: Auto-vacuum frequency, statistics collection</p>
+</li>
+</ul>
+<p><strong>Caution:</strong> </p>
+<ul>
+<li>
+<p>Some parameter changes require database reboot</p>
+</li>
+<li>
+<p>Changes can significantly affect performance</p>
+</li>
+<li>
+<p>Test changes in development environment first</p>
+</li>
+<li>
+<p>Document all modifications</p>
+</li>
+</ul>
+<h3 id="step_16_view_and_edit_parameters">Step 16: View and Edit Parameters<a class="headerlink" href="#step_16_view_and_edit_parameters" title="Permanent link">#</a></h3>
+<p>To view current parameters:</p>
+<ol>
+<li>
+<p>Open your parameter group</p>
+</li>
+<li>
+<p>Browse through categories or search for specific parameters</p>
+</li>
+<li>
+<p>Modified parameters are marked (different from default)</p>
+</li>
+</ol>
+<p><strong>Screenshot placeholder:</strong> <em>Parameter list showing modified vs. default values</em></p>
+<p>To edit a parameter:</p>
+<ol>
+<li>
+<p>Find the parameter you want to change</p>
+</li>
+<li>
+<p>Click <strong>Edit parameters</strong></p>
+</li>
+<li>
+<p>Modify the value</p>
+</li>
+<li>
+<p>Save changes</p>
+</li>
+<li>
+<p>Note if reboot is required (indicated in the interface)</p>
+</li>
+</ol>
+<hr />
+<h2 id="database_maintenance">Database Maintenance<a class="headerlink" href="#database_maintenance" title="Permanent link">#</a></h2>
+<h3 id="automatic_minor_version_updates">Automatic Minor Version Updates<a class="headerlink" href="#automatic_minor_version_updates" title="Permanent link">#</a></h3>
+<p>The database is configured to automatically apply minor version updates during the maintenance window.</p>
+<p><strong>What this means:</strong></p>
+<ul>
+<li>Security patches are applied automatically</li>
+<li>Minor PostgreSQL updates (e.g., 15.2 → 15.3)</li>
+<li>Occurs during low-traffic periods</li>
+<li>Minimal downtime</li>
+</ul>
+<h3 id="pending_maintenance">Pending Maintenance<a class="headerlink" href="#pending_maintenance" title="Permanent link">#</a></h3>
+<p>Check the <strong>Maintenance &amp; backups</strong> tab for:</p>
+<ul>
+<li>Scheduled maintenance windows</li>
+<li>Available updates</li>
+<li>Required actions</li>
+</ul>
+<p><strong>Screenshot placeholder:</strong> <em>Pending maintenance section showing next maintenance window</em></p>
+<h3 id="when_database_maintenance_happens">When Database Maintenance Happens<a class="headerlink" href="#when_database_maintenance_happens" title="Permanent link">#</a></h3>
+<p><strong>Automatic maintenance includes:</strong></p>
+<ul>
+<li>Operating system patches</li>
+<li>Database engine updates</li>
+<li>Hardware maintenance</li>
+</ul>
+<p><strong>You control:</strong></p>
+<ul>
+<li>Maintenance window timing</li>
+<li>Whether to apply immediately or defer</li>
+<li>Major version upgrades (manual only)</li>
+</ul>
+<hr />
+<h2 id="performance_optimization_notes">Performance Optimization Notes<a class="headerlink" href="#performance_optimization_notes" title="Permanent link">#</a></h2>
+<h3 id="current_instance_size">Current Instance Size<a class="headerlink" href="#current_instance_size" title="Permanent link">#</a></h3>
+<p>Neotoma uses <code>db.m5.large</code>:</p>
+<ul>
+<li>2 vCPUs</li>
+<li>8 GB RAM</li>
+<li>Moderate network performance</li>
+</ul>
+<h3 id="is_this_the_right_size">Is This the Right Size?<a class="headerlink" href="#is_this_the_right_size" title="Permanent link">#</a></h3>
+<p><strong>Current observation:</strong> CPU utilization is typically quite low (5-15%).</p>
+<p><strong>Why we haven't downgraded:</strong></p>
+<ol>
+<li><strong>Burst traffic</strong>: Explorer, API, and Tilia can create sudden activity spikes</li>
+<li><strong>Cache performance</strong>: Larger instance maintains more query cache in memory</li>
+<li><strong>Response times</strong>: Users experience faster query responses</li>
+<li><strong>Cost consideration</strong>: Database is already the highest AWS cost</li>
+</ol>
+<p><strong>Future consideration:</strong> A read replica would help with scaling read operations but would increase costs significantly.</p>
+<h3 id="database_optimization_strategies">Database Optimization Strategies<a class="headerlink" href="#database_optimization_strategies" title="Permanent link">#</a></h3>
+<p>Most optimization for Neotoma focuses on:</p>
+<ol>
+<li><strong>Indexing</strong>: Ensuring foreign keys and frequently queried columns are indexed</li>
+<li><strong>Query optimization</strong>: Improving slow queries rather than increasing hardware</li>
+<li><strong>Connection pooling</strong>: Managing database connections efficiently in applications</li>
+<li><strong>Vacuum management</strong>: Automatic cleanup of deleted rows (via auto-vacuum)</li>
+</ol>
+<p><strong>Why we don't need aggressive optimization:</strong></p>
+<ul>
+<li>Relatively low write volume</li>
+<li>Most tables are fairly static</li>
+<li>The <code>data</code> table has high activity but is well-indexed</li>
+<li>Current performance meets user needs</li>
+</ul>
+<hr />
+<h2 id="when_to_reboot_the_database">When to Reboot the Database<a class="headerlink" href="#when_to_reboot_the_database" title="Permanent link">#</a></h2>
+<h3 id="reboot_scenarios">Reboot Scenarios<a class="headerlink" href="#reboot_scenarios" title="Permanent link">#</a></h3>
+<p>You should reboot the database only in specific situations:</p>
+<h4 id="1_memory_completely_full">1. Memory Completely Full<a class="headerlink" href="#1_memory_completely_full" title="Permanent link">#</a></h4>
+<p><strong>Symptoms:</strong></p>
+<ul>
+<li>Database status shows "storage-full"</li>
+<li>WAL (Write-Ahead Log) files fill all available space</li>
+<li>Database becomes unresponsive</li>
+</ul>
+<p><strong>Action:</strong></p>
+<ol>
+<li>Stop all write operations if possible</li>
+<li>Reboot database to clear temporary files</li>
+<li>Investigate what caused space to fill</li>
+<li>Consider increasing storage allocation</li>
+</ol>
+<h4 id="2_parameter_group_changes">2. Parameter Group Changes<a class="headerlink" href="#2_parameter_group_changes" title="Permanent link">#</a></h4>
+<p>Some parameter modifications require a reboot:</p>
+<ul>
+<li>Adding new extensions</li>
+<li>Changing memory allocation settings</li>
+<li>Modifying connection limits</li>
+</ul>
+<p><strong>Note:</strong> AWS will indicate if reboot is required when you save parameter changes.</p>
+<h4 id="3_applying_major_updates">3. Applying Major Updates<a class="headerlink" href="#3_applying_major_updates" title="Permanent link">#</a></h4>
+<p>When manually applying major PostgreSQL version updates, a reboot is typically required.</p>
+<h4 id="4_restoring_snapshots">4. Restoring Snapshots<a class="headerlink" href="#4_restoring_snapshots" title="Permanent link">#</a></h4>
+<p>The database automatically reboots when restoring from a snapshot.</p>
+<h3 id="how_to_reboot">How to Reboot<a class="headerlink" href="#how_to_reboot" title="Permanent link">#</a></h3>
+<ol>
+<li>Navigate to your database instance</li>
+<li>Click <strong>Actions</strong> → <strong>Reboot</strong></li>
+<li>Confirm the action</li>
+<li>Wait for status to return to "Available"</li>
+</ol>
+<p><strong>Caution:</strong> </p>
+<ul>
+<li>All active connections will be dropped</li>
+<li>Applications will temporarily lose database access</li>
+<li>Plan reboots during low-traffic periods</li>
+<li>Notify users of planned downtime</li>
+</ul>
+<hr />
+<h2 id="database_isolation_and_security">Database Isolation and Security<a class="headerlink" href="#database_isolation_and_security" title="Permanent link">#</a></h2>
+<h3 id="network_architecture">Network Architecture<a class="headerlink" href="#network_architecture" title="Permanent link">#</a></h3>
+<p>The Neotoma database is configured with security best practices:</p>
+<p><strong>Private subnet:</strong></p>
+<ul>
+<li>Database is NOT publicly accessible</li>
+<li>Cannot connect directly from internet</li>
+<li>Must use SSH tunnel or authorized AWS services</li>
+</ul>
+<p><strong>Security groups:</strong></p>
+<ul>
+<li>Act as virtual firewalls</li>
+<li>Control which services can connect</li>
+<li>Nested rules for granular access control</li>
+</ul>
+<p><strong>VPC configuration:</strong></p>
+<ul>
+<li>Database in private VPC</li>
+<li>Applications connect through secure channels</li>
+<li>EC2 instances provide SSH tunnel access</li>
+</ul>
+<h3 id="why_this_matters">Why This Matters<a class="headerlink" href="#why_this_matters" title="Permanent link">#</a></h3>
+<p>This isolation means:</p>
+<ul>
+<li><strong>For local development</strong>: Use SSH tunnel to <code>localhost:5555</code></li>
+<li><strong>For AWS services</strong>: Use internal endpoint directly</li>
+<li><strong>For security</strong>: Database is protected from external attacks</li>
+<li><strong>For maintenance</strong>: Fewer external factors affect performance</li>
+</ul>
+<p><strong>Key takeaway:</strong> The database exists in its own protected space. Applications reach into it, but it doesn't need to deal with complex networking or cross-VPC communications. This simplifies management significantly.</p>
+<hr />
+<h2 id="troubleshooting_common_issues">Troubleshooting Common Issues<a class="headerlink" href="#troubleshooting_common_issues" title="Permanent link">#</a></h2>
+<h3 id="issue_database_status_storage-full">Issue: Database Status "Storage-Full"<a class="headerlink" href="#issue_database_status_storage-full" title="Permanent link">#</a></h3>
+<p><strong>Symptoms:</strong></p>
+<ul>
+<li>Cannot write to database</li>
+<li>Applications return errors</li>
+<li>Status shows storage is full</li>
+</ul>
+<p><strong>Resolution:</strong></p>
+<ol>
+<li>Check logs to identify what's consuming space</li>
+<li>Consider clearing old WAL files (carefully!)</li>
+<li>Increase allocated storage:</li>
+<li>Actions → Modify</li>
+<li>Increase storage allocation</li>
+<li>Apply immediately if critical</li>
+<li>Reboot if necessary after freeing space</li>
+</ol>
+<h3 id="issue_high_cpu_usage">Issue: High CPU Usage<a class="headerlink" href="#issue_high_cpu_usage" title="Permanent link">#</a></h3>
+<p><strong>Symptoms:</strong></p>
+<ul>
+<li>Slow query response times</li>
+<li>CPU graph shows sustained &gt;70% usage</li>
+<li>Users report lag</li>
+</ul>
+<p><strong>Resolution:</strong></p>
+<ol>
+<li>Check CloudWatch metrics to identify spike timing</li>
+<li>Review logs during high-CPU period</li>
+<li>Look for slow queries using pg_stat_statements</li>
+<li>Optimize problematic queries</li>
+<li>Consider instance upgrade if persistent</li>
+</ol>
+<h3 id="issue_too_many_connections">Issue: Too Many Connections<a class="headerlink" href="#issue_too_many_connections" title="Permanent link">#</a></h3>
+<p><strong>Symptoms:</strong></p>
+<ul>
+<li>"Too many clients" errors in logs</li>
+<li>Applications can't connect</li>
+<li>Connection pool exhausted</li>
+</ul>
+<p><strong>Resolution:</strong></p>
+<ol>
+<li>Check current connections count</li>
+<li>Identify which applications have open connections</li>
+<li>Verify connection pooling configuration</li>
+<li>Check for applications not closing connections</li>
+<li>Consider increasing max_connections parameter (requires reboot)</li>
+</ol>
+<h3 id="issue_slow_query_performance">Issue: Slow Query Performance<a class="headerlink" href="#issue_slow_query_performance" title="Permanent link">#</a></h3>
+<p><strong>Symptoms:</strong></p>
+<ul>
+<li>Specific queries take long time</li>
+<li>Timeouts in applications</li>
+<li>High read latency</li>
+</ul>
+<p><strong>Resolution:</strong></p>
+<ol>
+<li>Identify slow queries in logs or pg_stat_statements</li>
+<li>Run EXPLAIN ANALYZE on slow queries</li>
+<li>Check if indexes exist on frequently queried columns</li>
+<li>Add indexes if needed</li>
+<li>Optimize query structure</li>
+</ol>
+<hr />
+<h2 id="summary_and_best_practices">Summary and Best Practices<a class="headerlink" href="#summary_and_best_practices" title="Permanent link">#</a></h2>
+<h3 id="key_takeaways">Key Takeaways<a class="headerlink" href="#key_takeaways" title="Permanent link">#</a></h3>
+<ol>
+<li><strong>The RDS interface is your primary tool</strong> for database health monitoring and management</li>
+<li><strong>Status should always show "Available"</strong> - any other status requires investigation</li>
+<li><strong>Snapshots are automatic</strong> but manual snapshots before changes are good practice</li>
+<li><strong>Logs are essential</strong> for debugging issues across applications</li>
+<li><strong>CloudWatch alarms</strong> provide proactive monitoring</li>
+<li><strong>Security groups are stable</strong> - rarely need modification</li>
+<li><strong>The database is isolated</strong> which simplifies management</li>
+<li><strong>Reboots are rare</strong> - only needed for specific scenarios</li>
+</ol>
+<h3 id="regular_monitoring_tasks">Regular Monitoring Tasks<a class="headerlink" href="#regular_monitoring_tasks" title="Permanent link">#</a></h3>
+<p><strong>Daily:</strong></p>
+<ul>
+<li>Check database status is "Available"</li>
+<li>Review CloudWatch alarms for any alerts</li>
+</ul>
+<p><strong>Weekly:</strong></p>
+<ul>
+<li>Review recent error logs</li>
+<li>Check storage space usage</li>
+<li>Verify automated backups are running</li>
+</ul>
+<p><strong>Monthly:</strong></p>
+<ul>
+<li>Review performance metrics</li>
+<li>Check for AWS recommendations</li>
+<li>Verify S3 backup completed</li>
+<li>Review and clean up old manual snapshots</li>
+</ul>
+<p><strong>Before major changes:</strong></p>
+<ul>
+<li>Take manual snapshot</li>
+<li>Review current resource usage</li>
+<li>Plan for potential downtime</li>
+<li>Notify users if reboot required</li>
+</ul>
+<h3 id="when_to_get_help">When to Get Help<a class="headerlink" href="#when_to_get_help" title="Permanent link">#</a></h3>
+<p>Contact the database administrator or AWS support if:</p>
+<ul>
+<li>Database status is not "Available" for more than a few minutes</li>
+<li>Repeated errors appear in logs</li>
+<li>Storage is filling up rapidly</li>
+<li>Performance degrades significantly</li>
+<li>Parameter changes don't take effect as expected</li>
+<li>AWS recommendations seem urgent</li>
+</ul>
+<hr />
+<h2 id="additional_resources">Additional Resources<a class="headerlink" href="#additional_resources" title="Permanent link">#</a></h2>
+<p><strong>AWS Documentation:</strong></p>
+<ul>
+<li><a href="https://docs.aws.amazon.com/rds/">Amazon RDS User Guide</a></li>
+<li><a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_PostgreSQL.html">RDS PostgreSQL Guide</a></li>
+<li><a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_BestPractices.html">RDS Best Practices</a></li>
+</ul>
+<p><strong>Internal Documentation:</strong></p>
+<ul>
+<li><a href="../runbooks/ssh-tunnel.md">SSH Tunnel Setup</a> <em>(placeholder)</em></li>
+<li><a href="../../database/index.md">Database Schema Documentation</a></li>
+<li><a href="../../api/index.md">API Configuration</a></li>
+</ul>
+<p><strong>Video Walkthrough:</strong></p>
+<p>[Link to accompanying video recording] <em>(placeholder)</em></p>
+<hr />
+<p><em>Last updated: [Date]</em><br />
+<em>Reviewed by: [Name]</em><br />
+<em>Video recording: [Link]</em></p>
+
+
+
+
+
+
+
+  
+    
+  
+  
+    
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="January 6, 2026 23:45:20 UTC"><span class="timeago" datetime="2026-01-06T23:45:20+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="January 6, 2026 23:45:20 UTC">2026-01-06</span>
+  </span>
+
+    
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Created">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="January 6, 2026 23:45:20 UTC"><span class="timeago" datetime="2026-01-06T23:45:20+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="January 6, 2026 23:45:20 UTC">2026-01-06</span>
+  </span>
+
+    
+    
+    
+  </aside>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Previous: Overview">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Overview
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../route53/" class="md-footer__link md-footer__link--next" aria-label="Next: Route 53">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Route 53
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/NeotomaDB" target="_blank" rel="noopener" title="Neotoma on Github" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "navigation.footer", "navigation.tracking", "search.suggest", "search.highlight", "search.share", "content.code.copy", "content.code.annotate", "content.action.edit"], "search": "../../../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+        <script src="../../../../js/timeago.min.js"></script>
+      
+        <script src="../../../../js/timeago_mkdocs_material.js"></script>
+      
+    
+  </body>
+</html>

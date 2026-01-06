@@ -1,0 +1,5265 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Comprehensive documentation for the Neotoma database and infrastructure">
+      
+      
+        <meta name="author" content="Simon J. Goring">
+      
+      
+        <link rel="canonical" href="https://open.neotomadb.org/system_documentation/database/backups/">
+      
+      
+        <link rel="prev" href="../extensions/">
+      
+      
+        <link rel="next" href="../connection/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Backups - Neotoma System Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        
+        <link rel="stylesheet" href="../../assets/external/fonts.googleapis.com/css.49ea35f2.css">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../css/timeago.css">
+    
+      <link rel="stylesheet" href="../../docs/assets/styles.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="grey" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#neotoma_database_backup_and_restoration_guide" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Neotoma System Documentation" class="md-header__button md-logo" aria-label="Neotoma System Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Neotoma System Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Backups
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="grey" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="grey" data-md-color-accent="teal"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/NeotomaDB/system_documentation" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NeotomaDB/system_documentation
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+  Database
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../api/" class="md-tabs__link">
+          
+  
+  
+  API
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../landingpages/" class="md-tabs__link">
+          
+  
+  
+  Landing Pages
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../explorer/" class="md-tabs__link">
+          
+  
+  
+  Explorer
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../aws/introduction/" class="md-tabs__link">
+          
+  
+  
+  AWS Infrastructure
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../github/" class="md-tabs__link">
+          
+  
+  
+  GitHub
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../runbooks/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Runbooks
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../reports/data_quality_report/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Reports
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Neotoma System Documentation" class="md-nav__button md-logo" aria-label="Neotoma System Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Neotoma System Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/NeotomaDB/system_documentation" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NeotomaDB/system_documentation
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Database
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Database
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../neotoma_history/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Neotoma Database History
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Concepts
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Design Concepts
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../design_concepts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user_management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User Management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../schemas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schemas and the Holding Tank
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../functions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Functions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../queries/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Queries
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../extensions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Extensions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backups
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backups
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#backup_strategies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Backup Strategies
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Backup Strategies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_aws_console_server_snapshots" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. AWS Console Server Snapshots
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_sql-based_holding_tank_restoration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. SQL-Based Holding Tank Restoration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_clean_database_repository_automated_public_snapshots" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Clean Database Repository (Automated Public Snapshots)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#database_architecture_context" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Database Architecture Context
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#method_1_aws_console_server_snapshots" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Method 1: AWS Console Server Snapshots
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Method 1: AWS Console Server Snapshots">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Purpose
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating_a_server_snapshot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creating a Server Snapshot
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Creating a Server Snapshot">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step_1_access_rds_console" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Access RDS Console
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step_2_select_the_database_instance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Select the Database Instance
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step_3_navigate_to_snapshot_options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Navigate to Snapshot Options
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step_4_create_the_snapshot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Create the Snapshot
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step_5_monitor_snapshot_progress" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5: Monitor Snapshot Progress
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#viewing_existing_snapshots" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Viewing Existing Snapshots
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#restoring_from_a_server_snapshot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Restoring from a Server Snapshot
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Restoring from a Server Snapshot">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#restoration_process" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Restoration Process
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what_gets_restored" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Gets Restored
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#best_practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Best Practices
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#additional_options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Additional Options
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#method_2_sql-based_holding_tank_restoration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Method 2: SQL-Based Holding Tank Restoration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Method 2: SQL-Based Holding Tank Restoration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#purpose_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Purpose
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prerequisites_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#process_overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Process Overview
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#understanding_the_connection_requirement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Understanding the Connection Requirement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the_restoration_sql_script" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Restoration SQL Script
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Restoration SQL Script">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key_steps_in_the_script" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Steps in the Script
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#execution_instructions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Execution Instructions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when_to_use_this_method" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Use This Method
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#important_considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Important Considerations
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#method_3_clean_database_repository_automated_public_snapshots" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Method 3: Clean Database Repository (Automated Public Snapshots)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Method 3: Clean Database Repository (Automated Public Snapshots)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#purpose_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Purpose
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#system_architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        System Architecture
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#automated_schedule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Automated Schedule
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what_gets_sanitized" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Gets Sanitized
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#accessing_clean_backups" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Accessing Clean Backups
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using_a_clean_backup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using a Clean Backup
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Using a Clean Backup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#downloading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Downloading
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#restoring_locally" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Restoring Locally
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#technical_implementation_details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Technical Implementation Details
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Technical Implementation Details">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#docker_container_workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Docker Container Workflow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scrubbing_process_details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scrubbing Process Details
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#monitoring_and_logging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Monitoring and Logging
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#build_and_deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Build and Deployment
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#choosing_the_right_backup_method" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Choosing the Right Backup Method
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick_reference_commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Reference Commands
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Quick Reference Commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#check_database_connections" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Check Database Connections
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#connect_to_system_database" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Connect to System Database
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#download_latest_clean_backup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Download Latest Clean Backup
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common_issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Issues
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#additional_resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Additional Resources
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#document_maintenance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Document Maintenance
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../connection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Connecting to Neotoma
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Table Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Neotoma API
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Neotoma API
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick Start
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/authentication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Authentication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/endpoints/by-table/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Endpoints by Table
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2_4" id="__nav_3_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Concepts
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Design Concepts
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_2_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2_4_3" id="__nav_3_2_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Adding API Endpoints
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_2_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Adding API Endpoints
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/building/dbhelpers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Endpoints from the Database
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/building/external/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    External Endpoints
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tilia
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Tilia
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/tilia/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick Start
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/tilia/authentication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Authentication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/tilia/endpoints/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Endpoints by Table
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3_4" id="__nav_3_3_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Concepts
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Design Concepts
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/tilia/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/tilia/building/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Adding API Endpoints
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Landing Pages
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Landing Pages
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../landingpages/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Concepts
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Design Concepts
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../landingpages/components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../landingpages/orcid/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Authentication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Explorer
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Explorer
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../explorer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../explorer/design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Concepts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AWS Infrastructure
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    AWS Infrastructure
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../aws/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_2" id="__nav_6_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Concepts
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Design Concepts
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../aws/concepts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../aws/concepts/developing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Production and Development
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../aws/concepts/troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_3" id="__nav_6_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Services
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Services
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../aws/services/s3storage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S3 Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../aws/services/apprunner/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AppRunner
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_3_3" id="__nav_6_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RDS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_6_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    RDS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../aws/services/rds/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../aws/services/rds/tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../aws/services/route53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Route 53
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../aws/services/batch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cron Jobs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../aws/services/ecr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Containers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../aws/services/cloudwatch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CloudWatch
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GitHub
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    GitHub
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../github/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_2" id="__nav_7_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Concepts
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Design Concepts
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../github/concepts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../github/concepts/rcode/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    R Programming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../github/concepts/python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../github/concepts/javascript/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JavaScript
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../github/concepts/SQL/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_3" id="__nav_7_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Services
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Services
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../github/landingpages/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Landing Pages
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../github/databus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DataBUS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../github/neotomapydoi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NeotomaPyDOI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../runbooks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Runbooks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reports/data_quality_report/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reports
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#backup_strategies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Backup Strategies
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Backup Strategies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_aws_console_server_snapshots" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. AWS Console Server Snapshots
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_sql-based_holding_tank_restoration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. SQL-Based Holding Tank Restoration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_clean_database_repository_automated_public_snapshots" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Clean Database Repository (Automated Public Snapshots)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#database_architecture_context" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Database Architecture Context
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#method_1_aws_console_server_snapshots" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Method 1: AWS Console Server Snapshots
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Method 1: AWS Console Server Snapshots">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Purpose
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating_a_server_snapshot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creating a Server Snapshot
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Creating a Server Snapshot">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step_1_access_rds_console" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Access RDS Console
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step_2_select_the_database_instance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Select the Database Instance
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step_3_navigate_to_snapshot_options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Navigate to Snapshot Options
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step_4_create_the_snapshot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Create the Snapshot
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step_5_monitor_snapshot_progress" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5: Monitor Snapshot Progress
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#viewing_existing_snapshots" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Viewing Existing Snapshots
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#restoring_from_a_server_snapshot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Restoring from a Server Snapshot
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Restoring from a Server Snapshot">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#restoration_process" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Restoration Process
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what_gets_restored" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Gets Restored
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#best_practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Best Practices
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#additional_options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Additional Options
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#method_2_sql-based_holding_tank_restoration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Method 2: SQL-Based Holding Tank Restoration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Method 2: SQL-Based Holding Tank Restoration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#purpose_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Purpose
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prerequisites_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#process_overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Process Overview
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#understanding_the_connection_requirement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Understanding the Connection Requirement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the_restoration_sql_script" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Restoration SQL Script
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Restoration SQL Script">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key_steps_in_the_script" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Steps in the Script
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#execution_instructions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Execution Instructions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when_to_use_this_method" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Use This Method
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#important_considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Important Considerations
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#method_3_clean_database_repository_automated_public_snapshots" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Method 3: Clean Database Repository (Automated Public Snapshots)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Method 3: Clean Database Repository (Automated Public Snapshots)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#purpose_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Purpose
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#system_architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        System Architecture
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#automated_schedule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Automated Schedule
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what_gets_sanitized" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Gets Sanitized
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#accessing_clean_backups" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Accessing Clean Backups
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using_a_clean_backup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using a Clean Backup
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Using a Clean Backup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#downloading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Downloading
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#restoring_locally" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Restoring Locally
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#technical_implementation_details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Technical Implementation Details
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Technical Implementation Details">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#docker_container_workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Docker Container Workflow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scrubbing_process_details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scrubbing Process Details
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#monitoring_and_logging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Monitoring and Logging
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#build_and_deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Build and Deployment
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#choosing_the_right_backup_method" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Choosing the Right Backup Method
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick_reference_commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Reference Commands
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Quick Reference Commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#check_database_connections" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Check Database Connections
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#connect_to_system_database" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Connect to System Database
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#download_latest_clean_backup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Download Latest Clean Backup
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common_issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Issues
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#additional_resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Additional Resources
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#document_maintenance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Document Maintenance
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/NeotomaDB/system_documentation/edit/main/docs/database/backups.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="neotoma_database_backup_and_restoration_guide">Neotoma Database Backup and Restoration Guide<a class="headerlink" href="#neotoma_database_backup_and_restoration_guide" title="Permanent link">#</a></h1>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">#</a></h2>
+<p>This guide documents the backup and restoration procedures for the Neotoma database system. The Neotoma project maintains multiple backup strategies to ensure data safety and support different operational needs. Understanding when and how to use each method is critical for maintaining data integrity during major operations such as bulk uploads or system maintenance.</p>
+<h2 id="backup_strategies">Backup Strategies<a class="headerlink" href="#backup_strategies" title="Permanent link">#</a></h2>
+<p>The Neotoma database system implements three distinct backup approaches, each designed for specific use cases:</p>
+<h3 id="1_aws_console_server_snapshots">1. AWS Console Server Snapshots<a class="headerlink" href="#1_aws_console_server_snapshots" title="Permanent link">#</a></h3>
+<p>Full server-level backups created through the AWS RDS console. These snapshots capture the entire database server instance, including all databases (Neotoma proper, the Neotoma holding tank, and system databases).</p>
+<p><strong>Best used for:</strong></p>
+<ul>
+<li>Before major operations (bulk uploads, major schema changes)</li>
+<li>Complete disaster recovery scenarios</li>
+<li>Creating point-in-time recovery points</li>
+</ul>
+<h3 id="2_sql-based_holding_tank_restoration">2. SQL-Based Holding Tank Restoration<a class="headerlink" href="#2_sql-based_holding_tank_restoration" title="Permanent link">#</a></h3>
+<p>A targeted restoration process that rebuilds the holding-tank version of Neotoma from the production Neotoma database using SQL commands.</p>
+<p><strong>Best used for:</strong></p>
+<ul>
+<li>Refreshing the staging/holding tank environment</li>
+<li>Testing workflows with current production data</li>
+<li>Resetting the holding tank to a known state</li>
+</ul>
+<h3 id="3_clean_database_repository_automated_public_snapshots">3. Clean Database Repository (Automated Public Snapshots)<a class="headerlink" href="#3_clean_database_repository_automated_public_snapshots" title="Permanent link">#</a></h3>
+<p>An automated monthly process that creates sanitized database snapshots for public distribution. This process removes sensitive information (passwords, personal contact details) while maintaining data structure and scientific content.</p>
+<p><strong>Best used for:</strong></p>
+<ul>
+<li>Public data distribution</li>
+<li>Setting up external development environments</li>
+<li>Providing snapshots for research collaborations</li>
+</ul>
+<h2 id="database_architecture_context">Database Architecture Context<a class="headerlink" href="#database_architecture_context" title="Permanent link">#</a></h2>
+<p>The Neotoma database server hosts three primary databases:</p>
+<ul>
+<li><strong><code>neotoma</code></strong> - The production database containing validated, published data</li>
+<li><strong><code>neotomatank</code></strong> - The staging database for workflow development, data validation and processing</li>
+<li><strong><code>postgres</code></strong> - The system database (required for certain administrative operations)</li>
+</ul>
+<p>Understanding this architecture is important because different backup methods interact with these databases in different ways.</p>
+<hr />
+<h2 id="method_1_aws_console_server_snapshots">Method 1: AWS Console Server Snapshots<a class="headerlink" href="#method_1_aws_console_server_snapshots" title="Permanent link">#</a></h2>
+<h3 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">#</a></h3>
+<p>Server snapshots create a complete backup of the entire RDS database instance. This is the most comprehensive backup method and includes all databases, configurations, and system tables.</p>
+<h3 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">#</a></h3>
+<ul>
+<li>Access to the AWS Console</li>
+<li>Appropriate IAM permissions for RDS operations</li>
+<li>Connection to the correct AWS account/region (US East 2)</li>
+</ul>
+<h3 id="creating_a_server_snapshot">Creating a Server Snapshot<a class="headerlink" href="#creating_a_server_snapshot" title="Permanent link">#</a></h3>
+<h4 id="step_1_access_rds_console">Step 1: Access RDS Console<a class="headerlink" href="#step_1_access_rds_console" title="Permanent link">#</a></h4>
+<ol>
+<li>Log into the AWS Console</li>
+<li>Navigate to <strong>RDS</strong> (you can search for "RDS" or find it under "Database" services)</li>
+<li>Select <strong>Aurora and RDS</strong> from the services menu</li>
+<li>If you've starred this service, it will appear in your favorites bar</li>
+</ol>
+<h4 id="step_2_select_the_database_instance">Step 2: Select the Database Instance<a class="headerlink" href="#step_2_select_the_database_instance" title="Permanent link">#</a></h4>
+<ol>
+<li>Click on <strong>Databases</strong> in the left navigation menu</li>
+<li>Select the <strong>neotoma-private</strong> instance (or your specific instance name)</li>
+<li>You should see the instance status, configuration details, and monitoring information</li>
+</ol>
+<h4 id="step_3_navigate_to_snapshot_options">Step 3: Navigate to Snapshot Options<a class="headerlink" href="#step_3_navigate_to_snapshot_options" title="Permanent link">#</a></h4>
+<ol>
+<li>Click on the <strong>Maintenance &amp; backups</strong> tab</li>
+<li>Scroll down to the <strong>Snapshots</strong> section</li>
+<li>You will see a list of existing manual and automated snapshots</li>
+<li>On the right side, you'll see action buttons: <strong>Restore</strong>, <strong>Delete</strong>, and <strong>Take snapshot</strong></li>
+</ol>
+<h4 id="step_4_create_the_snapshot">Step 4: Create the Snapshot<a class="headerlink" href="#step_4_create_the_snapshot" title="Permanent link">#</a></h4>
+<ol>
+<li>Click <strong>Take snapshot</strong></li>
+<li>Configure snapshot settings:</li>
+<li><strong>Snapshot type</strong>: DB instance</li>
+<li><strong>DB instance identifier</strong>: neotoma-private (should auto-populate)</li>
+<li>
+<p><strong>Snapshot name</strong>: Use a descriptive name following the naming convention</p>
+<ul>
+<li>Examples: <code>before-node-upload</code>, <code>before-sisol</code>, <code>pre-bulk-upload-2024-01</code></li>
+</ul>
+</li>
+<li>
+<p>Click <strong>Take Snapshot</strong></p>
+</li>
+</ol>
+<h4 id="step_5_monitor_snapshot_progress">Step 5: Monitor Snapshot Progress<a class="headerlink" href="#step_5_monitor_snapshot_progress" title="Permanent link">#</a></h4>
+<ul>
+<li>The snapshot will appear in the snapshots list with a status indicator</li>
+<li>You can monitor progress in the RDS console under <strong>Snapshots</strong> &gt; <strong>Manual snapshots</strong></li>
+<li>Snapshot creation time varies based on database size</li>
+</ul>
+<blockquote>
+<p>⚠️ <strong>Important</strong>: Database performance may be slightly impacted during snapshot creation due to increased I/O operations. Plan snapshots during lower-traffic periods when possible.</p>
+</blockquote>
+<h3 id="viewing_existing_snapshots">Viewing Existing Snapshots<a class="headerlink" href="#viewing_existing_snapshots" title="Permanent link">#</a></h3>
+<ol>
+<li>From the RDS main menu, select <strong>Snapshots</strong></li>
+<li>Choose <strong>Manual snapshots</strong> to see user-created backups</li>
+<li>Each snapshot displays:</li>
+<li>Snapshot name</li>
+<li>Creation date/time</li>
+<li>Database instance</li>
+<li>Size</li>
+<li>Status</li>
+</ol>
+<h3 id="restoring_from_a_server_snapshot">Restoring from a Server Snapshot<a class="headerlink" href="#restoring_from_a_server_snapshot" title="Permanent link">#</a></h3>
+<blockquote>
+<p>⚠️ <strong>CRITICAL WARNING</strong>: Restoring from a snapshot is a significant operation. The restore process creates a NEW database instance - it does not overwrite the existing one. Ensure you understand the implications before proceeding.</p>
+</blockquote>
+<h4 id="restoration_process">Restoration Process<a class="headerlink" href="#restoration_process" title="Permanent link">#</a></h4>
+<ol>
+<li>Navigate to <strong>RDS</strong> &gt; <strong>Snapshots</strong> &gt; <strong>Manual snapshots</strong></li>
+<li>Select the snapshot you want to restore from</li>
+<li>Click <strong>Actions</strong> &gt; <strong>Restore snapshot</strong></li>
+</ol>
+<blockquote>
+<p>📝 <strong>Note</strong>: The specific restoration steps and configuration options require additional documentation. <strong>DO NOT</strong> click through the restoration process without clear instructions, as this will immediately begin provisioning a new database instance.</p>
+</blockquote>
+<h4 id="what_gets_restored">What Gets Restored<a class="headerlink" href="#what_gets_restored" title="Permanent link">#</a></h4>
+<p>A server snapshot restoration includes:</p>
+<ul>
+<li>✅ All databases (neotoma, neotomaholdingtank, postgres)</li>
+<li>✅ All user accounts and permissions</li>
+<li>✅ All data as of the snapshot creation time</li>
+<li>✅ Database configuration settings</li>
+<li>✅ Security groups and network settings</li>
+</ul>
+<h3 id="best_practices">Best Practices<a class="headerlink" href="#best_practices" title="Permanent link">#</a></h3>
+<p><strong>Naming Conventions:</strong></p>
+<ul>
+<li>Use descriptive, date-stamped names: <code>before-[operation]-YYYY-MM-DD</code></li>
+<li>Include the reason for the snapshot: <code>pre-bulk-upload</code>, <code>before-schema-change</code></li>
+<li>Keep names concise but meaningful</li>
+</ul>
+<p><strong>When to Create Snapshots:</strong></p>
+<ul>
+<li>Before any bulk data upload operation</li>
+<li>Prior to schema modifications</li>
+<li>Before major system updates or maintenance</li>
+<li>After successful completion of major operations (for rollback points)</li>
+</ul>
+<p><strong>Snapshot Management:</strong></p>
+<ul>
+<li>Review and delete old snapshots periodically to manage storage costs</li>
+<li>Keep critical milestone snapshots for longer periods</li>
+<li>Document snapshot purposes for team reference</li>
+</ul>
+<h3 id="additional_options">Additional Options<a class="headerlink" href="#additional_options" title="Permanent link">#</a></h3>
+<p><strong>Export to S3:</strong>
+Snapshots can also be exported to S3 for long-term archival or cross-region backup. This option is available through the <strong>Actions</strong> menu when viewing a snapshot.</p>
+<hr />
+<h2 id="method_2_sql-based_holding_tank_restoration">Method 2: SQL-Based Holding Tank Restoration<a class="headerlink" href="#method_2_sql-based_holding_tank_restoration" title="Permanent link">#</a></h2>
+<h3 id="purpose_1">Purpose<a class="headerlink" href="#purpose_1" title="Permanent link">#</a></h3>
+<p>This method provides a quick way to restore the <code>neotomaholdingtank</code> database using the production <code>neotoma</code> database as a template. This is useful for refreshing the staging environment with current production data.</p>
+<h3 id="prerequisites_1">Prerequisites<a class="headerlink" href="#prerequisites_1" title="Permanent link">#</a></h3>
+<ul>
+<li>Access to the PostgreSQL command line (<code>psql</code>) or a database client</li>
+<li>Database connection credentials</li>
+<li><strong>IMPORTANT</strong>: Connection to the <code>postgres</code> system database (not <code>neotoma</code> or <code>neotomaholdingtank</code>)</li>
+</ul>
+<h3 id="process_overview">Process Overview<a class="headerlink" href="#process_overview" title="Permanent link">#</a></h3>
+<p>The restoration process involves:</p>
+<ol>
+<li>Disconnecting all active connections to the holding tank database</li>
+<li>Dropping the existing holding tank database</li>
+<li>Creating a new holding tank database using the production database as a template</li>
+<li>Verifying the restoration</li>
+</ol>
+<h3 id="understanding_the_connection_requirement">Understanding the Connection Requirement<a class="headerlink" href="#understanding_the_connection_requirement" title="Permanent link">#</a></h3>
+<p>Before running the restoration, you must connect to the <code>postgres</code> system database. This is because:</p>
+<ul>
+<li>You cannot drop a database while connected to it</li>
+<li>The template operation requires a neutral connection point</li>
+<li>Administrative operations need to be run from the system database context</li>
+</ul>
+<h3 id="the_restoration_sql_script">The Restoration SQL Script<a class="headerlink" href="#the_restoration_sql_script" title="Permanent link">#</a></h3>
+<blockquote>
+<p>📝 <strong>Note</strong>: The complete SQL script file is located in the Neotoma SQL folder repository. The file contains the restoration function and should be reviewed before execution.</p>
+</blockquote>
+<h4 id="key_steps_in_the_script">Key Steps in the Script<a class="headerlink" href="#key_steps_in_the_script" title="Permanent link">#</a></h4>
+<p><strong>Step 1: Terminate Active Connections</strong></p>
+<p>The script queries <code>pg_stat_activity</code> to identify and terminate all connections to the holding tank database. This is necessary because PostgreSQL cannot drop a database with active connections.</p>
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>
+</span></code></pre></div>
+<p><strong>Step 2: Drop and Recreate</strong></p>
+<p>Once connections are terminated, the script:</p>
+<ul>
+<li>Drops the existing <code>neotomaholdingtank</code> database</li>
+<li>Creates a new <code>neotomaholdingtank</code> database using <code>neotoma</code> as the template</li>
+</ul>
+<p><strong>Step 3: Template Copy</strong></p>
+<p>Using PostgreSQL's <code>CREATE DATABASE ... WITH TEMPLATE</code> command, the script efficiently copies:</p>
+<ul>
+<li>Complete schema structure</li>
+<li>All table data</li>
+<li>Indexes and constraints</li>
+<li>User permissions</li>
+<li>Sequences and other database objects</li>
+</ul>
+<h3 id="execution_instructions">Execution Instructions<a class="headerlink" href="#execution_instructions" title="Permanent link">#</a></h3>
+<blockquote>
+<p>⚠️ <strong>Information Gap</strong>: Detailed execution instructions require the actual SQL script file. The following outlines the general approach:</p>
+</blockquote>
+<ol>
+<li><strong>Connect to the postgres database</strong></li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>psql<span class="w"> </span>-h<span class="w"> </span><span class="o">[</span>hostname<span class="o">]</span><span class="w"> </span>-U<span class="w"> </span><span class="o">[</span>username<span class="o">]</span><span class="w"> </span>-d<span class="w"> </span>postgres
+</span></code></pre></div>
+<ol>
+<li>
+<p><strong>Run the restoration script</strong></p>
+</li>
+<li>
+<p>Option A: Execute the SQL file directly</p>
+</li>
+<li>
+<p>Option B: Run the stored restoration function (if created)</p>
+</li>
+<li>
+<p><strong>Monitor execution</strong></p>
+</li>
+<li>
+<p>Watch for error messages</p>
+</li>
+<li>
+<p>Confirm successful completion</p>
+</li>
+<li>
+<p><strong>Verify restoration</strong></p>
+</li>
+<li>
+<p>Check row counts in key tables</p>
+</li>
+<li>Verify recent data is present</li>
+<li>Test application connectivity</li>
+</ol>
+<h3 id="when_to_use_this_method">When to Use This Method<a class="headerlink" href="#when_to_use_this_method" title="Permanent link">#</a></h3>
+<p><strong>Appropriate scenarios:</strong></p>
+<ul>
+<li>Refreshing test/staging environment with production data</li>
+<li>Setting up the holding tank after a server restore</li>
+<li>Resetting the holding tank to a known good state</li>
+<li>Preparing for data validation workflows</li>
+</ul>
+<p><strong>Not appropriate for:</strong></p>
+<ul>
+<li>Production database recovery (use server snapshots instead)</li>
+<li>Preserving specific holding tank states (consider a holding tank-specific backup)</li>
+</ul>
+<h3 id="important_considerations">Important Considerations<a class="headerlink" href="#important_considerations" title="Permanent link">#</a></h3>
+<p><strong>Active Connections:</strong></p>
+<p>The script must terminate active connections to succeed. This means:</p>
+<ul>
+<li>Any users connected to the holding tank will be disconnected</li>
+<li>Running API processes connecting to the holding tank will fail</li>
+<li>Coordinate with team members before running</li>
+</ul>
+<p><strong>Execution Time:</strong></p>
+<ul>
+<li>Duration depends on database size</li>
+<li>Typically faster than a dump/restore operation</li>
+<li>Still requires time for the template copy operation</li>
+</ul>
+<p><strong>Database Locking:</strong></p>
+<p>During the operation, the source database (neotoma) will be briefly locked for reading. Plan accordingly for production systems.</p>
+<hr />
+<h2 id="method_3_clean_database_repository_automated_public_snapshots">Method 3: Clean Database Repository (Automated Public Snapshots)<a class="headerlink" href="#method_3_clean_database_repository_automated_public_snapshots" title="Permanent link">#</a></h2>
+<h3 id="purpose_2">Purpose<a class="headerlink" href="#purpose_2" title="Permanent link">#</a></h3>
+<p>The Clean Database Repository system creates monthly sanitized snapshots of the Neotoma database for public distribution. This automated process removes sensitive personal information while preserving all scientific data and structure, making it safe for public download and external development use.</p>
+<h3 id="system_architecture">System Architecture<a class="headerlink" href="#system_architecture" title="Permanent link">#</a></h3>
+<p>This backup method uses AWS infrastructure to automate the entire process:</p>
+<ul>
+<li><strong>AWS Batch</strong>: Executes the backup job with extended runtime support (beyond Lambda's 15-minute limit)</li>
+<li><strong>AWS Fargate</strong>: Schedules and manages job execution</li>
+<li><strong>Docker Container</strong>: Provides isolated environment with PostgreSQL tools</li>
+<li><strong>S3 Storage</strong>: Hosts the resulting backup files for public access</li>
+</ul>
+<h3 id="automated_schedule">Automated Schedule<a class="headerlink" href="#automated_schedule" title="Permanent link">#</a></h3>
+<p>The clean backup process runs automatically:</p>
+<ul>
+<li><strong>Schedule</strong>: 2:00 AM on the 1st day of each month</li>
+<li><strong>Trigger</strong>: AWS Fargate scheduled task (cron-based)</li>
+<li><strong>Duration</strong>: Varies based on database size (typically 15-45 minutes)</li>
+</ul>
+<h3 id="what_gets_sanitized">What Gets Sanitized<a class="headerlink" href="#what_gets_sanitized" title="Permanent link">#</a></h3>
+<p>The cleaning process protects sensitive information by overwriting:</p>
+<p><strong>In the <code>stewards</code> table:</strong></p>
+<ul>
+<li>✅ Usernames → Random 10-character strings</li>
+<li>✅ Passwords → Random 10-character strings  </li>
+<li>✅ Email addresses → Anonymized</li>
+<li>✅ Physical addresses → Anonymized</li>
+<li>✅ Phone numbers → Anonymized</li>
+<li>✅ Fax numbers → Anonymized</li>
+</ul>
+<p><strong>What is preserved:</strong></p>
+<ul>
+<li>✅ All scientific data tables</li>
+<li>✅ Complete schema structure</li>
+<li>✅ Relationships and foreign keys</li>
+<li>✅ All non-personal metadata</li>
+</ul>
+<p><strong>What is excluded (for performance):</strong></p>
+<ul>
+<li>❌ <code>ts.hydralakes</code> - Large spatial dataset</li>
+<li>❌ <code>ts.icesheets</code> - Large spatial dataset</li>
+<li>❌ <code>ts.globalmammals</code> - Large spatial dataset</li>
+</ul>
+<blockquote>
+<p>📝 <strong>Note</strong>: The excluded tables are large spatial datasets primarily used for mapping. Documentation for importing these tables is maintained separately.</p>
+</blockquote>
+<h3 id="accessing_clean_backups">Accessing Clean Backups<a class="headerlink" href="#accessing_clean_backups" title="Permanent link">#</a></h3>
+<p><strong>S3 Bucket Location:</strong></p>
+<ul>
+<li>Bucket name: <code>neotoma-remote-store</code></li>
+<li>Path: <code>neotoma-remote-store/[files]</code></li>
+</ul>
+<p><strong>Available Files:</strong></p>
+<ol>
+<li>
+<p><strong>Latest Snapshot</strong></p>
+</li>
+<li>
+<p>Filename: <code>neotoma-clean-latest.tar.gz</code></p>
+</li>
+<li>Always points to the most recent backup</li>
+<li>
+<p>Recommended for most users</p>
+</li>
+<li>
+<p><strong>Dated Archives</strong></p>
+</li>
+<li>
+<p>Format: <code>neotoma-clean-MMDD.tar.gz</code></p>
+</li>
+<li>Examples: <code>neotoma-clean-0105.tar.gz</code>, <code>neotoma-clean-0205.tar.gz</code></li>
+<li>Retained for historical access</li>
+<li>One file per month</li>
+</ol>
+<h3 id="using_a_clean_backup">Using a Clean Backup<a class="headerlink" href="#using_a_clean_backup" title="Permanent link">#</a></h3>
+<h4 id="downloading">Downloading<a class="headerlink" href="#downloading" title="Permanent link">#</a></h4>
+<blockquote>
+<p>📝 <strong>Information Gap</strong>: Specific download URLs or AWS CLI commands needed here.</p>
+</blockquote>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Example download command (requires AWS CLI)</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>aws<span class="w"> </span>s3<span class="w"> </span>cp<span class="w"> </span>s3://neotoma-remote-store/neotoma-clean-latest.tar.gz<span class="w"> </span>.
+</span></code></pre></div>
+<h4 id="restoring_locally">Restoring Locally<a class="headerlink" href="#restoring_locally" title="Permanent link">#</a></h4>
+<ol>
+<li><strong>Extract the archive</strong></li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>tar<span class="w"> </span>-xzf<span class="w"> </span>neotoma-clean-latest.tar.gz
+</span></code></pre></div>
+<ol>
+<li><strong>Restore to PostgreSQL</strong></li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>pg_restore<span class="w"> </span>-h<span class="w"> </span>localhost<span class="w"> </span>-U<span class="w"> </span>postgres<span class="w"> </span>-d<span class="w"> </span>neotoma<span class="w"> </span><span class="o">[</span>extracted-file<span class="o">]</span>
+</span></code></pre></div>
+<ol>
+<li><strong>Install required extensions</strong></li>
+</ol>
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="n">EXTENSION</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">postgis</span><span class="p">;</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="k">CREATE</span><span class="w"> </span><span class="n">EXTENSION</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">postgis_topology</span><span class="p">;</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="c1">-- Additional extensions as needed</span>
+</span></code></pre></div>
+<h3 id="technical_implementation_details">Technical Implementation Details<a class="headerlink" href="#technical_implementation_details" title="Permanent link">#</a></h3>
+<blockquote>
+<p>🔧 <strong>For System Administrators</strong>: The following section describes the internal workings of the automated backup system.</p>
+</blockquote>
+<h4 id="docker_container_workflow">Docker Container Workflow<a class="headerlink" href="#docker_container_workflow" title="Permanent link">#</a></h4>
+<p>The backup process runs in a custom Docker container that:</p>
+<ol>
+<li><strong>Installs dependencies</strong></li>
+<li>PostgreSQL client tools</li>
+<li>PostGIS extensions</li>
+<li>
+<p>OpenSSH, curl, netcat utilities</p>
+</li>
+<li>
+<p><strong>Sets up directory structure</strong></p>
+</li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>/app/<span class="w">        </span>-<span class="w"> </span>Application<span class="w"> </span>scripts
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>/archives/<span class="w">   </span>-<span class="w"> </span>Temporary<span class="w"> </span>storage<span class="w"> </span><span class="k">for</span><span class="w"> </span>dumps
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>/assets/<span class="w">     </span>-<span class="w"> </span>Supporting<span class="w"> </span>files
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>/logs/<span class="w">       </span>-<span class="w"> </span>Execution<span class="w"> </span>logs
+</span></code></pre></div>
+<ol>
+<li>
+<p><strong>Executes backup sequence</strong></p>
+</li>
+<li>
+<p>Starts PostgreSQL service</p>
+</li>
+<li>Waits for database readiness (with timeout logic)</li>
+<li>Runs the scrubbing script</li>
+<li>Creates compressed archive</li>
+<li>Uploads to S3</li>
+<li>Cleans up temporary files</li>
+</ol>
+<h4 id="scrubbing_process_details">Scrubbing Process Details<a class="headerlink" href="#scrubbing_process_details" title="Permanent link">#</a></h4>
+<p>The <code>scrub_database.sh</code> script performs the following operations:</p>
+<p><strong>Phase 1: Initial Dump</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># Dumps the database excluding large spatial tables and system schemas</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>pg_dump<span class="w"> </span>-Fc<span class="w"> </span>-h<span class="w"> </span><span class="o">[</span>host<span class="o">]</span><span class="w"> </span>-U<span class="w"> </span><span class="o">[</span>user<span class="o">]</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">  </span>--exclude-table-data<span class="o">=</span>ts.hydralakes<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">  </span>--exclude-table-data<span class="o">=</span>ts.icesheets<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">  </span>--exclude-table-data<span class="o">=</span>ts.globalmammals<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">  </span>--exclude-schema<span class="o">=</span>cron<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">  </span>-f<span class="w"> </span>temp_dump.backup
+</span></code></pre></div>
+<p><strong>Phase 2: Local Restoration</strong></p>
+<ul>
+<li>Drops and recreates local database</li>
+<li>Installs PostGIS extensions</li>
+<li>Restores from temporary dump</li>
+</ul>
+<p><strong>Phase 3: Data Sanitization</strong></p>
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1">-- Overwrites sensitive steward information</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="k">UPDATE</span><span class="w"> </span><span class="n">stewards</span><span class="w"> </span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="k">SET</span><span class="w"> </span><span class="n">username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="n">random_string</span><span class="p">],</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">    </span><span class="n">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="n">random_string</span><span class="p">],</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">    </span><span class="n">email</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="n">anonymized</span><span class="p">],</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="w">    </span><span class="n">address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="n">anonymized</span><span class="p">],</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="w">    </span><span class="n">phone</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="n">anonymized</span><span class="p">],</span>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="w">    </span><span class="n">fax</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="n">anonymized</span><span class="p">];</span>
+</span></code></pre></div>
+<p><strong>Phase 4: Final Export and Upload</strong></p>
+<ul>
+<li>Creates final compressed dump</li>
+<li>Uploads to S3 with two names:</li>
+<li><code>neotoma-clean-latest.tar.gz</code> (overwrites previous)</li>
+<li><code>neotoma-clean-MMDD.tar.gz</code> (date-stamped archive)</li>
+</ul>
+<h4 id="monitoring_and_logging">Monitoring and Logging<a class="headerlink" href="#monitoring_and_logging" title="Permanent link">#</a></h4>
+<p><strong>Log Files:</strong></p>
+<p>The container generates detailed logs at each step, viewable through:</p>
+<ul>
+<li>AWS Batch job logs</li>
+<li>CloudWatch Logs (if configured)</li>
+</ul>
+<p><strong>Log Content:</strong></p>
+<ul>
+<li>🔍 User context and permissions</li>
+<li>🔍 PostgreSQL data directory location</li>
+<li>🔍 Database connection status</li>
+<li>🔍 Dump progress indicators</li>
+<li>🔍 Sanitization confirmation</li>
+<li>🔍 Upload status</li>
+<li>🔍 Cleanup completion</li>
+</ul>
+<p><strong>Monitoring the Job:</strong></p>
+<ol>
+<li>Access AWS Batch console</li>
+<li>Navigate to Jobs</li>
+<li>Find the scheduled backup job</li>
+<li>View logs for execution details</li>
+</ol>
+<h4 id="build_and_deployment">Build and Deployment<a class="headerlink" href="#build_and_deployment" title="Permanent link">#</a></h4>
+<blockquote>
+<p>📝 <strong>For Developers</strong>: Updates to the backup system</p>
+</blockquote>
+<p>The backup system is maintained in the <code>clean_database</code> GitHub repository.</p>
+<p><strong>Making Changes:</strong></p>
+<ol>
+<li>
+<p>Modify scripts in the repository:</p>
+</li>
+<li>
+<p><code>Dockerfile</code> - Container definition</p>
+</li>
+<li><code>scrub_database.sh</code> - Main backup logic</li>
+<li><code>batch_entrypoint.sh</code> - Container entry point</li>
+<li>
+<p><code>connect_database.sh</code> - Database connection utilities</p>
+</li>
+<li>
+<p>Build and push to ECR:</p>
+</li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># Run the build script</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>./build_and_push.sh
+</span></code></pre></div>
+<p>This script:</p>
+<ul>
+<li>Builds the Docker image</li>
+<li>Tags with appropriate version</li>
+<li>Pushes to AWS Elastic Container Registry (ECR)</li>
+<li>
+<p>Updates the Batch job definition</p>
+</li>
+<li>
+<p>Test the job:</p>
+</li>
+<li>
+<p>Manually trigger through AWS Batch console</p>
+</li>
+<li>Monitor logs for errors</li>
+<li>Verify S3 upload</li>
+<li>Test restoration of generated backup</li>
+</ul>
+<p><strong>GitHub Actions:</strong></p>
+<blockquote>
+<p>📝 <strong>Information Gap</strong>: Clarification needed on whether GitHub Actions are used for automated deployment of changes to the backup system.</p>
+</blockquote>
+<hr />
+<h2 id="choosing_the_right_backup_method">Choosing the Right Backup Method<a class="headerlink" href="#choosing_the_right_backup_method" title="Permanent link">#</a></h2>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Recommended Method</th>
+<th>Rationale</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Before bulk data upload</td>
+<td>AWS Server Snapshot</td>
+<td>Full recovery point including all databases</td>
+</tr>
+<tr>
+<td>Before schema changes</td>
+<td>AWS Server Snapshot</td>
+<td>Complete rollback capability</td>
+</tr>
+<tr>
+<td>Refresh staging environment</td>
+<td>SQL Holding Tank Restore</td>
+<td>Quick, targeted update of test data</td>
+</tr>
+<tr>
+<td>External developer setup</td>
+<td>Clean Database Repository</td>
+<td>Safe, sanitized data with no sensitive info</td>
+</tr>
+<tr>
+<td>Monthly public release</td>
+<td>Clean Database Repository</td>
+<td>Automated, consistent public distribution</td>
+</tr>
+<tr>
+<td>Disaster recovery</td>
+<td>AWS Server Snapshot</td>
+<td>Complete system restoration</td>
+</tr>
+<tr>
+<td>Local development setup</td>
+<td>Clean Database Repository</td>
+<td>No sensitive data, manageable size</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="quick_reference_commands">Quick Reference Commands<a class="headerlink" href="#quick_reference_commands" title="Permanent link">#</a></h2>
+<h3 id="check_database_connections">Check Database Connections<a class="headerlink" href="#check_database_connections" title="Permanent link">#</a></h3>
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1">-- View active connections to a specific database</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">pg_stat_activity</span><span class="w"> </span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">datname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;neotomaholdingtank&#39;</span><span class="p">;</span>
+</span></code></pre></div>
+<h3 id="connect_to_system_database">Connect to System Database<a class="headerlink" href="#connect_to_system_database" title="Permanent link">#</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># Using psql</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>psql<span class="w"> </span>-h<span class="w"> </span><span class="o">[</span>hostname<span class="o">]</span><span class="w"> </span>-U<span class="w"> </span><span class="o">[</span>username<span class="o">]</span><span class="w"> </span>-d<span class="w"> </span>postgres
+</span></code></pre></div>
+<h3 id="download_latest_clean_backup">Download Latest Clean Backup<a class="headerlink" href="#download_latest_clean_backup" title="Permanent link">#</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># Using AWS CLI</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>aws<span class="w"> </span>s3<span class="w"> </span>cp<span class="w"> </span>s3://neotoma-remote-store/neotoma-clean-latest.tar.gz<span class="w"> </span>.
+</span></code></pre></div>
+<hr />
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">#</a></h2>
+<h3 id="common_issues">Common Issues<a class="headerlink" href="#common_issues" title="Permanent link">#</a></h3>
+<p><strong>Snapshot Creation Fails:</strong></p>
+<ul>
+<li>Verify IAM permissions include <code>rds:CreateDBSnapshot</code></li>
+<li>Check that instance is in "available" state</li>
+<li>Ensure snapshot name doesn't already exist</li>
+</ul>
+<p><strong>Cannot Drop Holding Tank:</strong></p>
+<ul>
+<li>Verify connection to <code>postgres</code> database (not <code>neotoma</code> or <code>neotomaholdingtank</code>)</li>
+<li>Check for active connections using <code>pg_stat_activity</code></li>
+<li>Ensure user has DROP DATABASE privileges</li>
+</ul>
+<p><strong>Clean Backup Job Fails:</strong></p>
+<ul>
+<li>Check AWS Batch job logs in CloudWatch</li>
+<li>Verify ECR image is accessible</li>
+<li>Confirm database connection credentials are current</li>
+<li>Check S3 bucket permissions</li>
+</ul>
+<p><strong>Restore Takes Too Long:</strong></p>
+<ul>
+<li>Expected for large databases</li>
+<li>Monitor with <code>pg_stat_activity</code></li>
+<li>Check disk I/O and available storage</li>
+</ul>
+<hr />
+<h2 id="additional_resources">Additional Resources<a class="headerlink" href="#additional_resources" title="Permanent link">#</a></h2>
+<blockquote>
+<p>📝 <strong>Information Gaps</strong>: The following sections need additional documentation:</p>
+</blockquote>
+<ul>
+<li><strong>Local Database Replication</strong>: Script for maintaining local development copies</li>
+<li><strong>Large Spatial Tables</strong>: Import procedures for hydralakes, icesheets, and globalmammals</li>
+<li><strong>Detailed Restoration Procedures</strong>: Step-by-step AWS snapshot restoration</li>
+<li><strong>Permission Requirements</strong>: Specific IAM policies and database roles needed</li>
+<li><strong>Monitoring Dashboard</strong>: AWS CloudWatch metrics for backup health</li>
+</ul>
+<hr />
+<h2 id="document_maintenance">Document Maintenance<a class="headerlink" href="#document_maintenance" title="Permanent link">#</a></h2>
+<p><strong>Last Updated</strong>: [Date to be added]<br />
+<strong>Document Owner</strong>: [To be specified]<br />
+<strong>Review Schedule</strong>: Quarterly or after major infrastructure changes</p>
+<hr />
+<p><em>This documentation is maintained as part of the Neotoma database project. For questions or clarifications, please contact the database administration team.</em></p>
+
+
+
+
+
+
+
+  
+    
+  
+  
+    
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="January 6, 2026 23:45:20 UTC"><span class="timeago" datetime="2026-01-06T23:45:20+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="January 6, 2026 23:45:20 UTC">2026-01-06</span>
+  </span>
+
+    
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Created">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="January 6, 2026 23:45:20 UTC"><span class="timeago" datetime="2026-01-06T23:45:20+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="January 6, 2026 23:45:20 UTC">2026-01-06</span>
+  </span>
+
+    
+    
+    
+  </aside>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../extensions/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Extensions">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Extensions
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../connection/" class="md-footer__link md-footer__link--next" aria-label="Next: Connecting to Neotoma">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Connecting to Neotoma
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/NeotomaDB" target="_blank" rel="noopener" title="Neotoma on Github" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "navigation.footer", "navigation.tracking", "search.suggest", "search.highlight", "search.share", "content.code.copy", "content.code.annotate", "content.action.edit"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+        <script src="../../js/timeago.min.js"></script>
+      
+        <script src="../../js/timeago_mkdocs_material.js"></script>
+      
+    
+  </body>
+</html>
