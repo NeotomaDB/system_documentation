@@ -1136,6 +1136,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#after_restoration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        After Restoration
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -4035,6 +4046,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#after_restoration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        After Restoration
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -4555,7 +4577,7 @@
 <h4 id="step_2_select_the_database_instance">Step 2: Select the Database Instance<a class="headerlink" href="#step_2_select_the_database_instance" title="Permanent link">#</a></h4>
 <ol>
 <li>Click on <strong>Databases</strong> in the left navigation menu</li>
-<li>Select the <strong>neotoma-private</strong> instance (or your specific instance name)</li>
+<li>Select the <strong>neotoma</strong> instance (or your specific instance name)</li>
 <li>You should see the instance status, configuration details, and monitoring information</li>
 </ol>
 <h4 id="step_3_navigate_to_snapshot_options">Step 3: Navigate to Snapshot Options<a class="headerlink" href="#step_3_navigate_to_snapshot_options" title="Permanent link">#</a></h4>
@@ -4603,7 +4625,7 @@
 </ol>
 <h3 id="restoring_from_a_server_snapshot">Restoring from a Server Snapshot<a class="headerlink" href="#restoring_from_a_server_snapshot" title="Permanent link">#</a></h3>
 <blockquote>
-<p>⚠️ <strong>CRITICAL WARNING</strong>: Restoring from a snapshot is a significant operation. The restore process creates a NEW database instance - it does not overwrite the existing one. Ensure you understand the implications before proceeding.</p>
+<p>⚠️ <strong>CRITICAL WARNING</strong>: Restoring from a snapshot is a significant operation. The restore process creates a NEW database instance - it does not overwrite the existing one. Ensure you understand the implications before proceeding. Critically, there is a new database URI. Because we use the URI for our SSH tunnel and to connect our various applications to the database within the cloud infrastructure.</p>
 </blockquote>
 <h4 id="restoration_process">Restoration Process<a class="headerlink" href="#restoration_process" title="Permanent link">#</a></h4>
 <ol>
@@ -4623,6 +4645,13 @@
 <li>✅ Database configuration settings</li>
 <li>✅ Security groups and network settings</li>
 </ul>
+<h4 id="after_restoration">After Restoration<a class="headerlink" href="#after_restoration" title="Permanent link">#</a></h4>
+<p>After you restore the database you will need to change the URI for the database throughout the infrastructure. If you are working with local code repositories you can find instances of the URI using a <code>grep</code> statement:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>grep<span class="w"> </span>-rnw<span class="w"> </span>OLDURI.rds.amazonaws.com<span class="w"> </span>.
+</span></code></pre></div>
+<p>This will show instances of the old URI that need to be replaced directly in scripts.</p>
+<p>Generally we have put these URIs in secrets, whether in <code>.env</code> files or on GitHub in the repositories. In that case, they are identified as <code>RDS_HOSTNAME</code>. To help make the process easier, the <code>RDS_HOSTNAME</code> secret is set as an Organization secret in GitHub. Local users for any repository can change the environment variable locally, but a user who forks the repository will need to adjust the variable in the GitHub action, or set an <code>RDS_HOSTNAME</code> variable within their repository secrets or organization secrets.</p>
+<p>Within GitHub, the lowest level secret always takes precedence, so things that are defined for the AWS infrastruture as a whole should be defined at the Organization level, and we need to make sure they're not superceeded by repository level secrets.</p>
 <h3 id="best_practices">Best Practices<a class="headerlink" href="#best_practices" title="Permanent link">#</a></h3>
 <p><strong>Naming Conventions:</strong></p>
 <ul>
@@ -4678,7 +4707,7 @@ Snapshots can also be exported to S3 for long-term archival or cross-region back
 <h4 id="key_steps_in_the_script">Key Steps in the Script<a class="headerlink" href="#key_steps_in_the_script" title="Permanent link">#</a></h4>
 <p><strong>Step 1: Terminate Active Connections</strong></p>
 <p>The script queries <code>pg_stat_activity</code> to identify and terminate all connections to the holding tank database. This is necessary because PostgreSQL cannot drop a database with active connections.</p>
-<div class="language-sql highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>
 </span></code></pre></div>
 <p><strong>Step 2: Drop and Recreate</strong></p>
 <p>Once connections are terminated, the script:</p>
@@ -4702,7 +4731,7 @@ Snapshots can also be exported to S3 for long-term archival or cross-region back
 <ol>
 <li><strong>Connect to the postgres database</strong></li>
 </ol>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>psql<span class="w"> </span>-h<span class="w"> </span><span class="o">[</span>hostname<span class="o">]</span><span class="w"> </span>-U<span class="w"> </span><span class="o">[</span>username<span class="o">]</span><span class="w"> </span>-d<span class="w"> </span>postgres
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>psql<span class="w"> </span>-h<span class="w"> </span><span class="o">[</span>hostname<span class="o">]</span><span class="w"> </span>-U<span class="w"> </span><span class="o">[</span>username<span class="o">]</span><span class="w"> </span>-d<span class="w"> </span>postgres
 </span></code></pre></div>
 <ol>
 <li>
@@ -4840,26 +4869,26 @@ Snapshots can also be exported to S3 for long-term archival or cross-region back
 <blockquote>
 <p>📝 <strong>Information Gap</strong>: Specific download URLs or AWS CLI commands needed here.</p>
 </blockquote>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Example download command (requires AWS CLI)</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>aws<span class="w"> </span>s3<span class="w"> </span>cp<span class="w"> </span>s3://neotoma-remote-store/neotoma-clean-latest.tar.gz<span class="w"> </span>.
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Example download command (requires AWS CLI)</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>aws<span class="w"> </span>s3<span class="w"> </span>cp<span class="w"> </span>s3://neotoma-remote-store/neotoma-clean-latest.tar.gz<span class="w"> </span>.
 </span></code></pre></div>
 <h4 id="restoring_locally">Restoring Locally<a class="headerlink" href="#restoring_locally" title="Permanent link">#</a></h4>
 <ol>
 <li><strong>Extract the archive</strong></li>
 </ol>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>tar<span class="w"> </span>-xzf<span class="w"> </span>neotoma-clean-latest.tar.gz
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>tar<span class="w"> </span>-xzf<span class="w"> </span>neotoma-clean-latest.tar.gz
 </span></code></pre></div>
 <ol>
 <li><strong>Restore to PostgreSQL</strong></li>
 </ol>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>pg_restore<span class="w"> </span>-h<span class="w"> </span>localhost<span class="w"> </span>-U<span class="w"> </span>postgres<span class="w"> </span>-d<span class="w"> </span>neotoma<span class="w"> </span><span class="o">[</span>extracted-file<span class="o">]</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>pg_restore<span class="w"> </span>-h<span class="w"> </span>localhost<span class="w"> </span>-U<span class="w"> </span>postgres<span class="w"> </span>-d<span class="w"> </span>neotoma<span class="w"> </span><span class="o">[</span>extracted-file<span class="o">]</span>
 </span></code></pre></div>
 <ol>
 <li><strong>Install required extensions</strong></li>
 </ol>
-<div class="language-sql highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="n">EXTENSION</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">postgis</span><span class="p">;</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="k">CREATE</span><span class="w"> </span><span class="n">EXTENSION</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">postgis_topology</span><span class="p">;</span>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="c1">-- Additional extensions as needed</span>
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="n">EXTENSION</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">postgis</span><span class="p">;</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="k">CREATE</span><span class="w"> </span><span class="n">EXTENSION</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">postgis_topology</span><span class="p">;</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="c1">-- Additional extensions as needed</span>
 </span></code></pre></div>
 <h3 id="technical_implementation_details">Technical Implementation Details<a class="headerlink" href="#technical_implementation_details" title="Permanent link">#</a></h3>
 <blockquote>
@@ -4878,10 +4907,10 @@ Snapshots can also be exported to S3 for long-term archival or cross-region back
 <p><strong>Sets up directory structure</strong></p>
 </li>
 </ol>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>/app/<span class="w">        </span>-<span class="w"> </span>Application<span class="w"> </span>scripts
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>/archives/<span class="w">   </span>-<span class="w"> </span>Temporary<span class="w"> </span>storage<span class="w"> </span><span class="k">for</span><span class="w"> </span>dumps
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>/assets/<span class="w">     </span>-<span class="w"> </span>Supporting<span class="w"> </span>files
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>/logs/<span class="w">       </span>-<span class="w"> </span>Execution<span class="w"> </span>logs
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>/app/<span class="w">        </span>-<span class="w"> </span>Application<span class="w"> </span>scripts
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>/archives/<span class="w">   </span>-<span class="w"> </span>Temporary<span class="w"> </span>storage<span class="w"> </span><span class="k">for</span><span class="w"> </span>dumps
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>/assets/<span class="w">     </span>-<span class="w"> </span>Supporting<span class="w"> </span>files
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>/logs/<span class="w">       </span>-<span class="w"> </span>Execution<span class="w"> </span>logs
 </span></code></pre></div>
 <ol>
 <li>
@@ -4899,13 +4928,13 @@ Snapshots can also be exported to S3 for long-term archival or cross-region back
 <h4 id="scrubbing_process_details">Scrubbing Process Details<a class="headerlink" href="#scrubbing_process_details" title="Permanent link">#</a></h4>
 <p>The <code>scrub_database.sh</code> script performs the following operations:</p>
 <p><strong>Phase 1: Initial Dump</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># Dumps the database excluding large spatial tables and system schemas</span>
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>pg_dump<span class="w"> </span>-Fc<span class="w"> </span>-h<span class="w"> </span><span class="o">[</span>host<span class="o">]</span><span class="w"> </span>-U<span class="w"> </span><span class="o">[</span>user<span class="o">]</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">  </span>--exclude-table-data<span class="o">=</span>ts.hydralakes<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">  </span>--exclude-table-data<span class="o">=</span>ts.icesheets<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">  </span>--exclude-table-data<span class="o">=</span>ts.globalmammals<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">  </span>--exclude-schema<span class="o">=</span>cron<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">  </span>-f<span class="w"> </span>temp_dump.backup
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># Dumps the database excluding large spatial tables and system schemas</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>pg_dump<span class="w"> </span>-Fc<span class="w"> </span>-h<span class="w"> </span><span class="o">[</span>host<span class="o">]</span><span class="w"> </span>-U<span class="w"> </span><span class="o">[</span>user<span class="o">]</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">  </span>--exclude-table-data<span class="o">=</span>ts.hydralakes<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">  </span>--exclude-table-data<span class="o">=</span>ts.icesheets<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">  </span>--exclude-table-data<span class="o">=</span>ts.globalmammals<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="w">  </span>--exclude-schema<span class="o">=</span>cron<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="w">  </span>-f<span class="w"> </span>temp_dump.backup
 </span></code></pre></div>
 <p><strong>Phase 2: Local Restoration</strong></p>
 <ul>
@@ -4914,14 +4943,14 @@ Snapshots can also be exported to S3 for long-term archival or cross-region back
 <li>Restores from temporary dump</li>
 </ul>
 <p><strong>Phase 3: Data Sanitization</strong></p>
-<div class="language-sql highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1">-- Overwrites sensitive steward information</span>
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="k">UPDATE</span><span class="w"> </span><span class="n">stewards</span><span class="w"> </span>
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="k">SET</span><span class="w"> </span><span class="n">username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="n">random_string</span><span class="p">],</span>
-</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">    </span><span class="n">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="n">random_string</span><span class="p">],</span>
-</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">    </span><span class="n">email</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="n">anonymized</span><span class="p">],</span>
-</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="w">    </span><span class="n">address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="n">anonymized</span><span class="p">],</span>
-</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="w">    </span><span class="n">phone</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="n">anonymized</span><span class="p">],</span>
-</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="w">    </span><span class="n">fax</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="n">anonymized</span><span class="p">];</span>
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1">-- Overwrites sensitive steward information</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="k">UPDATE</span><span class="w"> </span><span class="n">stewards</span><span class="w"> </span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="k">SET</span><span class="w"> </span><span class="n">username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="n">random_string</span><span class="p">],</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">    </span><span class="n">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="n">random_string</span><span class="p">],</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">    </span><span class="n">email</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="n">anonymized</span><span class="p">],</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">    </span><span class="n">address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="n">anonymized</span><span class="p">],</span>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="w">    </span><span class="n">phone</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="n">anonymized</span><span class="p">],</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="w">    </span><span class="n">fax</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="n">anonymized</span><span class="p">];</span>
 </span></code></pre></div>
 <p><strong>Phase 4: Final Export and Upload</strong></p>
 <ul>
@@ -4976,8 +5005,8 @@ Snapshots can also be exported to S3 for long-term archival or cross-region back
 <p>Build and push to ECR:</p>
 </li>
 </ol>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># Run the build script</span>
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>./build_and_push.sh
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1"># Run the build script</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>./build_and_push.sh
 </span></code></pre></div>
 <p>This script:</p>
 <ul>
@@ -5052,17 +5081,17 @@ Snapshots can also be exported to S3 for long-term archival or cross-region back
 <hr />
 <h2 id="quick_reference_commands">Quick Reference Commands<a class="headerlink" href="#quick_reference_commands" title="Permanent link">#</a></h2>
 <h3 id="check_database_connections">Check Database Connections<a class="headerlink" href="#check_database_connections" title="Permanent link">#</a></h3>
-<div class="language-sql highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1">-- View active connections to a specific database</span>
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">pg_stat_activity</span><span class="w"> </span>
-</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">datname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;neotomaholdingtank&#39;</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1">-- View active connections to a specific database</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">pg_stat_activity</span><span class="w"> </span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">datname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;neotomaholdingtank&#39;</span><span class="p">;</span>
 </span></code></pre></div>
 <h3 id="connect_to_system_database">Connect to System Database<a class="headerlink" href="#connect_to_system_database" title="Permanent link">#</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># Using psql</span>
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>psql<span class="w"> </span>-h<span class="w"> </span><span class="o">[</span>hostname<span class="o">]</span><span class="w"> </span>-U<span class="w"> </span><span class="o">[</span>username<span class="o">]</span><span class="w"> </span>-d<span class="w"> </span>postgres
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># Using psql</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>psql<span class="w"> </span>-h<span class="w"> </span><span class="o">[</span>hostname<span class="o">]</span><span class="w"> </span>-U<span class="w"> </span><span class="o">[</span>username<span class="o">]</span><span class="w"> </span>-d<span class="w"> </span>postgres
 </span></code></pre></div>
 <h3 id="download_latest_clean_backup">Download Latest Clean Backup<a class="headerlink" href="#download_latest_clean_backup" title="Permanent link">#</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># Using AWS CLI</span>
-</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>aws<span class="w"> </span>s3<span class="w"> </span>cp<span class="w"> </span>s3://neotoma-remote-store/neotoma-clean-latest.tar.gz<span class="w"> </span>.
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1"># Using AWS CLI</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>aws<span class="w"> </span>s3<span class="w"> </span>cp<span class="w"> </span>s3://neotoma-remote-store/neotoma-clean-latest.tar.gz<span class="w"> </span>.
 </span></code></pre></div>
 <hr />
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">#</a></h2>
@@ -5133,7 +5162,7 @@ Snapshots can also be exported to S3 for long-term archival or cross-region back
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="January 6, 2026 23:45:20 UTC"><span class="timeago" datetime="2026-01-06T23:45:20+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="January 6, 2026 23:45:20 UTC">2026-01-06</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="January 15, 2026 19:03:35 UTC"><span class="timeago" datetime="2026-01-15T19:03:35+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="January 15, 2026 19:03:35 UTC">2026-01-15</span>
   </span>
 
     
@@ -5143,7 +5172,7 @@ Snapshots can also be exported to S3 for long-term archival or cross-region back
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="January 6, 2026 23:45:20 UTC"><span class="timeago" datetime="2026-01-06T23:45:20+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="January 6, 2026 23:45:20 UTC">2026-01-06</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="January 15, 2026 19:03:35 UTC"><span class="timeago" datetime="2026-01-15T19:03:35+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="January 15, 2026 19:03:35 UTC">2026-01-15</span>
   </span>
 
     
